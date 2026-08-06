@@ -78,8 +78,8 @@ import Layout from '../layouts/Layout.astro';
             <img src="/images/IAQ.png" alt="Comffordable Air Solutions service vehicle ready for HVAC repair in the Tampa Bay Area" class="hero-bg-img" loading="eager" width="1920" height="800" />
             <div class="hero-overlay" style="background: linear-gradient(to bottom, rgba(0,0,0,0.45), rgba(0,0,0,0.75));"></div>
             <div class="container hero-content text-center" style="margin: 0 auto; width: 100%;">
-                <h1 style="font-size: 6rem; text-shadow: 2px 4px 20px rgba(0,0,0,0.8); margin-bottom: 1.25rem; letter-spacing: -0.02em;">Get In <span class="text-purple">Touch.</span></h1>
-                <p style="margin: 0 auto; font-size: 1.6rem; max-width: 600px; color: rgba(255,255,255,0.9); text-shadow: 1px 1px 8px rgba(0,0,0,0.7);">Book your HVAC inspection or repair today.</p>
+                <h1 data-cms="contact-hero-title" style="font-size: 6rem; text-shadow: 2px 4px 20px rgba(0,0,0,0.8); margin-bottom: 1.25rem; letter-spacing: -0.02em;">Get In <span class="text-purple">Touch.</span></h1>
+                <p data-cms="contact-hero-sub" style="margin: 0 auto; font-size: 1.6rem; max-width: 600px; color: rgba(255,255,255,0.9); text-shadow: 1px 1px 8px rgba(0,0,0,0.7);">Book your HVAC inspection or repair today.</p>
             </div>
         </section>
 
@@ -87,8 +87,8 @@ import Layout from '../layouts/Layout.astro';
             <div class="container">
                 <div class="contact-grid">
                     <div class="animate-on-scroll">
-                        <h2 style="margin-bottom: 2rem;">Expert Care at Your Door</h2>
-                        <p style="font-size: 1.1rem; margin-bottom: 2rem;">Fill out the form to request a quote or call
+                        <h2 data-cms="contact-h2" style="margin-bottom: 2rem;">Expert Care at Your Door</h2>
+                        <p data-cms="contact-intro" style="font-size: 1.1rem; margin-bottom: 2rem;">Fill out the form to request a quote or call
                             us directly. We provide professional HVAC services to the <strong>Tampa Bay
                                 Area</strong>, including <a href="/service-areas/st-petersburg-fl" class="text-white"
                                 style="text-decoration: underline;">St. Petersburg</a>, <a href="/service-areas/tampa-fl"
@@ -97,19 +97,19 @@ import Layout from '../layouts/Layout.astro';
                                 style="text-decoration: underline;">Clearwater</a>.</p>
 
                         <div class="glass-panel" style="margin-bottom: 2rem;">
-                            <div class="contact-item" style="font-size: 1.2rem; margin-bottom: 1rem;">
+                            <div class="contact-item" data-cms="contact-phone" style="font-size: 1.2rem; margin-bottom: 1rem;">
                                 <i class="fa-solid fa-phone"></i>
                                 <a href="tel:+17276771700"> (727) 677-1700</a>
                             </div>
-                            <div class="contact-item" style="font-size: 1.2rem; margin-bottom: 1rem;">
+                            <div class="contact-item" data-cms="contact-email" style="font-size: 1.2rem; margin-bottom: 1rem;">
                                 <i class="fa-solid fa-envelope"></i>
                                 <a href="mailto:info@comairfl.com"> info@comairfl.com</a>
                             </div>
-                            <div class="contact-item" style="font-size: 1.2rem; margin-bottom: 1rem;">
+                            <div class="contact-item" data-cms="contact-location" style="font-size: 1.2rem; margin-bottom: 1rem;">
                                 <i class="fa-solid fa-location-dot"></i>
                                 <span> Serving the Greater Tampa Bay Area</span>
                             </div>
-                            <div class="contact-item" style="font-size: 1.2rem;">
+                            <div class="contact-item" data-cms="contact-hours" style="font-size: 1.2rem;">
                                 <i class="fa-solid fa-clock"></i>
                                 <span> Mon - Sun: 8:00 AM - 6:00 PM</span>
                             </div>
@@ -125,7 +125,7 @@ import Layout from '../layouts/Layout.astro';
                     </div>
 
                     <div class="glass-panel animate-on-scroll" style="transition-delay: 0.2s;">
-                        <h3 style="margin-bottom: 1.5rem; color: #111;">Request a Free Quote</h3>
+                        <h3 data-cms="contact-form-title" style="margin-bottom: 1.5rem; color: #111;">Request a Free Quote</h3>
                         <form class="contact-form" id="contactForm">
                             <div class="form-group">
                                 <label for="name">Full Name</label>

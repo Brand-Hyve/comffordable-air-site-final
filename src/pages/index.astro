@@ -9,14 +9,14 @@ import Layout from '../layouts/Layout.astro';
             <img src="/images/pic_5.jpg" alt="Comffordable Air Solutions HVAC work in Tampa Bay, FL" class="hero-bg-img" loading="eager" width="1920" height="1080" />
             <div class="hero-overlay" style="background: linear-gradient(to bottom, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.9));"></div>
             <div class="container hero-content">
-                <h1>AC Repair &amp; HVAC Services in <span class="text-purple">Tampa Bay, FL</span></h1>
-                <p>Expert HVAC repair, installation, and maintenance across the Tampa Bay Area. We specialize in keeping your home perfectly tempered with quality service in 
+                <h1 data-cms="hero-title">AC Repair &amp; HVAC Services in <span class="text-purple">Tampa Bay, FL</span></h1>
+                <p data-cms="hero-subtitle">Expert HVAC repair, installation, and maintenance across the Tampa Bay Area. We specialize in keeping your home perfectly tempered with quality service in 
                     <a href="/service-areas/st-petersburg-fl" class="text-purple" style="text-decoration: underline;">St. Petersburg</a>, 
                     <a href="/service-areas/tampa-fl" class="text-purple" style="text-decoration: underline;">Tampa</a>, and 
                     <a href="/service-areas/clearwater-fl" class="text-purple" style="text-decoration: underline;">Clearwater</a>.</p>
                 <div class="hero-buttons">
-                    <a href="tel:+17276771700" class="btn btn-primary"><i class="fa-solid fa-phone"></i> (727) 677-1700</a>
-                                        <a href="/contact" class="btn btn-primary" style="position: relative; background: #d32f2f; box-shadow: 0 4px 15px rgba(211,47,47,0.5);"><i class="fa-solid fa-triangle-exclamation"></i> 24/7 Emergency Service</a>
+                    <a href="tel:+172****1700" class="btn btn-primary" data-cms="hero-cta-phone"><i class="fa-solid fa-phone"></i> (727) 677-1700</a>
+                                        <a href="/contact" class="btn btn-primary" style="position: relative; background: #d32f2f; box-shadow: 0 4px 15px rgba(211,47,47,0.5);" data-cms="hero-cta-emergency"><i class="fa-solid fa-triangle-exclamation"></i> 24/7 Emergency Service</a>
                 </div>
             </div>
         </section>
@@ -34,8 +34,8 @@ import Layout from '../layouts/Layout.astro';
         <section class="process-section">
             <div class="container">
                 <div class="section-title animate-on-scroll">
-                    <span>How It Works</span>
-                    <h2>The Comffordable Process</h2>
+                    <span data-cms="process-label">How It Works</span>
+                    <h2 data-cms="process-title">The Comffordable Process</h2>
                 </div>
                 <div class="process-grid">
                     <div class="process-step animate-on-scroll">
@@ -61,8 +61,8 @@ import Layout from '../layouts/Layout.astro';
         <section id="services">
             <div class="container">
                 <div class="section-title animate-on-scroll">
-                    <span>Our Expertise</span>
-                    <h2>Premium HVAC Services</h2>
+                    <span data-cms="services-label">Our Expertise</span>
+                    <h2 data-cms="services-title">Premium HVAC Services</h2>
                 </div>
 
                 <div class="services-grid">
@@ -106,14 +106,13 @@ import Layout from '../layouts/Layout.astro';
         <section
             style="background: linear-gradient(135deg, var(--bg-dark), var(--bg-darker)); text-align: center; border-top: 1px solid var(--glass-border); border-bottom: 1px solid var(--glass-border);">
             <div class="container animate-on-scroll">
-                <h2 style="margin-bottom: 1rem;">Ready for Comffordable Comfort?</h2>
-                <p
-                    style="margin-bottom: 1rem; font-size: 1.1rem; max-width: 600px; margin-left: auto; margin-right: auto;">
+                <h2 data-cms="cta-title" style="margin-bottom: 1rem;">Ready for Comffordable Comfort?</h2>
+                <p data-cms="cta-text" style="margin-bottom: 1rem; font-size: 1.1rem; max-width: 600px; margin-left: auto; margin-right: auto;">
                     Unhappy with your current service? It's time for consistency, communication, and quality.</p>
                 <p style="margin-bottom: 2rem; font-size: 1rem; font-style: italic; color: var(--text-secondary); max-width: 600px; margin-left: auto; margin-right: auto;">
                     Professional HVAC repair and air quality solutions for St. Petersburg, Tampa, and Clearwater.
                 </p>
-                <a href="/contact" class="btn btn-primary" style="font-size: 1.1rem; padding: 1rem 2rem;">Get Your
+                <a href="/contact" class="btn btn-primary" data-cms="cta-btn" style="font-size: 1.1rem; padding: 1rem 2rem;">Get Your
                     Free Quote</a>
             </div>
         </section>

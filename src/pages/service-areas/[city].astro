@@ -22,8 +22,8 @@ const { area } = Astro.props;
             <img src={area.hero} alt={`Comffordable Air Solutions HVAC service area in ${area.name}, ${area.state}`} class="hero-bg-img" loading="eager" width="1920" height="1080" />
             <div class="hero-overlay" style="background: linear-gradient(to bottom, rgba(0,0,0,0.4), rgba(0,0,0,0.6));"></div>
             <div class="container hero-content text-center" style="margin: 0 auto;">
-                <h1 style="font-size: 3.5rem; text-shadow: 2px 2px 8px rgba(0,0,0,0.8); margin-bottom: 1rem;">AC
-                    Repair in <span class="text-purple">{area.name}, {area.state}.</span></h1>
+                <h1 data-cms="sa-city-hero-title" style="font-size: 3.5rem; text-shadow: 2px 2px 8px rgba(0,0,0,0.8); margin-bottom: 1rem;">AC
+                                    Repair in <span class="text-purple">{area.name}, {area.state}.</span></h1>
                 <p
                     style="margin: 0 auto; font-size: 1.2rem; max-width: 700px; text-shadow: 1px 1px 4px rgba(0,0,0,0.8);">
                     Premium HVAC solutions delivered straight to your home in {area.name}. Experience Comffordable Air today.</p>

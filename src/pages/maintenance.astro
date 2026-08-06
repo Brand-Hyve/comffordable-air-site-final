@@ -8,12 +8,12 @@ import Layout from '../layouts/Layout.astro';
             <img src="/images/pic_3.jpg" alt="HVAC technician performing comprehensive system maintenance" class="hero-bg-img" loading="eager" width="1920" height="1080" />
             <div class="hero-overlay" style="background: linear-gradient(to bottom, rgba(0,0,0,0.55), rgba(0,0,0,0.75));"></div>
             <div class="container hero-content text-center" style="margin: 0 auto;">
-                <h1 style="font-size: 4.5rem; text-shadow: 2px 2px 10px rgba(0,0,0,0.8); margin-bottom: 1rem;">HVAC Maintenance Plans <span class="text-purple">Tampa Bay, FL</span></h1>
-                <p style="margin: 0 auto; font-size: 1.5rem; text-shadow: 1px 1px 5px rgba(0,0,0,0.8); max-width: 800px;">
-                    Reliable comfort. No surprises. Just peace of mind year-round.
+                <h1 data-cms="maint-hero-title" style="font-size: 5rem; text-shadow: 2px 4px 15px rgba(0,0,0,0.8); margin-bottom: 1rem;">HVAC <span class="text-purple">Maintenance.</span></h1>
+                <p data-cms="maint-hero-sub" style="margin: 0 auto; font-size: 1.5rem; text-shadow: 1px 1px 5px rgba(0,0,0,0.8); max-width: 800px;">
+                                    Reliable comfort. No surprises. Just peace of mind year-round.
                 </p>
                 <div style="margin-top: 2rem;">
-                    <a href="/contact" class="btn btn-primary" style="font-size: 1.1rem; padding: 1rem 2rem;">Join Today & Save $31</a>
+                    <a href="/contact" class="btn btn-primary" data-cms="maint-cta-btn" style="font-size: 1.1rem; padding: 1rem 2rem;">Join Today & Save $31</a>
                 </div>
             </div>
         </section>
@@ -26,7 +26,7 @@ import Layout from '../layouts/Layout.astro';
                     </div>
                     
                     <div class="text-center" style="margin-bottom: 3rem;">
-                        <h2 style="font-size: 2.5rem; margin-bottom: 1rem;">Simple. Affordable. Protected.</h2>
+                        <h2 data-cms="maint-plan-title" style="font-size: 2.5rem; margin-bottom: 1rem;">Simple. Affordable. Protected.</h2>
                         <p style="font-size: 1.25rem; max-width: 800px; margin: 0 auto 2rem;">
                             For just <strong class="text-purple">$23/month</strong> or <strong class="text-purple">$269/year</strong>, keep your system running at its best while avoiding costly breakdowns and unexpected repairs.
                         </p>
@@ -84,8 +84,8 @@ import Layout from '../layouts/Layout.astro';
                     </div>
 
                     <div class="text-center" style="margin-top: 4rem; padding-top: 2rem; border-top: 1px solid var(--glass-border);">
-                        <p style="font-style: italic; margin-bottom: 2rem;">No stress. No surprises. Just reliable comfort all year long.</p>
-                        <a href="/contact" class="btn btn-primary" style="font-size: 1.25rem; padding: 1.25rem 3rem;">Join for $23/month or $269/year</a>
+                        <p data-cms="maint-bottom-text" style="font-style: italic; margin-bottom: 2rem;">No stress. No surprises. Just reliable comfort all year long.</p>
+                        <a href="/contact" class="btn btn-primary" data-cms="maint-bottom-btn" style="font-size: 1.25rem; padding: 1.25rem 3rem;">Join for $23/month or $269/year</a>
                     </div>
                 </div>
             </div>
@@ -94,8 +94,8 @@ import Layout from '../layouts/Layout.astro';
         <section style="background: linear-gradient(135deg, var(--bg-dark), var(--bg-darker)); border-top: 1px solid var(--glass-border); padding: 5rem 0;">
             <div class="container animate-on-scroll">
                 <div class="section-title">
-                    <span>The Florida Difference</span>
-                    <h2>Why Florida Homes Need Year-Round Maintenance</h2>
+                    <span data-cms="maint-florida-label">The Florida Difference</span>
+                    <h2 data-cms="maint-florida-title">Why Florida Homes Need Year-Round Maintenance</h2>
                 </div>
                 <div class="glass-panel" style="max-width: 900px; margin: 0 auto; font-size: 1.05rem; line-height: 1.9; color: var(--text-secondary);">
                     <p>Most HVAC manufacturers recommend a maintenance tune-up once per year. In Florida, that recommendation does not go far enough. Tampa Bay area homes run their air conditioning systems an average of 10 to 11 months per year, compared to 4 to 6 months in northern states. That is nearly twice the mechanical wear. Components that last three seasons elsewhere can degrade within one to two years here without proactive care, leading to repairs or full system replacements that could have been prevented entirely.</p>

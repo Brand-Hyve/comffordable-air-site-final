@@ -105,11 +105,18 @@ const schemaBase = {
 		<link rel="icon" type="image/png" href="/favicon.png" />
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
-		<meta name="description" content={description} />
-		<link rel="canonical" href={canonicalURL.href} />
+				<meta name="description" content={description} data-cms="meta-description" />
+				<link rel="canonical" href={canonicalURL.href} />
 		<link rel="sitemap" href="/sitemap-index.xml" />
 		
-		<!-- Open Graph Settings -->
+				<!-- Content Security Policy (uncomment for production) -->
+				<!-- <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://cdnjs.cloudflare.com https://maps.google.com https://links.comairfl.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; img-src 'self' data:; font-src 'self' https://cdnjs.cloudflare.com https://fonts.gstatic.com; frame-src 'self' https://maps.google.com https://links.comairfl.com https://www.localmarketingmanager.com; connect-src 'self' https://services.leadconnectorhq.com;" /> -->
+		
+				<!-- PWA -->
+				<link rel="manifest" href="/site.webmanifest" />
+				<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+
+				<!-- Open Graph Settings -->
 		<meta property="og:title" content={title} />
 		<meta property="og:description" content={description} />
 		<meta property="og:type" content="website" />
@@ -158,14 +165,17 @@ const schemaBase = {
 			gtag('config', 'G-7D4LNJ4H54');
 		</script>
 		</head>
-	<body>
-		<!-- Google Tag Manager (noscript) -->
-		<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WW5QR4G6"
-		height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-		<!-- End Google Tag Manager (noscript) -->
-		<Navbar />
-		<slot />
-		<Footer />
+		<body>
+			<!-- Google Tag Manager (noscript) -->
+			<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WW5QR4G6"
+			height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+			<!-- End Google Tag Manager (noscript) -->
+			<a href="#main-content" class="skip-link" data-cms="skip-link">Skip to main content</a>
+			<Navbar />
+			<div id="main-content" tabindex="-1">
+				<slot />
+			</div>
+			<Footer />
 
 		<!-- Floating Mobile CTA Bar -->
 		<div class="mobile-cta-bar" id="mobileCta">
@@ -226,8 +236,21 @@ const schemaBase = {
 					}, { passive: true });
 				}
 
-				// Exit-Intent Popup (desktop only, once per session)
-				const exitPopup = document.getElementById('exitPopup');
+				// Cookie Consent Banner
+								const cookieBanner = document.getElementById('cookie-banner');
+								const cookieAccept = document.getElementById('cookie-accept');
+								if (cookieBanner && !localStorage.getItem('cookieConsent')) {
+									cookieBanner.style.display = 'flex';
+								}
+								if (cookieAccept) {
+									cookieAccept.addEventListener('click', () => {
+										localStorage.setItem('cookieConsent', 'true');
+										cookieBanner.style.display = 'none';
+									});
+								}
+
+								// Exit-Intent Popup (desktop only, once per session)
+								const exitPopup = document.getElementById('exitPopup');
 				const exitPopupClose = document.getElementById('exitPopupClose');
 				const isContactPage = window.location.pathname.includes('/contact');
 				
@@ -251,5 +274,15 @@ const schemaBase = {
 				}
 			});
 		</script>
-	</body>
+
+				<!-- Cookie Consent Banner -->
+				<div id="cookie-banner" role="dialog" aria-label="Cookie consent" style="display:none;" data-cms="cookie-banner">
+					<div class="cookie-banner-content">
+						<p data-cms="cookie-text">This website uses cookies to improve your experience. By continuing, you agree to our <a href="/privacy">Privacy Policy</a>.</p>
+						<div class="cookie-banner-actions">
+							<button id="cookie-accept" class="btn btn-sm btn-primary" data-cms="cookie-accept">Accept</button>
+						</div>
+					</div>
+				</div>
+			</body>
 </html>

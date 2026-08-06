@@ -4,61 +4,62 @@ import businessData from '../config/business.json';
 const currentYear = new Date().getFullYear();
 ---
 
-<footer>
+<footer data-cms="footer">
     <div class="container">
         <div class="footer-grid">
-            <div class="footer-col">
+            <div class="footer-col" data-cms="footer-brand">
                 <a href="/" class="logo" style="text-decoration: none; margin-bottom: 1rem; display: flex; align-items: center; white-space: nowrap;">
-                    <img src="/images/logo.png" alt="Comffordable Air Solutions Logo" style="height: 40px; margin-right: 10px;" />
-                    <span class="logo-gradient-text" style="font-size: 1.25rem;">COMFFORDABLE AIR</span>
+                    <img src="/images/logo.png" alt="Comffordable Air Solutions Logo" style="height: 40px; margin-right: 10px;" data-cms="footer-logo" />
+                    <span class="logo-gradient-text" style="font-size: 1.25rem;" data-cms="footer-brand-name">COMFFORDABLE AIR</span>
                 </a>
-                <p style="font-size: 0.9rem; color: #ffffff;">Premium HVAC solutions in the Tampa Bay Area. Comfort you can afford, solutions you can trust.</p>
-                <p style="font-size: 0.8rem; color: rgba(255,255,255,0.55); margin-top: 0.5rem; letter-spacing: 0.5px;"><i class="fa-solid fa-id-badge" style="margin-right: 0.4rem; color: #61a82f;"></i>License #: 1823516</p>
+                <p style="font-size: 0.9rem; color: #ffffff;" data-cms="footer-tagline">Premium HVAC solutions in the Tampa Bay Area. Comfort you can afford, solutions you can trust.</p>
+                <p style="font-size: 0.8rem; color: rgba(255,255,255,0.55); margin-top: 0.5rem; letter-spacing: 0.5px;" data-cms="footer-license"><i class="fa-solid fa-id-badge" style="margin-right: 0.4rem; color: #61a82f;"></i>License #: 1823516</p>
             </div>
 
-            <div class="footer-col">
-                <h4>Quick Links</h4>
+            <div class="footer-col" data-cms="footer-links">
+                <h4 data-cms="footer-links-title">Quick Links</h4>
                 <ul>
-                        <li><a href="/ac-repair">AC Repair &amp; Installation</a></li>
-                        <li><a href="/iaq">Indoor Air Quality (IAQ)</a></li>
-                        <li><a href="/maintenance">Preventative Maintenance</a></li>
-                        <li><a href="/contact">24/7 Emergency Repair</a></li>
-                        <li><a href="/contact">Contact Us</a></li>
+                    <li><a href="/ac-repair" data-cms="footer-link-ac">AC Repair &amp; Installation</a></li>
+                    <li><a href="/iaq" data-cms="footer-link-iaq">Indoor Air Quality (IAQ)</a></li>
+                    <li><a href="/maintenance" data-cms="footer-link-maintenance">Preventative Maintenance</a></li>
+                    <li><a href="/contact" data-cms="footer-link-emergency">24/7 Emergency Repair</a></li>
+                    <li><a href="/contact" data-cms="footer-link-contact">Contact Us</a></li>
                 </ul>
             </div>
 
-            <div class="footer-col">
-                <h4>Service Areas</h4>
+            <div class="footer-col" data-cms="footer-areas">
+                <h4 data-cms="footer-areas-title">Service Areas</h4>
                 <ul>
                     {businessData.serviceAreas.slice(0, 3).map((area) => (
-                        <li><a href={`/service-areas/${area.id}`}>{area.name}, {area.state}</a></li>
+                        <li><a href={`/service-areas/${area.id}`} data-cms={`footer-area-${area.id}`}>{area.name}, {area.state}</a></li>
                     ))}
-                    <li><a href="/service-areas" style="font-size: 0.8rem; text-decoration: underline;">View All Areas</a></li>
+                    <li><a href="/service-areas" style="font-size: 0.8rem; text-decoration: underline;" data-cms="footer-all-areas">View All Areas</a></li>
+                    <li style="margin-top: 1.5rem;"><a href="https://search.google.com/local/writereview?placeid=PLACEHOLDER_COMFFORDABLE_AIR" target="_blank" rel="noopener noreferrer" style="color: #61a82f; font-weight: 600; display: flex; align-items: center; gap: 0.5rem;" data-cms="gbp-link"><i class="fa-brands fa-google" style="font-size: 1.1rem;"></i> Review Us on Google</a></li>
                 </ul>
             </div>
 
-            <div class="footer-col">
-                <h4>Contact</h4>
+            <div class="footer-col" data-cms="footer-contact">
+                <h4 data-cms="footer-contact-title">Contact</h4>
                 <div class="footer-contact-info">
-                    <div class="contact-item">
+                    <div class="contact-item" data-cms="footer-phone">
                         <i class="fa-solid fa-phone"></i>
                         <a href={`tel:+1${businessData.phone.replace(/[^0-9]/g, '')}`}>{businessData.phone}</a>
                     </div>
-                    <div class="contact-item">
+                    <div class="contact-item" data-cms="footer-email">
                         <i class="fa-solid fa-envelope"></i>
                         <a href={`mailto:${businessData.email}`}>{businessData.email}</a>
                     </div>
-                    <div class="contact-item">
+                    <div class="contact-item" data-cms="footer-address">
                         <i class="fa-solid fa-location-dot"></i>
                         <span>Greater Tampa Bay Area, FL 33578</span>
                     </div>
-                    <div style="display: flex; gap: 1.2rem; margin-top: 1.5rem; flex-wrap: wrap;">
+                    <div style="display: flex; gap: 1.2rem; margin-top: 1.5rem; flex-wrap: wrap;" data-cms="footer-socials">
                         <a href="https://www.instagram.com/comffordable_air/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" style="color: #E1306C; font-size: 1.5rem;"><i class="fa-brands fa-instagram"></i></a>
                         <a href="https://www.facebook.com/profile.php?id=61577480190749" target="_blank" rel="noopener noreferrer" aria-label="Facebook" style="color: #1877F2; font-size: 1.5rem;"><i class="fa-brands fa-facebook"></i></a>
                         <a href="https://nextdoor.com/pages/comffordable-air-solutions/" target="_blank" rel="noopener noreferrer" aria-label="Nextdoor" style="color: #8DB600; font-size: 1.5rem;"><i class="fa-solid fa-house-chimney"></i></a>
                         <a href="https://www.yelp.com/biz/comffordable-air-solutions-st-petersburg" target="_blank" rel="noopener noreferrer" aria-label="Yelp" style="color: #d32323; font-size: 1.5rem;"><i class="fa-brands fa-yelp"></i></a>
                     </div>
-                    <div class="contact-item">
+                    <div class="contact-item" data-cms="footer-hours">
                         <i class="fa-solid fa-clock"></i>
                         <span>Mon - Sun: 8:00 AM - 6:00 PM</span>
                     </div>
@@ -66,7 +67,7 @@ const currentYear = new Date().getFullYear();
             </div>
         </div>
 
-        <div class="footer-bottom">
+        <div class="footer-bottom" data-cms="footer-bottom">
             <p>&copy; {currentYear} <span class="logo-gradient-text" style="font-size: 0.9rem; font-weight: 700;">COMFFORDABLE AIR</span>. All rights reserved. | <a href="/sitemap-index.xml" style="text-decoration: underline; font-size: 0.8rem;">Sitemap</a> | <a href="https://app.brandhyve.com/v2/preview/mak7E1i2QUjJTse96aLC" target="_blank" rel="noopener noreferrer" style="text-decoration: underline; font-size: 0.8rem;">Terms & Conditions</a> | <a href="https://app.brandhyve.com/v2/preview/gi7LvbtohnRnzk6zCPNC" target="_blank" rel="noopener noreferrer" style="text-decoration: underline; font-size: 0.8rem;">Privacy Policy</a></p>
         </div>
     </div>

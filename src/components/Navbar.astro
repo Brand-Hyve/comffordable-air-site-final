@@ -2,25 +2,26 @@
 import businessData from '../config/business.json';
 ---
 
-<header id="main-header">
+<header id="main-header" data-cms="header">
     <div class="container nav-container">
-        <a href="/" class="logo" style="text-decoration: none; display: flex; align-items: center;">
-            <img src="/images/logo.png" alt="Comffordable Air Solutions Logo" style="height: 45px; margin-right: 10px;" />
-            <span class="logo-gradient-text">COMFFORDABLE AIR</span>
+        <a href="/" class="logo" style="text-decoration: none; display: flex; align-items: center;" data-cms="header-logo">
+            <img src="/images/logo.png" alt="Comffordable Air Solutions Logo" style="height: 45px; margin-right: 10px;" data-cms="header-logo-img" />
+            <span class="logo-gradient-text" data-cms="header-logo-text">COMFFORDABLE AIR</span>
         </a>
 
-        <button class="mobile-menu-btn" aria-label="Toggle navigation">
+        <button class="mobile-menu-btn" aria-label="Toggle navigation" data-cms="header-mobile-btn">
             <i class="fa-solid fa-bars"></i>
         </button>
 
-        <nav>
+        <nav data-cms="header-nav">
             <ul id="nav-menu">
-                <li><a href="/">Home</a></li>
-                <li><a href="/ac-repair">AC Repair</a></li>
-                <li><a href="/iaq">IAQ</a></li>
-                <li><a href="/maintenance">Maintenance</a></li>
-                <li><a href="/about">About</a></li>
-                <li><a href="/contact" class="btn btn-primary" style="color: white; margin-left: 1rem;">Get Quote</a></li>
+                <li><a href="/" data-cms="nav-home">Home</a></li>
+                <li><a href="/ac-repair" data-cms="nav-ac">AC Repair</a></li>
+                <li><a href="/iaq" data-cms="nav-iaq">IAQ</a></li>
+                <li><a href="/maintenance" data-cms="nav-maintenance">Maintenance</a></li>
+                <li><a href="/about" data-cms="nav-about">About</a></li>
+                <li><a href="/blog" data-cms="nav-blog">Blog</a></li>
+                <li><a href="/contact" class="btn btn-primary" style="color: white; margin-left: 1rem;" data-cms="nav-cta">Get Quote</a></li>
             </ul>
         </nav>
     </div>

@@ -6,6 +6,7 @@
 - Create "Emergency AC Repair" page + sticky call banner
 
 ## 📋 Backlog
+- Collect trust-signal stats from client (years in business, jobs completed, satisfaction rate, NPS) for hero stats bar
 - Expand thin service pages (IAQ, AC Repair, Maintenance) to 300–500 words w/ FL-specific angle
 - Update JSON-LD to ServiceAreaBusiness w/ GeoCircles areaServed
 - Launch YouTube channel; publish first Shorts from jobsite clips

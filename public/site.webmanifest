@@ -1,0 +1,17 @@
+{
+  "name": "Comffordable Air Solutions",
+  "short_name": "Comffordable Air",
+  "description": "Premium HVAC repair, installation, and maintenance in the Tampa Bay Area.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0d1b2a",
+  "theme_color": "#1e88e5",
+  "icons": [
+    {
+      "src": "/favicon.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

@@ -9,7 +9,7 @@
 | Site repo | this folder | ✅ | Astro |
 | Google Business Profile |  | ❔ | Core to LSA + local SEO — confirm access |
 | Google Ads (for LSA) |  | ⏳ | Being set up; needed for LSA + background check |
-| Google Analytics / Search Console |  | ❔ |  |
+| Google Analytics (GA4) | G-7D4LNJ4H54 | ✅ | 2026-08-03 — injected in Layout.astro |
 | Facebook | facebook.com/profile.php?id=61577480190749 | ❔ |  |
 | Instagram | instagram.com/comffordable_air | ❔ |  |
 | Nextdoor | nextdoor.com/pages/comffordable-air-solutions | ❔ |  |

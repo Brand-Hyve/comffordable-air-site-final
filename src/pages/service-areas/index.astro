@@ -1,0 +1,69 @@
+---
+import business from '../../config/business.json';
+import Layout from '../../layouts/Layout.astro';
+import Hero from '../../components/Hero.astro';
+import LocationCard from '../../components/LocationCard.astro';
+import CTASection from '../../components/CTASection.astro';
+import { cityState, truncate } from '../../lib/utils';
+
+const areas = business.serviceAreas;
+const location = cityState();
+
+const title = `Service Areas | ${business.name}`;
+const description = truncate(
+  `${business.name} serves ${areas.map((a) => a.name).join(', ')} and the surrounding ${business.location.state} communities with licensed ${business.industry.toLowerCase()} service.`,
+  158
+);
+
+const breadcrumbs = [
+  { label: 'Home', href: '/' },
+  { label: 'Service Areas', href: '/service-areas/' },
+];
+---
+
+<Layout title={title} description={description} breadcrumbs={breadcrumbs} pageType="location">
+  <Hero
+    title={`Serving <span>${business.location.state}</span> Homeowners`}
+    subtitle={`Licensed technicians based in ${location}, covering ${areas.length} communities with same-day availability.`}
+    backgroundImage="/images/hero.jpg"
+    cmsPrefix="areas-hero"
+    size="half"
+    center
+    ctaPrimary={{ text: 'Get a Free Quote', href: '/contact/' }}
+  />
+
+  <section class="section">
+    <div class="container">
+      <div class="section-head-center">
+        <span class="section-label" data-cms="areas-index-label">Coverage Map</span>
+        <h2 class="section-title" data-cms="areas-index-title">Where We Work</h2>
+        <p class="section-intro" data-cms="areas-index-intro">
+          Pick your city to see the neighborhoods we cover and what to expect from a visit. Not on
+          the list? Call us — we frequently service surrounding communities.
+        </p>
+      </div>
+
+      {
+        areas.length === 0 ? (
+          <p class="glass-panel" data-cms="areas-index-empty">
+            Service area details are coming soon. Call us to confirm coverage for your address.
+          </p>
+        ) : (
+          <div class="grid grid-3">
+            {areas.map((area) => (
+              <LocationCard area={area} />
+            ))}
+          </div>
+        )
+      }
+    </div>
+  </section>
+
+  <CTASection
+    title="Not sure if you are in range?"
+    subtitle="Give us a call with your address and we will tell you straight away."
+    ctaText="Contact Us"
+    ctaHref="/contact/"
+    cmsPrefix="areas-cta"
+  />
+</Layout>

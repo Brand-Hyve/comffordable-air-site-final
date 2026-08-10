@@ -1,0 +1,206 @@
+---
+import type { GetStaticPaths } from 'astro';
+import business from '../config/business.json';
+import testimonials from '../config/testimonials.json';
+import Layout from '../layouts/Layout.astro';
+import Hero from '../components/Hero.astro';
+import ProcessSection from '../components/ProcessSection.astro';
+import Testimonials from '../components/Testimonials.astro';
+import FAQSection from '../components/FAQSection.astro';
+import CTASection from '../components/CTASection.astro';
+import LocationCard from '../components/LocationCard.astro';
+import { telHref, cityState, truncate } from '../lib/utils';
+
+export const getStaticPaths = (() => {
+  return business.services.map((service) => ({
+    params: { service: service.id },
+    props: { service },
+  }));
+}) satisfies GetStaticPaths;
+
+const { service } = Astro.props;
+const location = cityState();
+
+const title = `${service.shortName ?? service.name} in ${business.location.city}, ${business.location.state}`;
+const pageTitle = `${title} | ${business.name}`;
+const description = truncate(
+  `${service.description} Serving ${location} with upfront pricing, licensed technicians, and a written warranty on every job.`,
+  158
+);
+
+const breadcrumbs = [
+  { label: 'Home', href: '/' },
+  { label: service.shortName ?? service.name, href: `/${service.id}/` },
+];
+
+const processSteps = [
+  {
+    number: 1,
+    title: 'Book Your Visit',
+    description: `Call or request a quote and we will schedule your ${(service.shortName ?? service.name).toLowerCase()} appointment.`,
+  },
+  {
+    number: 2,
+    title: 'Full Diagnosis',
+    description: 'A licensed technician inspects the system and explains exactly what they found.',
+  },
+  {
+    number: 3,
+    title: 'Written Price',
+    description: 'You approve a flat, written price before any work begins.',
+  },
+  {
+    number: 4,
+    title: 'Warrantied Work',
+    description: 'We complete the job, test the result, and back it with a written warranty.',
+  },
+];
+
+const faqs = [
+  {
+    question: `How much does ${(service.shortName ?? service.name).toLowerCase()} cost?`,
+    answer: `Pricing depends on the size of the job and the condition of the equipment. We give you a flat, written quote before starting so the number you approve is the number you pay. Current pricing: ${service.price}.`,
+  },
+  {
+    question: `How quickly can you get out for ${(service.shortName ?? service.name).toLowerCase()}?`,
+    answer: `We hold same-day slots for ${location} and the surrounding areas. Most requests placed in the morning are handled the same afternoon.`,
+  },
+  {
+    question: 'Is the work guaranteed?',
+    answer:
+      'Yes. Every job comes with a written warranty on both parts and labor. If something is not right, we come back and make it right.',
+  },
+];
+
+const relatedServices = business.services.filter((s) => s.id !== service.id).slice(0, 3);
+const featuredAreas = business.serviceAreas.slice(0, 3);
+---
+
+<Layout
+  title={pageTitle}
+  description={description}
+  breadcrumbs={breadcrumbs}
+  pageType="service"
+  service={{ name: service.name, description: service.description }}
+>
+  <Hero
+    title={`${service.name} in <span>${business.location.city}</span>`}
+    subtitle={service.description}
+    backgroundImage="/images/hero.jpg"
+    cmsPrefix={`service-hero-${service.id}`}
+    size="half"
+    ctaPrimary={{
+      text: `Call ${business.phone}`,
+      href: telHref(business.phone),
+      icon: 'fa-solid fa-phone',
+    }}
+    ctaSecondary={{ text: 'Get a Free Quote', href: '/contact/' }}
+  />
+
+  <section class="section">
+    <div class="container">
+      <div class="grid grid-2">
+        <div>
+          <span class="section-label" data-cms={`service-${service.id}-label`}>
+            {service.shortName ?? service.name}
+          </span>
+          <h2 class="section-title" data-cms={`service-${service.id}-title`}>
+            What Our {service.shortName ?? service.name} Service Covers
+          </h2>
+          <p data-cms={`service-${service.id}-body`}>
+            {service.description} Our technicians work across {location} every day, so they know the
+            equipment, the climate, and the failure patterns common to homes in this area.
+          </p>
+          <p>
+            <strong>Pricing:</strong> {service.price}
+          </p>
+          <p style="margin-top:1.75rem">
+            <a class="btn btn-primary" href="/contact/">Request a Free Quote</a>
+          </p>
+        </div>
+
+        <div class="glass-panel" data-cms={`service-${service.id}-features`}>
+          <h3>Included With Every Visit</h3>
+          <ul class="service-features">
+            {service.features.map((feature) => <li>{feature}</li>)}
+          </ul>
+          <p style="margin:0">
+            <a href={telHref(business.phone)}>
+              <i class="fa-solid fa-phone" aria-hidden="true"></i>
+              {business.phone}
+            </a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <ProcessSection
+    steps={processSteps}
+    label="Our Process"
+    title={`How ${service.shortName ?? service.name} Works`}
+    cmsPrefix={`service-${service.id}-process`}
+  />
+
+  {
+    featuredAreas.length > 0 && (
+      <section class="section">
+        <div class="container">
+          <div class="section-head-center">
+            <span class="section-label">Coverage</span>
+            <h2 class="section-title">
+              {service.shortName ?? service.name} Across {business.location.state}
+            </h2>
+          </div>
+          <div class="grid grid-3">
+            {featuredAreas.map((area) => (
+              <LocationCard area={area} />
+            ))}
+          </div>
+        </div>
+      </section>
+    )
+  }
+
+  <Testimonials
+    testimonials={testimonials.slice(0, 3)}
+    cmsPrefix={`service-${service.id}-testimonials`}
+  />
+
+  <FAQSection items={faqs} cmsPrefix={`service-${service.id}-faq`} />
+
+  {
+    relatedServices.length > 0 && (
+      <section class="section section-alt">
+        <div class="container">
+          <div class="section-head-center">
+            <span class="section-label">More Services</span>
+            <h2 class="section-title">Other Ways We Can Help</h2>
+          </div>
+          <div class="grid grid-3">
+            {relatedServices.map((related) => (
+              <article class="glass-panel glass-panel-hover service-card animate-on-scroll">
+                <span class="service-icon">
+                  <i class={related.icon} aria-hidden="true" />
+                </span>
+                <h3>{related.name}</h3>
+                <p>{related.description}</p>
+                <a class="btn btn-outline btn-sm" href={`/${related.id}/`}>
+                  View Details
+                </a>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+    )
+  }
+
+  <CTASection
+    title={`Need ${service.shortName ?? service.name} today?`}
+    subtitle={`Same-day appointments available across ${location}. Get a written quote before any work begins.`}
+    ctaText="Get My Free Quote"
+    ctaHref="/contact/"
+    cmsPrefix={`service-${service.id}-cta`}
+  />
+</Layout>

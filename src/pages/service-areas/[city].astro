@@ -1,0 +1,124 @@
+---
+import type { GetStaticPaths } from 'astro';
+import business from '../../config/business.json';
+import testimonials from '../../config/testimonials.json';
+import Layout from '../../layouts/Layout.astro';
+import LocationHero from '../../components/LocationHero.astro';
+import Neighborhoods from '../../components/Neighborhoods.astro';
+import Landmarks from '../../components/Landmarks.astro';
+import EmbeddedMap from '../../components/EmbeddedMap.astro';
+import Testimonials from '../../components/Testimonials.astro';
+import FAQSection from '../../components/FAQSection.astro';
+import CTASection from '../../components/CTASection.astro';
+import { truncate } from '../../lib/utils';
+
+export const getStaticPaths = (() => {
+  return business.serviceAreas.map((area) => ({
+    params: { city: area.id },
+    props: { area },
+  }));
+}) satisfies GetStaticPaths;
+
+const { area } = Astro.props;
+
+const title = `${business.industry} in ${area.name}, ${area.state} | ${business.name}`;
+const description = truncate(
+  `Licensed ${business.industry.toLowerCase()} service in ${area.name}, ${area.state}. Same-day appointments, upfront written pricing, and warrantied workmanship from ${business.name}.`,
+  158
+);
+
+const breadcrumbs = [
+  { label: 'Home', href: '/' },
+  { label: 'Service Areas', href: '/service-areas/' },
+  { label: area.name, href: `/service-areas/${area.id}/` },
+];
+
+const faqs = [
+  {
+    question: `Do you offer same-day service in ${area.name}?`,
+    answer: `Yes. ${area.name} is inside our core service radius, and we reserve same-day slots every weekday for the area.`,
+  },
+  {
+    question: `What does a service call in ${area.name} cost?`,
+    answer:
+      'You get a flat, written quote before any work starts. There are no diagnostic surprises and no change to the price once you approve it.',
+  },
+  {
+    question: `Which ${area.name} neighborhoods do you cover?`,
+    answer:
+      area.neighborhoods.length > 0
+        ? `We work throughout ${area.name}, including ${area.neighborhoods.join(', ')}.`
+        : `We work throughout ${area.name} and the immediately surrounding communities.`,
+  },
+];
+
+const localTestimonials = testimonials.filter((t) => t.location.startsWith(area.name));
+const shownTestimonials = (localTestimonials.length ? localTestimonials : testimonials).slice(0, 3);
+---
+
+<Layout
+  title={title}
+  description={description}
+  breadcrumbs={breadcrumbs}
+  pageType="location"
+  image={area.hero}
+  location={{ name: area.name, state: area.state, wiki: area.wiki }}
+>
+  <LocationHero area={area} phone={business.phone} />
+
+  <section class="section">
+    <div class="container">
+      <div class="grid grid-2">
+        <div>
+          <span class="section-label" data-cms={`city-${area.id}-label`}>
+            {area.name}, {area.state}
+          </span>
+          <h2 class="section-title" data-cms={`city-${area.id}-title`}>
+            Your Local {business.industry} Team in {area.name}
+          </h2>
+          <p data-cms={`city-${area.id}-body`}>
+            {business.name} has been serving {area.name} homeowners with licensed, insured
+            technicians and honest, written pricing. We know the housing stock here and the
+            equipment failures that come with it — which means faster diagnosis and fewer repeat
+            visits.
+          </p>
+
+          <h3>Services available in {area.name}</h3>
+          <ul class="service-features">
+            {business.services.map((service) => (
+              <li>
+                <a href={`/${service.id}/`}>{service.name}</a>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <EmbeddedMap query={`${area.name}, ${area.state}`} height={420} />
+      </div>
+    </div>
+  </section>
+
+  <Neighborhoods name={area.name} neighborhoods={area.neighborhoods} />
+
+  <Landmarks name={area.name} landmarks={area.landmarks} wiki={area.wiki} />
+
+  <Testimonials
+    testimonials={shownTestimonials}
+    title={`What ${area.name} Customers Say`}
+    cmsPrefix={`city-${area.id}-testimonials`}
+  />
+
+  <FAQSection
+    items={faqs}
+    title={`${area.name} Service FAQs`}
+    cmsPrefix={`city-${area.id}-faq`}
+  />
+
+  <CTASection
+    title={`Need service in ${area.name}?`}
+    subtitle="Call now or request a free quote — most appointments are scheduled within 24 hours."
+    ctaText="Get My Free Quote"
+    ctaHref="/contact/"
+    cmsPrefix={`city-${area.id}-cta`}
+  />
+</Layout>

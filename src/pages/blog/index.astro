@@ -1,0 +1,62 @@
+---
+import { getCollection } from 'astro:content';
+import business from '../../config/business.json';
+import Layout from '../../layouts/Layout.astro';
+import Hero from '../../components/Hero.astro';
+import BlogCard from '../../components/BlogCard.astro';
+import CTASection from '../../components/CTASection.astro';
+import { truncate } from '../../lib/utils';
+
+const posts = (await getCollection('blog', ({ data }) => !data.draft)).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
+
+const title = `Blog | ${business.name}`;
+const description = truncate(
+  `Practical ${business.industry.toLowerCase()} advice from the licensed technicians at ${business.name} — maintenance guides, cost breakdowns, and answers to the questions we get every week.`,
+  158
+);
+
+const breadcrumbs = [
+  { label: 'Home', href: '/' },
+  { label: 'Blog', href: '/blog/' },
+];
+---
+
+<Layout title={title} description={description} breadcrumbs={breadcrumbs} pageType="default">
+  <Hero
+    title={`${business.industry} Advice From <span>Real Technicians</span>`}
+    subtitle="Straight answers to the questions homeowners actually ask us — no fluff, no upsell."
+    backgroundImage="/images/hero.jpg"
+    cmsPrefix="blog-hero"
+    size="half"
+    center
+  />
+
+  <section class="section">
+    <div class="container">
+      {
+        posts.length === 0 ? (
+          <p class="glass-panel" data-cms="blog-empty">
+            New articles are on the way. In the meantime, call us with any question — we are happy
+            to talk it through.
+          </p>
+        ) : (
+          <div class="blog-grid">
+            {posts.map((post, index) => (
+              <BlogCard post={post} index={index} />
+            ))}
+          </div>
+        )
+      }
+    </div>
+  </section>
+
+  <CTASection
+    title="Have a question we have not answered?"
+    subtitle="Call us or send a message — a licensed technician will get back to you."
+    ctaText="Contact Us"
+    ctaHref="/contact/"
+    cmsPrefix="blog-index-cta"
+  />
+</Layout>

@@ -1,0 +1,50 @@
+---
+import type { GetStaticPaths } from 'astro';
+import { getCollection } from 'astro:content';
+import BlogPost from '../../layouts/BlogPost.astro';
+
+export const getStaticPaths = (async () => {
+  const posts = await getCollection('blog', ({ data }) => !data.draft);
+
+  return posts.map((post) => {
+    // Related: same category first, then most recent, excluding this post.
+    const related = posts
+      .filter((other) => other.slug !== post.slug)
+      .sort((a, b) => {
+        const aMatch = a.data.category === post.data.category ? 0 : 1;
+        const bMatch = b.data.category === post.data.category ? 0 : 1;
+        if (aMatch !== bMatch) return aMatch - bMatch;
+        return b.data.pubDate.valueOf() - a.data.pubDate.valueOf();
+      })
+      .slice(0, 3);
+
+    return {
+      params: { slug: post.slug },
+      props: { post, related },
+    };
+  });
+}) satisfies GetStaticPaths;
+
+const { post, related } = Astro.props;
+const { Content } = await post.render();
+const data = post.data;
+---
+
+<BlogPost
+  title={data.title}
+  description={data.description}
+  pubDate={data.pubDate}
+  updatedDate={data.updatedDate}
+  author={data.author}
+  authorTitle={data.authorTitle}
+  authorImage={data.authorImage}
+  authorBio={data.authorBio}
+  authorLinkedin={data.authorLinkedin}
+  category={data.category}
+  tags={data.tags}
+  image={data.image}
+  imageAlt={data.imageAlt}
+  relatedPosts={related}
+>
+  <Content />
+</BlogPost>

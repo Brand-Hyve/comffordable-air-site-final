@@ -1,0 +1,61 @@
+---
+import { stars } from '../lib/utils';
+
+export interface Props {
+  testimonials: {
+    id: string;
+    name: string;
+    location: string;
+    rating: number;
+    text: string;
+    date: string;
+  }[];
+  cmsPrefix?: string;
+  label?: string;
+  title?: string;
+}
+
+const {
+  testimonials,
+  cmsPrefix = 'testimonials',
+  label = 'Reviews',
+  title = 'What Our Customers Say',
+} = Astro.props;
+---
+
+{
+  testimonials.length > 0 && (
+    <section class="section">
+      <div class="container">
+        <div class="section-head-center">
+          <span class="section-label" data-cms={`${cmsPrefix}-label`}>
+            {label}
+          </span>
+          <h2 class="section-title" data-cms={`${cmsPrefix}-title`}>
+            {title}
+          </h2>
+        </div>
+
+        <div class="grid grid-3">
+          {testimonials.map((testimonial) => (
+            <figure
+              class="glass-panel testimonial-card animate-on-scroll"
+              data-cms={`${cmsPrefix}-item-${testimonial.id}`}
+            >
+              <div class="testimonial-stars" aria-label={`${testimonial.rating} out of 5 stars`}>
+                {stars(testimonial.rating)}
+              </div>
+              <blockquote class="testimonial-text" style="margin:0 0 1.25rem">
+                {testimonial.text}
+              </blockquote>
+              <figcaption>
+                <p class="testimonial-name">{testimonial.name}</p>
+                <p class="testimonial-location">{testimonial.location}</p>
+              </figcaption>
+            </figure>
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}

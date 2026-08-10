@@ -1,0 +1,70 @@
+---
+import business from '../config/business.json';
+
+export interface Props {
+  cmsPrefix?: string;
+  showViewAll?: boolean;
+  limit?: number;
+  label?: string;
+  title?: string;
+  intro?: string;
+}
+
+const {
+  cmsPrefix = 'services',
+  showViewAll = false,
+  limit,
+  label = 'What We Do',
+  title = 'Our Services',
+  intro,
+} = Astro.props;
+
+const services = limit ? business.services.slice(0, limit) : business.services;
+---
+
+<section class="section" id="services">
+  <div class="container">
+    <div class="section-head-center">
+      <span class="section-label" data-cms={`${cmsPrefix}-label`}>{label}</span>
+      <h2 class="section-title" data-cms={`${cmsPrefix}-title`}>{title}</h2>
+      {intro && <p class="section-intro" data-cms={`${cmsPrefix}-intro`}>{intro}</p>}
+    </div>
+
+    {
+      services.length === 0 ? (
+        <p class="glass-panel" data-cms={`${cmsPrefix}-empty`}>
+          Our service list is coming soon. Call us and we will walk you through what we offer.
+        </p>
+      ) : (
+        <div class="grid grid-3">
+          {services.map((service) => (
+            <article
+              class="glass-panel glass-panel-hover service-card animate-on-scroll"
+              data-cms={`${cmsPrefix}-card-${service.id}`}
+            >
+              <span class="service-icon">
+                <i class={service.icon} aria-hidden="true" />
+              </span>
+              <h3>{service.name}</h3>
+              <p>{service.description}</p>
+              <span class="service-price">{service.price}</span>
+              <a class="btn btn-outline btn-sm" href={`/${service.id}/`}>
+                View Details
+              </a>
+            </article>
+          ))}
+        </div>
+      )
+    }
+
+    {
+      showViewAll && services.length > 0 && (
+        <p style="text-align:center;margin-top:2.5rem">
+          <a class="btn btn-primary" href="/contact/" data-cms={`${cmsPrefix}-viewall`}>
+            Get a Free Quote
+          </a>
+        </p>
+      )
+    }
+  </div>
+</section>

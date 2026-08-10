@@ -61,6 +61,9 @@ npm run qa       # hyve-qa-pipeline against a deployed URL
    `publisher`, `author`, `isPartOf`, `breadcrumb`) resolves to a node in the same graph.
    All of this lives in `src/lib/schema.ts` — add schema there, not inline in a page.
 3. **Titles under 60 characters. Descriptions 150–160 characters. Both unique per page.**
+   Do not hand-write these into `Layout` props — client data swaps change string lengths and
+   silently break the window. Route every page through `pageTitle()` and `metaDescription()`
+   in `src/lib/utils.ts`, which enforce both bounds regardless of the config values.
 4. **Canonical matches the URL that returns 200** — same protocol, host, case, and trailing slash.
 5. **NAP is byte-identical** across the footer, the JSON-LD, and the client's Google Business
    Profile. Change it in `business.json` only.

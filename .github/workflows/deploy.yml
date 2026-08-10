@@ -1,7 +1,16 @@
 name: Deploy to Vercel
+
+# Manual trigger only.
+#
+# Client sites deploy through Vercel's own GitHub integration, which already
+# rebuilds on every push. Leaving this on `push` would run a second, competing
+# deploy for the same commit. Run this from the Actions tab when you want a
+# deliberate clean rebuild from CI.
+#
+# Requires VERCEL_TOKEN, VERCEL_ORG_ID and VERCEL_PROJECT_ID repo secrets.
 on:
-  push:
-    branches: [main]
+  workflow_dispatch:
+
 jobs:
   deploy:
     runs-on: ubuntu-latest

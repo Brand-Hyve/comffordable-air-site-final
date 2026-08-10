@@ -1,0 +1,61 @@
+---
+export interface Props {
+  title: string;
+  subtitle: string;
+  backgroundImage: string;
+  overlayStyle?: string;
+  ctaPrimary?: { text: string; href: string; icon?: string };
+  ctaSecondary?: { text: string; href: string; icon?: string };
+  cmsPrefix: string;
+  size?: 'full' | 'half';
+  center?: boolean;
+}
+
+const {
+  title,
+  subtitle,
+  backgroundImage,
+  overlayStyle,
+  ctaPrimary,
+  ctaSecondary,
+  cmsPrefix,
+  size = 'full',
+  center = false,
+} = Astro.props;
+---
+
+<section class:list={['hero', size === 'full' ? 'hero-full' : 'hero-half']}>
+  <img class="hero-bg" src={backgroundImage} alt="" aria-hidden="true" fetchpriority="high" />
+  <div class="hero-overlay" style={overlayStyle}></div>
+
+  <div class="container">
+    <div class:list={['hero-inner', center && 'hero-center']}>
+      <!-- title may contain a <span> for the accent-colored word -->
+      <h1 data-cms={`${cmsPrefix}-title`} set:html={title} />
+      <p data-cms={`${cmsPrefix}-subtitle`}>{subtitle}</p>
+
+      {
+        (ctaPrimary || ctaSecondary) && (
+          <div class="hero-actions">
+            {ctaPrimary && (
+              <a class="btn btn-primary" href={ctaPrimary.href} data-cms={`${cmsPrefix}-cta-primary`}>
+                {ctaPrimary.icon && <i class={ctaPrimary.icon} aria-hidden="true" />}
+                {ctaPrimary.text}
+              </a>
+            )}
+            {ctaSecondary && (
+              <a
+                class="btn btn-outline"
+                href={ctaSecondary.href}
+                data-cms={`${cmsPrefix}-cta-secondary`}
+              >
+                {ctaSecondary.icon && <i class={ctaSecondary.icon} aria-hidden="true" />}
+                {ctaSecondary.text}
+              </a>
+            )}
+          </div>
+        )
+      }
+    </div>
+  </div>
+</section>

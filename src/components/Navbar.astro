@@ -1,0 +1,112 @@
+---
+import business from '../config/business.json';
+import { telHref } from '../lib/utils';
+
+/**
+ * Sticky site header. Reads everything from business.json — takes no props.
+ * Nav links: Home + first 4 services + About + Blog + Contact CTA.
+ */
+
+const navServices = business.services.slice(0, 4);
+const currentPath = Astro.url.pathname.replace(/\/+$/, '') || '/';
+const isCurrent = (href: string) => (href.replace(/\/+$/, '') || '/') === currentPath;
+const phoneHref = telHref(business.phone);
+---
+
+<header class="site-header" id="main-header" data-cms="header">
+  <div class="container">
+    <a class="header-logo" href="/" data-cms="header-logo">
+      <img
+        src="/images/logo.png"
+        alt={`${business.name} logo`}
+        width="42"
+        height="42"
+        data-cms="header-logo-img"
+      />
+      <span class="header-logo-text" data-cms="header-logo-text">{business.name}</span>
+    </a>
+
+    <button
+      class="nav-toggle"
+      id="nav-toggle"
+      type="button"
+      aria-label="Toggle navigation menu"
+      aria-expanded="false"
+      aria-controls="main-nav"
+      data-cms="header-mobile-btn"
+    >
+      <i class="fa-solid fa-bars" aria-hidden="true"></i>
+    </button>
+
+    <nav class="main-nav" id="main-nav" aria-label="Main" data-cms="header-nav">
+      <ul>
+        <li>
+          <a href="/" data-cms="nav-home" aria-current={isCurrent('/') ? 'page' : undefined}>Home</a>
+        </li>
+        {
+          navServices.map((service) => (
+            <li>
+              <a
+                href={`/${service.id}/`}
+                data-cms={`nav-${service.id}`}
+                aria-current={isCurrent(`/${service.id}/`) ? 'page' : undefined}
+              >
+                {service.shortName ?? service.name}
+              </a>
+            </li>
+          ))
+        }
+        <li>
+          <a href="/about/" data-cms="nav-about" aria-current={isCurrent('/about/') ? 'page' : undefined}
+            >About</a
+          >
+        </li>
+        <li>
+          <a href="/blog/" data-cms="nav-blog" aria-current={isCurrent('/blog/') ? 'page' : undefined}
+            >Blog</a
+          >
+        </li>
+        <li>
+          <a class="btn btn-primary btn-sm" href="/contact/" data-cms="nav-cta">
+            <i class="fa-solid fa-phone" aria-hidden="true"></i> Get a Free Quote
+          </a>
+        </li>
+        <li class="sr-only">
+          <a href={phoneHref} data-cms="nav-phone">Call {business.phone}</a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<script>
+  document.addEventListener('astro:page-load', () => {
+    const header = document.getElementById('main-header');
+    const toggle = document.getElementById('nav-toggle');
+    const nav = document.getElementById('main-nav');
+
+    if (header) {
+      const onScroll = () => header.classList.toggle('scrolled', window.scrollY > 20);
+      onScroll();
+      window.addEventListener('scroll', onScroll, { passive: true });
+    }
+
+    if (toggle && nav) {
+      toggle.addEventListener('click', () => {
+        const open = nav.classList.toggle('open');
+        toggle.setAttribute('aria-expanded', String(open));
+        const icon = toggle.querySelector('i');
+        if (icon) icon.className = open ? 'fa-solid fa-xmark' : 'fa-solid fa-bars';
+      });
+
+      nav.querySelectorAll('a').forEach((link) => {
+        link.addEventListener('click', () => {
+          nav.classList.remove('open');
+          toggle.setAttribute('aria-expanded', 'false');
+          const icon = toggle.querySelector('i');
+          if (icon) icon.className = 'fa-solid fa-bars';
+        });
+      });
+    }
+  });
+</script>

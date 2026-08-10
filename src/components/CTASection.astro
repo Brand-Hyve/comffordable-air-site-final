@@ -1,0 +1,21 @@
+---
+export interface Props {
+  title: string;
+  subtitle?: string;
+  ctaText: string;
+  ctaHref: string;
+  cmsPrefix?: string;
+}
+
+const { title, subtitle, ctaText, ctaHref, cmsPrefix = 'cta' } = Astro.props;
+---
+
+<section class="cta-section">
+  <div class="container animate-on-scroll">
+    <h2 data-cms={`${cmsPrefix}-title`}>{title}</h2>
+    {subtitle && <p data-cms={`${cmsPrefix}-text`}>{subtitle}</p>}
+    <p style="margin-top:1.75rem">
+      <a class="btn btn-primary" href={ctaHref} data-cms={`${cmsPrefix}-btn`}>{ctaText}</a>
+    </p>
+  </div>
+</section>

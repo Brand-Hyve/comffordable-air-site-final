@@ -1,0 +1,150 @@
+---
+import business from '../config/business.json';
+import {
+  telHref,
+  formatAddress,
+  formatHours,
+  activeSocials,
+  socialIcon,
+  reviewUrl,
+} from '../lib/utils';
+
+/**
+ * Site footer. Reads everything from business.json — takes no props.
+ *
+ * NAP here must stay byte-identical to the NAP in JSON-LD (Schema.astro)
+ * and to the client's Google Business Profile (spec §13).
+ */
+
+const year = new Date().getFullYear();
+const phoneHref = telHref(business.phone);
+const address = formatAddress();
+const socials = activeSocials();
+const footerServices = business.services.slice(0, 5);
+const footerAreas = business.serviceAreas.slice(0, 3);
+const hasAreas = business.serviceAreas.length > 0;
+---
+
+<footer class="site-footer" data-cms="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <!-- Brand -->
+      <div data-cms="footer-brand">
+        <img
+          src="/images/logo.png"
+          alt={`${business.name} logo`}
+          width="56"
+          height="56"
+          data-cms="footer-logo"
+        />
+        <p class="footer-brand-name" data-cms="footer-brand-name">{business.name}</p>
+        <p data-cms="footer-tagline">{business.tagline}</p>
+        {
+          business.license?.value && (
+            <p class="footer-license" data-cms="footer-license">
+              {business.license.name}: {business.license.value}
+            </p>
+          )
+        }
+      </div>
+
+      <!-- Quick links -->
+      <div data-cms="footer-links">
+        <h3>Quick Links</h3>
+        <ul class="footer-list">
+          {
+            footerServices.map((service) => (
+              <li>
+                <a href={`/${service.id}/`}>{service.shortName ?? service.name}</a>
+              </li>
+            ))
+          }
+          <li><a href="/about/">About Us</a></li>
+          <li><a href="/blog/">Blog</a></li>
+          <li><a href="/contact/">Contact</a></li>
+        </ul>
+      </div>
+
+      <!-- Service areas -->
+      {
+        hasAreas && (
+          <div data-cms="footer-areas">
+            <h3>Service Areas</h3>
+            <ul class="footer-list">
+              {footerAreas.map((area) => (
+                <li>
+                  <a href={`/service-areas/${area.id}/`} data-cms={`footer-area-${area.id}`}>
+                    {area.name}, {area.state}
+                  </a>
+                </li>
+              ))}
+              <li>
+                <a href="/service-areas/" data-cms="footer-all-areas">
+                  View All Areas
+                </a>
+              </li>
+            </ul>
+            <p style="margin-top:1rem">
+              <a href={reviewUrl()} rel="noopener" target="_blank" data-cms="gbp-link">
+                <i class="fa-brands fa-google" aria-hidden="true" /> Review Us on Google
+              </a>
+            </p>
+          </div>
+        )
+      }
+
+      <!-- Contact -->
+      <div data-cms="footer-contact">
+        <h3>Contact</h3>
+        <ul class="footer-contact">
+          <li class="footer-contact-item" data-cms="footer-phone">
+            <i class="fa-solid fa-phone" aria-hidden="true"></i>
+            <a href={phoneHref}>{business.phone}</a>
+          </li>
+          <li class="footer-contact-item" data-cms="footer-email">
+            <i class="fa-solid fa-envelope" aria-hidden="true"></i>
+            <a href={`mailto:${business.email}`}>{business.email}</a>
+          </li>
+          <li class="footer-contact-item" data-cms="footer-address">
+            <i class="fa-solid fa-location-dot" aria-hidden="true"></i>
+            <address style="font-style:normal">{address}</address>
+          </li>
+          {
+            business.hours.length > 0 && (
+              <li class="footer-contact-item" data-cms="footer-hours">
+                <i class="fa-solid fa-clock" aria-hidden="true" />
+                <ul class="footer-hours">
+                  {business.hours.map((entry) => (
+                    <li>{formatHours(entry)}</li>
+                  ))}
+                </ul>
+              </li>
+            )
+          }
+        </ul>
+
+        {
+          socials.length > 0 && (
+            <div class="footer-socials" data-cms="footer-socials">
+              {socials.map((social) => (
+                <a
+                  href={social.url}
+                  rel="noopener"
+                  target="_blank"
+                  aria-label={`${business.name} on ${social.platform}`}
+                >
+                  <i class={socialIcon(social.platform)} aria-hidden="true" />
+                </a>
+              ))}
+            </div>
+          )
+        }
+      </div>
+    </div>
+
+    <div class="footer-bottom" data-cms="footer-bottom">
+      <p>&copy; {year} {business.name}. All rights reserved.</p>
+      <p><a href="/privacy/">Privacy Policy</a></p>
+    </div>
+  </div>
+</footer>

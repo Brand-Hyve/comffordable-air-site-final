@@ -1,0 +1,170 @@
+{
+  "name": "Example Home Services",
+  "tagline": "Licensed, insured, and trusted across Tampa Bay for fast, honest service.",
+  "phone": "(727) 555-1700",
+  "email": "info@example.com",
+  "domain": "https://www.example.com",
+  "industry": "HVAC",
+  "location": {
+    "street": "123 Main Street",
+    "city": "St. Petersburg",
+    "state": "FL",
+    "zip": "33701",
+    "country": "US",
+    "latitude": 27.8661,
+    "longitude": -82.3288
+  },
+  "license": {
+    "name": "Florida HVAC License",
+    "value": "CAC1823516"
+  },
+  "hours": [
+    { "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"], "opens": "08:00", "closes": "18:00" },
+    { "dayOfWeek": ["Saturday"], "opens": "09:00", "closes": "15:00" },
+    { "dayOfWeek": ["Sunday"], "opens": "00:00", "closes": "00:00" }
+  ],
+  "priceRange": "$$",
+  "aggregateRating": {
+    "ratingValue": "4.9",
+    "reviewCount": "50"
+  },
+  "gbpUrl": "https://maps.google.com/?cid=0000000000000000000",
+  "gbpPlaceId": "PLACEHOLDER",
+  "serviceAreas": [
+    {
+      "id": "st-petersburg-fl",
+      "name": "St. Petersburg",
+      "state": "FL",
+      "hero": "/images/st-petersburg-fl-hero.jpg",
+      "wiki": "https://en.wikipedia.org/wiki/St._Petersburg,_Florida",
+      "neighborhoods": ["Old Northeast", "Snell Isle", "Historic Kenwood", "Downtown", "Jungle Terrace"],
+      "landmarks": ["The St. Pete Pier", "Salvador Dalí Museum", "Tropicana Field", "Sunken Gardens"]
+    },
+    {
+      "id": "clearwater-fl",
+      "name": "Clearwater",
+      "state": "FL",
+      "hero": "/images/clearwater-fl-hero.jpg",
+      "wiki": "https://en.wikipedia.org/wiki/Clearwater,_Florida",
+      "neighborhoods": ["Island Estates", "Countryside", "Morningside", "Sand Key"],
+      "landmarks": ["Clearwater Beach", "Pier 60", "Clearwater Marine Aquarium"]
+    },
+    {
+      "id": "tampa-fl",
+      "name": "Tampa",
+      "state": "FL",
+      "hero": "/images/tampa-fl-hero.jpg",
+      "wiki": "https://en.wikipedia.org/wiki/Tampa,_Florida",
+      "neighborhoods": ["Hyde Park", "Seminole Heights", "Westshore", "Ybor City"],
+      "landmarks": ["Tampa Riverwalk", "Busch Gardens", "Amalie Arena"]
+    },
+    {
+      "id": "largo-fl",
+      "name": "Largo",
+      "state": "FL",
+      "hero": "/images/largo-fl-hero.jpg",
+      "wiki": "https://en.wikipedia.org/wiki/Largo,_Florida",
+      "neighborhoods": ["Belleair Grove", "Harbor Bluffs", "East Bay"],
+      "landmarks": ["Largo Central Park", "Florida Botanical Gardens"]
+    }
+  ],
+  "services": [
+    {
+      "id": "ac-repair",
+      "name": "Air Conditioning Repair & Installation",
+      "shortName": "AC Repair",
+      "description": "Expert air conditioning repair and installation with same-day diagnostics, transparent pricing, and workmanship backed by a written warranty.",
+      "icon": "fa-solid fa-snowflake",
+      "price": "Custom Quotes",
+      "features": ["Multi-point Inspection", "Leak Detection", "Thermostat Calibration", "Same-Day Diagnostics"],
+      "keywords": ["ac repair", "air conditioning repair", "ac installation"]
+    },
+    {
+      "id": "heating-services",
+      "name": "Heating System Service & Repair",
+      "shortName": "Heating",
+      "description": "Heat pump and furnace repair, tune-ups, and replacement to keep your home comfortable through every cold snap.",
+      "icon": "fa-solid fa-fire",
+      "price": "Custom Quotes",
+      "features": ["Heat Pump Repair", "Furnace Tune-Ups", "Safety Inspection", "System Replacement"],
+      "keywords": ["heating repair", "furnace repair", "heat pump service"]
+    },
+    {
+      "id": "indoor-air-quality",
+      "name": "Indoor Air Quality Solutions",
+      "shortName": "Air Quality",
+      "description": "Air purification, humidity control, and duct sealing that measurably improve the air your family breathes every day.",
+      "icon": "fa-solid fa-wind",
+      "price": "Custom Quotes",
+      "features": ["Air Purification", "Humidity Control", "Duct Sealing", "Filtration Upgrades"],
+      "keywords": ["indoor air quality", "air purification", "duct cleaning"]
+    },
+    {
+      "id": "duct-cleaning",
+      "name": "Air Duct Cleaning & Sealing",
+      "shortName": "Duct Cleaning",
+      "description": "Professional duct cleaning and sealing that removes built-up debris, improves airflow, and lowers monthly energy costs.",
+      "icon": "fa-solid fa-fan",
+      "price": "Custom Quotes",
+      "features": ["Full System Cleaning", "Sanitizing Treatment", "Airflow Testing", "Leak Sealing"],
+      "keywords": ["duct cleaning", "air duct sealing", "vent cleaning"]
+    },
+    {
+      "id": "maintenance-plans",
+      "name": "Preventative Maintenance Plans",
+      "shortName": "Maintenance",
+      "description": "Twice-yearly tune-ups, priority scheduling, and member-only repair discounts that extend the life of your equipment.",
+      "icon": "fa-solid fa-clipboard-check",
+      "price": "From $19/mo",
+      "features": ["Two Visits Per Year", "Priority Scheduling", "Repair Discounts", "No Overtime Fees"],
+      "keywords": ["hvac maintenance", "ac tune up", "maintenance plan"]
+    },
+    {
+      "id": "emergency-service",
+      "name": "24/7 Emergency HVAC Service",
+      "shortName": "Emergency",
+      "description": "Round-the-clock emergency response with fully stocked trucks so most breakdowns are resolved on the first visit.",
+      "icon": "fa-solid fa-truck-fast",
+      "price": "Custom Quotes",
+      "features": ["24/7 Dispatch", "Stocked Trucks", "Upfront Pricing", "First-Visit Repairs"],
+      "keywords": ["emergency ac repair", "24 hour hvac", "after hours hvac"]
+    }
+  ],
+  "socials": {
+    "facebook": "https://www.facebook.com/example",
+    "instagram": "https://www.instagram.com/example",
+    "yelp": "https://www.yelp.com/biz/example",
+    "nextdoor": "https://nextdoor.com/pages/example/",
+    "google": "https://maps.google.com/?cid=0000000000000000000",
+    "linkedin": "",
+    "tiktok": "",
+    "youtube": ""
+  },
+  "team": [
+    {
+      "name": "Jeremy Smith",
+      "title": "Owner & Lead Technician",
+      "image": "/images/team-jeremy.png",
+      "bio": "With 15 years of experience in Tampa Bay HVAC, Jeremy founded the company on one rule: quote it honestly, fix it once.",
+      "credentials": "EPA 608 Certified",
+      "linkedin": ""
+    },
+    {
+      "name": "Marisol Rivera",
+      "title": "Service Manager",
+      "image": "/images/team-marisol.png",
+      "bio": "Marisol runs dispatch and quality control, and personally follows up on every install to make sure the job was done right.",
+      "credentials": "NATE Certified",
+      "linkedin": ""
+    }
+  ],
+  "gtmId": "",
+  "ga4Id": "",
+  "searchConsoleVerification": "",
+  "ghlWebhookUrl": "",
+  "cookieConsentEnabled": true,
+  "reviewsWidget": {
+    "scriptSrc": "",
+    "iframeSrc": ""
+  }
+}

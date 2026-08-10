@@ -1,0 +1,50 @@
+[
+  {
+    "id": "testimonial-1",
+    "name": "Sarah M.",
+    "location": "St. Petersburg, FL",
+    "rating": 5,
+    "text": "Excellent service! They arrived on time and fixed our AC quickly. The technician explained exactly what failed and what it would cost before touching anything.",
+    "date": "2025-06-15"
+  },
+  {
+    "id": "testimonial-2",
+    "name": "Daniel R.",
+    "location": "Clearwater, FL",
+    "rating": 5,
+    "text": "Called at 9pm on a Sunday and had a working system by 11pm. Fair after-hours pricing and no upsell pressure at all.",
+    "date": "2025-05-02"
+  },
+  {
+    "id": "testimonial-3",
+    "name": "Priya N.",
+    "location": "Tampa, FL",
+    "rating": 5,
+    "text": "We signed up for the maintenance plan two years ago and have not had a single breakdown since. Worth every dollar.",
+    "date": "2025-04-18"
+  },
+  {
+    "id": "testimonial-4",
+    "name": "Mike T.",
+    "location": "Largo, FL",
+    "rating": 5,
+    "text": "Full system replacement done in one day. The crew laid down floor protection and left the house cleaner than they found it.",
+    "date": "2025-03-27"
+  },
+  {
+    "id": "testimonial-5",
+    "name": "Angela K.",
+    "location": "St. Petersburg, FL",
+    "rating": 5,
+    "text": "Two other companies told us we needed a whole new unit. These folks found a bad capacitor and charged us a fraction of that.",
+    "date": "2025-02-11"
+  },
+  {
+    "id": "testimonial-6",
+    "name": "Chris B.",
+    "location": "Tampa, FL",
+    "rating": 5,
+    "text": "The duct cleaning made a noticeable difference in airflow upstairs, and my allergy symptoms are dramatically better.",
+    "date": "2025-01-09"
+  }
+]

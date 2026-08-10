@@ -1,0 +1,52 @@
+{
+  "photos": [
+    {
+      "src": "/images/gallery/project-01.jpg",
+      "alt": "Residential AC installation by Example Home Services in St. Petersburg, FL",
+      "caption": "Residential AC Installation — St. Petersburg, FL",
+      "category": "installation"
+    },
+    {
+      "src": "/images/gallery/project-02.jpg",
+      "alt": "Technician performing a heat pump tune-up in Clearwater, FL",
+      "caption": "Heat Pump Tune-Up — Clearwater, FL",
+      "category": "maintenance"
+    },
+    {
+      "src": "/images/gallery/project-03.jpg",
+      "alt": "Air duct sealing and cleaning project in Tampa, FL",
+      "caption": "Duct Sealing & Cleaning — Tampa, FL",
+      "category": "duct-work"
+    },
+    {
+      "src": "/images/gallery/project-04.jpg",
+      "alt": "New high-efficiency condenser unit installed in Largo, FL",
+      "caption": "High-Efficiency Condenser Install — Largo, FL",
+      "category": "installation"
+    },
+    {
+      "src": "/images/gallery/project-05.jpg",
+      "alt": "Smart thermostat installation and calibration in St. Petersburg, FL",
+      "caption": "Smart Thermostat Install — St. Petersburg, FL",
+      "category": "upgrades"
+    },
+    {
+      "src": "/images/gallery/project-06.jpg",
+      "alt": "Emergency after-hours AC repair in Tampa, FL",
+      "caption": "Emergency AC Repair — Tampa, FL",
+      "category": "repair"
+    }
+  ],
+  "videos": [
+    {
+      "youtubeId": "dQw4w9WgXcQ",
+      "title": "How to Tell If Your AC Needs Repair",
+      "description": "Our lead technician walks through the warning signs that mean it is time to call for service."
+    },
+    {
+      "youtubeId": "aqz-KE-bpKQ",
+      "title": "What Happens During a Maintenance Visit",
+      "description": "A full walkthrough of the multi-point inspection we run on every maintenance appointment."
+    }
+  ]
+}

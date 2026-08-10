@@ -1,0 +1,95 @@
+---
+import business from '../config/business.json';
+import Layout from '../layouts/Layout.astro';
+import { formatAddress } from '../lib/utils';
+
+const title = `Privacy Policy | ${business.name}`;
+const description = `How ${business.name} collects, uses, and protects the information you share with us through this website, phone calls, and service appointments.`;
+
+const breadcrumbs = [
+  { label: 'Home', href: '/' },
+  { label: 'Privacy Policy', href: '/privacy/' },
+];
+
+const effectiveDate = 'January 1, 2025';
+---
+
+<Layout title={title} description={description} breadcrumbs={breadcrumbs} pageType="default">
+  <section class="section">
+    <div class="container">
+      <div class="article-body" data-cms="privacy-body">
+        <h1 data-cms="privacy-title">Privacy Policy</h1>
+        <p><em>Effective {effectiveDate}</em></p>
+
+        <p data-cms="privacy-intro">
+          {business.name} respects your privacy. This policy explains what information we collect
+          through this website, why we collect it, and what we do with it.
+        </p>
+
+        <h2>What we collect</h2>
+        <p>
+          When you submit a quote request or contact form, we collect the name, email address, phone
+          number, service interest, and message you provide. We also collect standard analytics data
+          — pages viewed, approximate location, browser and device type, and how you arrived at the
+          site.
+        </p>
+
+        <h2>How we use it</h2>
+        <p>
+          We use your contact information solely to respond to your request, schedule service, and
+          follow up about work we performed. We use analytics data in aggregate to understand which
+          pages are useful and to improve the site.
+        </p>
+
+        <h2>Who we share it with</h2>
+        <p>
+          We do not sell your personal information. We share it only with service providers who help
+          us operate — our scheduling and CRM platform, our analytics provider, and our hosting
+          provider — and only to the extent needed to deliver the service you requested. We may also
+          disclose information where required by law.
+        </p>
+
+        <h2>Cookies and analytics</h2>
+        <p>
+          This site uses cookies to remember your preferences and to measure traffic. You can
+          disable cookies in your browser settings; core parts of the site will continue to work.
+          Where a consent banner is shown, analytics cookies are set according to your choice.
+        </p>
+
+        <h2>Data retention</h2>
+        <p>
+          We retain quote requests and service records for as long as needed to support the work and
+          to meet legal, tax, and warranty obligations. After that, records are deleted or
+          anonymized.
+        </p>
+
+        <h2>Your choices</h2>
+        <p>
+          You can ask us to access, correct, or delete the personal information we hold about you.
+          You can also opt out of marketing messages at any time by replying to any message or
+          calling us. Contact us using the details below and we will respond promptly.
+        </p>
+
+        <h2>Children's privacy</h2>
+        <p>
+          This site is not directed at children under 13, and we do not knowingly collect personal
+          information from them.
+        </p>
+
+        <h2>Changes to this policy</h2>
+        <p>
+          If we change this policy we will update the effective date above. Material changes will be
+          noted on this page.
+        </p>
+
+        <h2>Contact us</h2>
+        <p data-cms="privacy-contact">
+          {business.name}<br />
+          {formatAddress()}<br />
+          Phone: {business.phone}<br />
+          Email: {business.email}
+        </p>
+      </div>
+    </div>
+  </section>
+</Layout>

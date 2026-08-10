@@ -1,0 +1,149 @@
+---
+import business from '../config/business.json';
+import testimonials from '../config/testimonials.json';
+import Layout from '../layouts/Layout.astro';
+import Hero from '../components/Hero.astro';
+import Testimonials from '../components/Testimonials.astro';
+import CTASection from '../components/CTASection.astro';
+import { cityState } from '../lib/utils';
+
+const location = cityState();
+const title = `About Us | ${business.name}`;
+const description = `Meet the team behind ${business.name}. Licensed, insured, and serving ${location} with honest pricing and workmanship that holds up.`;
+
+const breadcrumbs = [
+  { label: 'Home', href: '/' },
+  { label: 'About', href: '/about/' },
+];
+
+const values = [
+  {
+    icon: 'fa-solid fa-handshake',
+    title: 'Honest Pricing',
+    description: 'Flat, written quotes before work starts. What we quote is what you pay.',
+  },
+  {
+    icon: 'fa-solid fa-user-shield',
+    title: 'Licensed & Insured',
+    description: 'Fully credentialed technicians and full liability coverage on every job.',
+  },
+  {
+    icon: 'fa-solid fa-clock',
+    title: 'On Time, Every Time',
+    description: 'Real appointment windows and a call ahead so you are not waiting all day.',
+  },
+];
+---
+
+<Layout
+  title={title}
+  description={description}
+  breadcrumbs={breadcrumbs}
+  pageType="about"
+  image="/images/about.jpg"
+>
+  <Hero
+    title={`Local, Licensed, and <span>Accountable</span>`}
+    subtitle={`${business.name} has built its reputation in ${location} the slow way — one honest job at a time.`}
+    backgroundImage="/images/about.jpg"
+    cmsPrefix="about-hero"
+    size="half"
+  />
+
+  <section class="section">
+    <div class="container">
+      <div class="grid grid-2">
+        <div>
+          <span class="section-label" data-cms="about-label">Our Story</span>
+          <h2 class="section-title" data-cms="about-title">Built on Doing It Right</h2>
+          <p data-cms="about-body-1">
+            We started {business.name} because too many homeowners in {location} were getting vague
+            quotes, rushed diagnoses, and repairs that did not hold. We decided to run things the
+            opposite way: diagnose thoroughly, explain plainly, price it in writing, and stand
+            behind the work.
+          </p>
+          <p data-cms="about-body-2">
+            Today we serve {business.serviceAreas.length} communities across {business.location.state}
+            with a team of licensed technicians who are trained to walk you through exactly what
+            they found and why it matters — before anyone reaches for a tool.
+          </p>
+          {
+            business.license?.value && (
+              <p data-cms="about-license">
+                <strong>
+                  {business.license.name}: {business.license.value}
+                </strong>
+              </p>
+            )
+          }
+        </div>
+
+        <div class="grid" style="gap:1rem">
+          {
+            values.map((value) => (
+              <div class="glass-panel animate-on-scroll" data-cms={`about-value-${value.title}`}>
+                <span class="service-icon">
+                  <i class={value.icon} aria-hidden="true" />
+                </span>
+                <h3>{value.title}</h3>
+                <p style="margin:0">{value.description}</p>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {
+    business.team.length > 0 && (
+      <section class="section section-alt">
+        <div class="container">
+          <div class="section-head-center">
+            <span class="section-label" data-cms="team-label">
+              The Team
+            </span>
+            <h2 class="section-title" data-cms="team-title">
+              Who Shows Up At Your Door
+            </h2>
+          </div>
+
+          <div class="grid grid-3">
+            {business.team.map((member) => (
+              <article
+                class="glass-panel animate-on-scroll"
+                style="text-align:center"
+                data-cms={`team-member-${member.name}`}
+              >
+                <img
+                  src={member.image}
+                  alt={`${member.name}, ${member.title}`}
+                  width="120"
+                  height="120"
+                  loading="lazy"
+                  style="width:120px;height:120px;border-radius:50%;object-fit:cover;margin:0 auto 1.25rem"
+                />
+                <h3>{member.name}</h3>
+                <p style="margin-bottom:0.35rem"><strong>{member.title}</strong></p>
+                {member.credentials && (
+                  <p style="font-size:0.85rem;margin-bottom:0.75rem">{member.credentials}</p>
+                )}
+                <p style="margin:0">{member.bio}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+    )
+  }
+
+  <Testimonials testimonials={testimonials.slice(0, 3)} title="What Our Neighbors Say" />
+
+  <CTASection
+    title="Work with a team that answers the phone"
+    subtitle="Get a free, no-obligation quote from a licensed technician today."
+    ctaText="Get My Free Quote"
+    ctaHref="/contact/"
+    cmsPrefix="about-cta"
+  />
+</Layout>

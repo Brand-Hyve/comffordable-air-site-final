@@ -1,0 +1,136 @@
+---
+import business from '../config/business.json';
+import testimonials from '../config/testimonials.json';
+import Layout from '../layouts/Layout.astro';
+import Hero from '../components/Hero.astro';
+import ServicesGrid from '../components/ServicesGrid.astro';
+import ProcessSection from '../components/ProcessSection.astro';
+import Testimonials from '../components/Testimonials.astro';
+import FAQSection from '../components/FAQSection.astro';
+import CTASection from '../components/CTASection.astro';
+import LocationCard from '../components/LocationCard.astro';
+import { telHref, cityState } from '../lib/utils';
+
+const primaryService = business.services[0];
+const location = cityState();
+
+// Title stays under 60 characters (spec A4)
+const title = `${business.name} | ${primaryService?.shortName ?? business.industry} in ${business.location.city}`;
+const description = `${business.name} provides licensed ${business.industry.toLowerCase()} service across ${location}. Upfront pricing, same-day appointments, and workmanship backed by a written warranty.`;
+
+const processSteps = [
+  {
+    number: 1,
+    title: 'Call or Request a Quote',
+    description: 'Tell us what is going on. We will ask a few questions and book a time that works.',
+  },
+  {
+    number: 2,
+    title: 'On-Site Diagnosis',
+    description: 'A licensed technician diagnoses the problem and explains exactly what they found.',
+  },
+  {
+    number: 3,
+    title: 'Approve Upfront Pricing',
+    description: 'You get a flat, written price before any work starts. No surprises on the invoice.',
+  },
+  {
+    number: 4,
+    title: 'Work Done Right',
+    description: 'We complete the job, clean up fully, and back the work with a written warranty.',
+  },
+];
+
+const faqs = [
+  {
+    question: `Do you offer same-day service in ${business.location.city}?`,
+    answer: `Yes. We hold open slots every day for same-day calls across ${location} and the surrounding areas. Call us in the morning and we can usually be out the same afternoon.`,
+  },
+  {
+    question: 'How much does a service call cost?',
+    answer:
+      'We quote a flat, written price before any work begins. You approve the number first, and it does not change once the job starts unless you approve additional work.',
+  },
+  {
+    question: 'Are you licensed and insured?',
+    answer: business.license?.value
+      ? `Yes. We hold ${business.license.name} ${business.license.value} and carry full liability insurance. We are happy to provide a certificate on request.`
+      : 'Yes. We are fully licensed and insured, and we are happy to provide documentation on request.',
+  },
+  {
+    question: 'What areas do you serve?',
+    answer: `We serve ${business.serviceAreas.map((a) => a.name).join(', ')} and the surrounding communities. If you are not sure whether you are in range, call and ask.`,
+  },
+  {
+    question: 'Do you offer financing or maintenance plans?',
+    answer:
+      'We offer preventative maintenance plans that bundle twice-yearly tune-ups with priority scheduling and repair discounts. Ask about financing options when you request your quote.',
+  },
+];
+
+const featuredAreas = business.serviceAreas.slice(0, 3);
+---
+
+<Layout title={title} description={description} pageType="home">
+  <Hero
+    title={`Licensed ${business.industry} You Can <span>Actually Trust</span>`}
+    subtitle={`Straight answers, upfront pricing, and same-day service across ${location}. Rated ${business.aggregateRating.ratingValue} stars by ${business.aggregateRating.reviewCount}+ neighbors.`}
+    backgroundImage="/images/hero.jpg"
+    cmsPrefix="hero"
+    size="full"
+    ctaPrimary={{
+      text: `Call ${business.phone}`,
+      href: telHref(business.phone),
+      icon: 'fa-solid fa-phone',
+    }}
+    ctaSecondary={{ text: 'Get a Free Quote', href: '/contact/' }}
+  />
+
+  <ServicesGrid
+    label="What We Do"
+    title="Services Built Around Your Home"
+    intro={`Every job — from a single repair to a full system replacement — comes with the same flat-rate pricing and written warranty.`}
+    showViewAll
+  />
+
+  <ProcessSection steps={processSteps} />
+
+  <Testimonials testimonials={testimonials.slice(0, 3)} />
+
+  {
+    featuredAreas.length > 0 && (
+      <section class="section section-alt">
+        <div class="container">
+          <div class="section-head-center">
+            <span class="section-label" data-cms="areas-label">
+              Where We Work
+            </span>
+            <h2 class="section-title" data-cms="areas-title">
+              Proudly Serving {business.location.state}
+            </h2>
+          </div>
+          <div class="grid grid-3">
+            {featuredAreas.map((area) => (
+              <LocationCard area={area} />
+            ))}
+          </div>
+          <p style="text-align:center;margin-top:2.5rem">
+            <a class="btn btn-outline" href="/service-areas/">
+              View All Service Areas
+            </a>
+          </p>
+        </div>
+      </section>
+    )
+  }
+
+  <FAQSection items={faqs} cmsPrefix="home-faq" />
+
+  <CTASection
+    title="Ready to get it fixed?"
+    subtitle={`Call now or request a free quote online. Most ${location} appointments are scheduled within 24 hours.`}
+    ctaText="Get My Free Quote"
+    ctaHref="/contact/"
+    cmsPrefix="home-cta"
+  />
+</Layout>

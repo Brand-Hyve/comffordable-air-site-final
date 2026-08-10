@@ -1,0 +1,86 @@
+---
+import business from '../config/business.json';
+import Layout from '../layouts/Layout.astro';
+import ContactForm from '../components/ContactForm.astro';
+import EmbeddedMap from '../components/EmbeddedMap.astro';
+import ReviewsWidget from '../components/ReviewsWidget.astro';
+import { telHref, formatAddress, formatHours, cityState } from '../lib/utils';
+
+const location = cityState();
+const title = `Contact Us | ${business.name}`;
+const description = `Contact ${business.name} in ${location}. Call ${business.phone}, email us, or request a free quote online — we respond the same business day.`;
+
+const breadcrumbs = [
+  { label: 'Home', href: '/' },
+  { label: 'Contact', href: '/contact/' },
+];
+
+const address = formatAddress();
+const mapQuery = `${business.name}, ${address}`;
+---
+
+<Layout
+  title={title}
+  description={description}
+  breadcrumbs={breadcrumbs}
+  pageType="contact"
+  hideExitPopup
+  hideCtaBar
+>
+  <section class="section">
+    <div class="container">
+      <div class="section-head-center">
+        <span class="section-label" data-cms="contact-label">Get In Touch</span>
+        <h1 class="section-title" data-cms="contact-title">Contact {business.name}</h1>
+        <p class="section-intro" data-cms="contact-intro">
+          Call us, email us, or send the form below. We answer every request the same business day.
+        </p>
+      </div>
+
+      <div class="grid grid-2">
+        <div>
+          <div class="glass-panel" data-cms="contact-details">
+            <h2>Contact Details</h2>
+            <ul class="footer-contact" style="color:var(--text-secondary)">
+              <li class="footer-contact-item">
+                <i class="fa-solid fa-phone" aria-hidden="true"></i>
+                <a href={telHref(business.phone)} data-cms="contact-phone">{business.phone}</a>
+              </li>
+              <li class="footer-contact-item">
+                <i class="fa-solid fa-envelope" aria-hidden="true"></i>
+                <a href={`mailto:${business.email}`} data-cms="contact-email">{business.email}</a>
+              </li>
+              <li class="footer-contact-item">
+                <i class="fa-solid fa-location-dot" aria-hidden="true"></i>
+                <address style="font-style:normal" data-cms="contact-address">{address}</address>
+              </li>
+              {
+                business.hours.length > 0 && (
+                  <li class="footer-contact-item" data-cms="contact-hours">
+                    <i class="fa-solid fa-clock" aria-hidden="true" />
+                    <ul class="footer-hours">
+                      {business.hours.map((entry) => (
+                        <li>{formatHours(entry)}</li>
+                      ))}
+                    </ul>
+                  </li>
+                )
+              }
+            </ul>
+          </div>
+
+          <div style="margin-top:1.5rem">
+            <EmbeddedMap query={mapQuery} height={380} />
+          </div>
+        </div>
+
+        <ContactForm />
+      </div>
+
+      <ReviewsWidget
+        scriptSrc={business.reviewsWidget.scriptSrc}
+        iframeSrc={business.reviewsWidget.iframeSrc}
+      />
+    </div>
+  </section>
+</Layout>

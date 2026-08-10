@@ -1,0 +1,54 @@
+---
+import business from '../config/business.json';
+import Layout from '../layouts/Layout.astro';
+import { telHref } from '../lib/utils';
+
+const title = `Page Not Found | ${business.name}`;
+const description = `The page you are looking for does not exist. Browse our services, service areas, or contact ${business.name} directly.`;
+
+const topLinks = [
+  { label: 'Home', href: '/' },
+  { label: 'Services', href: '/#services' },
+  { label: 'Service Areas', href: '/service-areas/' },
+  { label: 'About', href: '/about/' },
+  { label: 'Blog', href: '/blog/' },
+  { label: 'Contact', href: '/contact/' },
+];
+---
+
+<Layout title={title} description={description} pageType="default" noindex hideExitPopup>
+  <section class="section">
+    <div class="container error-page">
+      <div>
+        <p class="error-code" data-cms="error-code">404</p>
+        <h1 data-cms="error-title">We could not find that page</h1>
+        <p data-cms="error-text">
+          The link may be outdated or mistyped. Try a search, or jump to one of the pages below.
+        </p>
+
+        <form class="error-search" action="https://www.google.com/search" method="get" role="search">
+          <input type="hidden" name="as_sitesearch" value={new URL(business.domain).hostname} />
+          <label class="sr-only" for="site-search">Search this site</label>
+          <input type="search" id="site-search" name="q" placeholder="Search this site" required />
+          <button class="btn btn-primary" type="submit">Search</button>
+        </form>
+
+        <ul class="chip-list" style="justify-content:center" data-cms="error-links">
+          {
+            topLinks.map((link) => (
+              <li>
+                <a class="chip" href={link.href}>
+                  {link.label}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+
+        <p style="margin-top:2rem">
+          Still stuck? Call us at <a href={telHref(business.phone)}>{business.phone}</a>.
+        </p>
+      </div>
+    </div>
+  </section>
+</Layout>

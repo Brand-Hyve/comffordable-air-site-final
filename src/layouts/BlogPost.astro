@@ -1,0 +1,160 @@
+---
+import business from '../config/business.json';
+import Layout from './Layout.astro';
+import AuthorBio from '../components/AuthorBio.astro';
+import BlogCard from '../components/BlogCard.astro';
+import CTASection from '../components/CTASection.astro';
+import { formatDate, isoDate } from '../lib/utils';
+
+export interface Props {
+  title: string;
+  description: string;
+  pubDate: Date;
+  updatedDate?: Date;
+  author: string;
+  authorTitle?: string;
+  authorImage?: string;
+  authorBio?: string;
+  authorLinkedin?: string;
+  category: string;
+  tags?: string[];
+  image?: string;
+  imageAlt?: string;
+  relatedPosts?: {
+    slug: string;
+    data: {
+      title: string;
+      description: string;
+      pubDate: Date;
+      author: string;
+      category: string;
+      image?: string;
+      imageAlt?: string;
+    };
+  }[];
+}
+
+const {
+  title,
+  description,
+  pubDate,
+  updatedDate,
+  author,
+  authorTitle,
+  authorImage,
+  authorBio,
+  authorLinkedin,
+  category,
+  tags = [],
+  image,
+  imageAlt,
+  relatedPosts = [],
+} = Astro.props;
+
+const breadcrumbs = [
+  { label: 'Home', href: '/' },
+  { label: 'Blog', href: '/blog/' },
+  { label: title, href: Astro.url.pathname },
+];
+---
+
+<Layout
+  title={`${title} | ${business.name}`}
+  description={description}
+  image={image}
+  breadcrumbs={breadcrumbs}
+  pageType="blog"
+  hideCtaBar
+  blogPost={{
+    title,
+    description,
+    pubDate,
+    modDate: updatedDate,
+    author,
+    image,
+  }}
+>
+  <article class="section">
+    <div class="container">
+      <header class="article-body" style="text-align:center">
+        <p class="blog-meta" style="justify-content:center">
+          <span class="blog-category">{category}</span>
+        </p>
+        <h1>{title}</h1>
+        <p>{description}</p>
+
+        <!-- Freshness signals (spec C3) — must match schema dates -->
+        <p class="article-dates" style="justify-content:center">
+          <span data-cms="post-date">
+            Published: <time datetime={isoDate(pubDate)}>{formatDate(pubDate)}</time>
+          </span>
+          {
+            updatedDate && (
+              <span data-cms="post-updated">
+                Last updated:{' '}
+                <time datetime={isoDate(updatedDate)}>{formatDate(updatedDate)}</time>
+              </span>
+            )
+          }
+        </p>
+      </header>
+
+      {
+        image && (
+          <img
+            src={image}
+            alt={imageAlt ?? title}
+            width="1200"
+            height="675"
+            style="margin:2.5rem auto;border-radius:16px"
+          />
+        )
+      }
+
+      <div class="article-body" data-cms="post-body">
+        <slot />
+
+        {
+          tags.length > 0 && (
+            <ul class="tag-list" data-cms="post-tags">
+              {tags.map((tag) => (
+                <li class="chip">#{tag}</li>
+              ))}
+            </ul>
+          )
+        }
+
+        <AuthorBio
+          name={author}
+          title={authorTitle}
+          image={authorImage}
+          bio={authorBio}
+          linkedin={authorLinkedin}
+        />
+      </div>
+
+      {
+        relatedPosts.length > 0 && (
+          <section class="related-posts">
+            <h2 class="section-title" style="text-align:center">
+              Related Reading
+            </h2>
+            <div class="blog-grid">
+              {relatedPosts.map((post, index) => (
+                <BlogCard post={post} index={index} />
+              ))}
+            </div>
+          </section>
+        )
+      }
+    </div>
+  </article>
+
+  <CTASection
+    title={`Questions about ${category.toLowerCase()}?`}
+    subtitle={`Talk to a licensed ${business.industry} professional and get a straight answer — no obligation.`}
+    ctaText="Get a Free Quote"
+    ctaHref="/contact/"
+    cmsPrefix="blog-cta"
+  />
+</Layout>

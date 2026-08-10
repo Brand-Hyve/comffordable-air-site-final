@@ -1,0 +1,34 @@
+---
+export interface Props {
+  name: string;
+  title?: string;
+  image?: string;
+  bio?: string;
+  linkedin?: string;
+}
+
+const { name, title, image, bio, linkedin } = Astro.props;
+---
+
+<aside class="glass-panel author-bio" data-cms="author-bio">
+  {
+    image && (
+      <img src={image} alt={`${name}, ${title ?? 'author'}`} loading="lazy" width="84" height="84" />
+    )
+  }
+
+  <div>
+    <h3 data-cms="author-name">{name}</h3>
+    {title && <p data-cms="author-title">{title}</p>}
+    {bio && <p data-cms="author-bio-text">{bio}</p>}
+    {
+      linkedin && (
+        <p style="margin:0">
+          <a href={linkedin} rel="noopener" target="_blank" data-cms="author-linkedin">
+            <i class="fa-brands fa-linkedin-in" aria-hidden="true" /> Connect on LinkedIn
+          </a>
+        </p>
+      )
+    }
+  </div>
+</aside>

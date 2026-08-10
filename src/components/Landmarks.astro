@@ -1,0 +1,44 @@
+---
+export interface Props {
+  name: string;
+  landmarks: string[];
+  wiki?: string;
+}
+
+const { name, landmarks, wiki } = Astro.props;
+---
+
+{
+  landmarks.length > 0 && (
+    <section class="section section-alt">
+      <div class="container">
+        <div class="glass-panel animate-on-scroll" data-cms="landmarks">
+          <h2 class="section-title" data-cms="landmarks-title">
+            Around {name}
+          </h2>
+          <p data-cms="landmarks-intro">
+            If you live or work near any of these {name} landmarks, you are well inside our service
+            radius — most appointments in the area are scheduled same-day or next-day.
+          </p>
+
+          <ul class="chip-list" style="margin-top:1.5rem">
+            {landmarks.map((landmark) => (
+              <li class="chip">
+                <i class="fa-solid fa-map-pin" aria-hidden="true" />
+                {landmark}
+              </li>
+            ))}
+          </ul>
+
+          {wiki && (
+            <p style="margin-top:1.5rem;font-size:0.9rem">
+              <a href={wiki} rel="noopener nofollow" target="_blank" data-cms="landmarks-wiki">
+                Learn more about {name}
+              </a>
+            </p>
+          )}
+        </div>
+      </div>
+    </section>
+  )
+}

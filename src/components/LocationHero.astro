@@ -1,0 +1,30 @@
+---
+import business from '../config/business.json';
+import Hero from './Hero.astro';
+import { telHref } from '../lib/utils';
+
+export interface Props {
+  area: {
+    id: string;
+    name: string;
+    state: string;
+    hero?: string;
+  };
+  phone: string;
+}
+
+const { area, phone } = Astro.props;
+
+const title = `${business.industry} Services in <span>${area.name}, ${area.state}</span>`;
+const subtitle = `Local, licensed, and on call for ${area.name} homeowners. Same-day appointments, upfront pricing, and work backed by a written warranty.`;
+---
+
+<Hero
+  title={title}
+  subtitle={subtitle}
+  backgroundImage={area.hero ?? '/images/hero.jpg'}
+  cmsPrefix={`location-hero-${area.id}`}
+  size="half"
+  ctaPrimary={{ text: `Call ${phone}`, href: telHref(phone), icon: 'fa-solid fa-phone' }}
+  ctaSecondary={{ text: 'Request a Free Quote', href: '/contact/' }}
+/>

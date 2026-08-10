@@ -1,0 +1,34 @@
+---
+export interface Props {
+  name: string;
+  neighborhoods: string[];
+}
+
+const { name, neighborhoods } = Astro.props;
+---
+
+{
+  neighborhoods.length > 0 && (
+    <section class="section">
+      <div class="container">
+        <div class="glass-panel animate-on-scroll" data-cms="neighborhoods">
+          <h2 class="section-title" data-cms="neighborhoods-title">
+            Neighborhoods We Serve in {name}
+          </h2>
+          <p data-cms="neighborhoods-intro">
+            Our technicians work across every corner of {name} — these are the neighborhoods we are
+            in most often.
+          </p>
+          <ul class="chip-list" style="margin-top:1.5rem">
+            {neighborhoods.map((neighborhood) => (
+              <li class="chip">
+                <i class="fa-solid fa-house" aria-hidden="true" />
+                {neighborhood}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </section>
+  )
+}

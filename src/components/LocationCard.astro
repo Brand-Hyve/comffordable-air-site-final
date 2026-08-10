@@ -1,0 +1,41 @@
+---
+export interface Props {
+  area: {
+    id: string;
+    name: string;
+    state: string;
+    neighborhoods?: string[];
+  };
+}
+
+const { area } = Astro.props;
+const neighborhoods = area.neighborhoods?.slice(0, 4) ?? [];
+---
+
+<article
+  class="glass-panel glass-panel-hover location-card animate-on-scroll"
+  data-cms={`location-card-${area.id}`}
+>
+  <h3>{area.name}, {area.state}</h3>
+
+  {
+    neighborhoods.length > 0 && (
+      <ul class="chip-list">
+        {neighborhoods.map((neighborhood) => (
+          <li class="chip">
+            <i class="fa-solid fa-location-dot" aria-hidden="true" />
+            {neighborhood}
+          </li>
+        ))}
+      </ul>
+    )
+  }
+
+  <p style="flex:1">
+    Full service coverage across {area.name} and the surrounding {area.state} communities.
+  </p>
+
+  <a class="btn btn-outline btn-sm" href={`/service-areas/${area.id}/`}>
+    View Services in {area.name}
+  </a>
+</article>

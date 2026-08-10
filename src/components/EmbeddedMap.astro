@@ -1,0 +1,20 @@
+---
+export interface Props {
+  query: string;
+  height?: number;
+}
+
+const { query, height = 450 } = Astro.props;
+const src = `https://maps.google.com/maps?q=${encodeURIComponent(query)}&output=embed`;
+---
+
+<div class="embedded-map" data-cms="embedded-map">
+  <iframe
+    src={src}
+    height={height}
+    style={`height:${height}px`}
+    loading="lazy"
+    referrerpolicy="no-referrer-when-downgrade"
+    title={`Map of ${query}`}
+    allowfullscreen></iframe>
+</div>

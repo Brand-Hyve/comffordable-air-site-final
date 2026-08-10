@@ -71,6 +71,21 @@ npm run qa       # hyve-qa-pipeline against a deployed URL
 7. **Content renders server-side.** Nav links are real `<a href>`, the H1 and body copy are in the
    static HTML. Nothing primary is hydrated client-side.
 
+## Gallery and CSP
+
+`/gallery/` renders `gallery.json` photos (masonry + lightbox), videos, and the three most
+recent blog posts. Video thumbnails are **local facades** — no remote image and no iframe loads
+until the visitor clicks, which keeps the page off YouTube's network entirely on first paint.
+
+**Before shipping a client site that uses videos**, extend the production CSP in spec §12 — the
+default template's `frame-src` does not include YouTube, so the embed will be blocked on click:
+
+```
+frame-src 'self' https://maps.google.com https://www.youtube-nocookie.com;
+```
+
+If the client has no videos, leave `gallery.json > videos` empty and the section does not render.
+
 ## Adding a blog post
 
 Drop a `.md` file in `src/content/blog/`. Schema is enforced by `src/content/config.ts`.

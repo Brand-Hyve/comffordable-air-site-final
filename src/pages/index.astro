@@ -5,6 +5,7 @@ import Layout from '../layouts/Layout.astro';
 import Hero from '../components/Hero.astro';
 import ServicesGrid from '../components/ServicesGrid.astro';
 import ProcessSection from '../components/ProcessSection.astro';
+import AboutPreview from '../components/AboutPreview.astro';
 import Testimonials from '../components/Testimonials.astro';
 import FAQSection from '../components/FAQSection.astro';
 import CTASection from '../components/CTASection.astro';
@@ -99,6 +100,8 @@ const featuredAreas = business.serviceAreas.slice(0, 3);
   />
 
   <ProcessSection steps={processSteps} />
+
+  <AboutPreview />
 
   <Testimonials testimonials={testimonials.slice(0, 3)} />
 

@@ -1,0 +1,89 @@
+---
+import business from '../config/business.json';
+import { cityState } from '../lib/utils';
+
+/**
+ * Condensed "about" block. Used on the homepage (linking through to /about/)
+ * or as an intro band on the about page itself.
+ */
+
+export interface Props {
+  label?: string;
+  title?: string;
+  body?: string;
+  image?: string;
+  imageAlt?: string;
+  stats?: { value: string; label: string }[];
+  ctaText?: string;
+  ctaHref?: string;
+  cmsPrefix?: string;
+}
+
+const location = cityState();
+
+const {
+  label = 'Who We Are',
+  title = `Your Neighbors in ${business.location.city}`,
+  body = `${business.name} is a locally owned, fully licensed team serving ${location}. We diagnose thoroughly, quote in writing, and stand behind every job — which is why most of our work comes from repeat customers and referrals.`,
+  image = '/images/about.jpg',
+  imageAlt = `The ${business.name} team at work in ${location}`,
+  stats = [
+    { value: business.aggregateRating.ratingValue, label: 'Average rating' },
+    { value: `${business.aggregateRating.reviewCount}+`, label: 'Verified reviews' },
+    { value: String(business.serviceAreas.length), label: 'Communities served' },
+  ],
+  ctaText = 'More About Us',
+  ctaHref = '/about/',
+  cmsPrefix = 'about-preview',
+} = Astro.props;
+---
+
+<section class="section">
+  <div class="container">
+    <div class="grid grid-2">
+      <div class="animate-on-scroll">
+        <span class="section-label" data-cms={`${cmsPrefix}-label`}>{label}</span>
+        <h2 class="section-title" data-cms={`${cmsPrefix}-title`}>{title}</h2>
+        <p data-cms={`${cmsPrefix}-body`}>{body}</p>
+
+        {
+          business.license?.value && (
+            <p data-cms={`${cmsPrefix}-license`}>
+              <strong>
+                {business.license.name}: {business.license.value}
+              </strong>
+            </p>
+          )
+        }
+
+        {
+          stats.length > 0 && (
+            <ul class="chip-list" style="margin-top:1.5rem" data-cms={`${cmsPrefix}-stats`}>
+              {stats.map((stat) => (
+                <li class="chip">
+                  <strong>{stat.value}</strong> {stat.label}
+                </li>
+              ))}
+            </ul>
+          )
+        }
+
+        <p style="margin-top:1.75rem">
+          <a class="btn btn-primary" href={ctaHref} data-cms={`${cmsPrefix}-cta`}>{ctaText}</a>
+        </p>
+      </div>
+
+      <div class="animate-on-scroll">
+        <img
+          src={image}
+          alt={imageAlt}
+          width="800"
+          height="600"
+          loading="lazy"
+          style="border-radius:16px;aspect-ratio:4/3;object-fit:cover;width:100%"
+          data-cms={`${cmsPrefix}-image`}
+        />
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,194 @@
+---
+import BlogCard from './BlogCard.astro';
+
+interface GalleryPost {
+  slug: string;
+  data: {
+    title: string;
+    description: string;
+    pubDate: Date;
+    author: string;
+    category: string;
+    image?: string;
+    imageAlt?: string;
+  };
+}
+
+export interface Props {
+  photos: { src: string; alt: string; caption: string; category: string }[];
+  videos: { youtubeId: string; title: string; description: string }[];
+  posts: GalleryPost[];
+  cmsPrefix?: string;
+}
+
+const { photos, videos, posts, cmsPrefix = 'gallery' } = Astro.props;
+---
+
+{
+  photos.length > 0 && (
+    <section class="section" data-cms={`${cmsPrefix}-photos`}>
+      <div class="container">
+        <div class="section-head-center">
+          <span class="section-label" data-cms={`${cmsPrefix}-photos-label`}>
+            Our Work
+          </span>
+          <h2 class="section-title" data-cms={`${cmsPrefix}-photos-title`}>
+            Recent Projects
+          </h2>
+        </div>
+
+        <div class="gallery-masonry">
+          {photos.map((photo, index) => (
+            <figure
+              class="gallery-figure animate-on-scroll"
+              data-cms={`${cmsPrefix}-photo-${index + 1}`}
+            >
+              <button
+                class="gallery-item"
+                type="button"
+                data-lightbox-src={photo.src}
+                data-lightbox-alt={photo.alt}
+                aria-label={`View larger: ${photo.caption}`}
+              >
+                <img src={photo.src} alt={photo.alt} loading="lazy" width="600" height="450" />
+              </button>
+              <figcaption class="gallery-caption">{photo.caption}</figcaption>
+            </figure>
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}
+
+{
+  videos.length > 0 && (
+    <section class="section section-alt" data-cms={`${cmsPrefix}-videos`}>
+      <div class="container">
+        <div class="section-head-center">
+          <span class="section-label" data-cms={`${cmsPrefix}-videos-label`}>
+            Video
+          </span>
+          <h2 class="section-title" data-cms={`${cmsPrefix}-videos-title`}>
+            Watch and Learn
+          </h2>
+        </div>
+
+        <div class="grid grid-2">
+          {videos.map((video, index) => (
+            <article
+              class="glass-panel animate-on-scroll"
+              style="padding:0;overflow:hidden"
+              data-cms={`${cmsPrefix}-video-${index + 1}`}
+            >
+              {/*
+                Facade: no iframe and no remote thumbnail until the user clicks,
+                so the page costs nothing until someone actually wants the video.
+              */}
+              <button
+                class="video-facade"
+                type="button"
+                data-youtube-id={video.youtubeId}
+                aria-label={`Play video: ${video.title}`}
+              >
+                <span class="video-facade-poster">
+                  <span class="video-facade-label">{video.title}</span>
+                </span>
+              </button>
+              <div style="padding:1.5rem">
+                <h3>{video.title}</h3>
+                <p style="margin:0">{video.description}</p>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}
+
+{
+  posts.length > 0 && (
+    <section class="section" data-cms={`${cmsPrefix}-posts`}>
+      <div class="container">
+        <div class="section-head-center">
+          <span class="section-label" data-cms={`${cmsPrefix}-posts-label`}>
+            From the Blog
+          </span>
+          <h2 class="section-title" data-cms={`${cmsPrefix}-posts-title`}>
+            Guides and Advice
+          </h2>
+        </div>
+
+        <div class="blog-grid">
+          {posts.map((post, index) => (
+            <BlogCard post={post} index={index} />
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}
+
+<div class="lightbox" id="gallery-lightbox" role="dialog" aria-modal="true" aria-label="Photo viewer" hidden>
+  <button class="lightbox-close" id="lightbox-close" type="button" aria-label="Close">&times;</button>
+  <img id="lightbox-image" src="" alt="" />
+</div>
+
+<script>
+  document.addEventListener('astro:page-load', () => {
+    /* ---------- Lightbox ---------- */
+    const lightbox = document.getElementById('gallery-lightbox');
+    const lightboxImage = document.getElementById('lightbox-image') as HTMLImageElement | null;
+    const lightboxClose = document.getElementById('lightbox-close');
+    const triggers = document.querySelectorAll<HTMLButtonElement>('[data-lightbox-src]');
+
+    if (lightbox && lightboxImage && lightboxClose && triggers.length) {
+      let lastFocused: HTMLElement | null = null;
+
+      const open = (trigger: HTMLButtonElement) => {
+        lastFocused = trigger;
+        lightboxImage.src = trigger.dataset.lightboxSrc ?? '';
+        lightboxImage.alt = trigger.dataset.lightboxAlt ?? '';
+        lightbox.hidden = false;
+        lightboxClose.focus();
+      };
+
+      const close = () => {
+        lightbox.hidden = true;
+        lightboxImage.src = '';
+        lightboxImage.alt = '';
+        lastFocused?.focus();
+      };
+
+      triggers.forEach((trigger) => trigger.addEventListener('click', () => open(trigger)));
+      lightboxClose.addEventListener('click', close);
+      lightbox.addEventListener('click', (event) => {
+        if (event.target === lightbox) close();
+      });
+      document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape' && !lightbox.hidden) close();
+      });
+    }
+
+    /* ---------- YouTube facades ---------- */
+    document.querySelectorAll<HTMLButtonElement>('[data-youtube-id]').forEach((facade) => {
+      facade.addEventListener(
+        'click',
+        () => {
+          const id = facade.dataset.youtubeId;
+          if (!id) return;
+          const iframe = document.createElement('iframe');
+          iframe.src = `https://www.youtube-nocookie.com/embed/${id}?autoplay=1`;
+          iframe.title = facade.getAttribute('aria-label') ?? 'Video';
+          iframe.allow =
+            'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+          iframe.allowFullscreen = true;
+          iframe.loading = 'lazy';
+          facade.replaceWith(iframe);
+        },
+        { once: true }
+      );
+    });
+  });
+</script>

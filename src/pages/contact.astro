@@ -4,11 +4,20 @@ import Layout from '../layouts/Layout.astro';
 import ContactForm from '../components/ContactForm.astro';
 import EmbeddedMap from '../components/EmbeddedMap.astro';
 import ReviewsWidget from '../components/ReviewsWidget.astro';
-import { telHref, formatAddress, formatHours, cityState } from '../lib/utils';
+import {
+  telHref,
+  formatAddress,
+  formatHours,
+  cityState,
+  pageTitle,
+  metaDescription,
+} from '../lib/utils';
 
 const location = cityState();
-const title = `Contact Us | ${business.name}`;
-const description = `Contact ${business.name} in ${location}. Call ${business.phone}, email us, or request a free quote online — we respond the same business day.`;
+const title = pageTitle('Contact Us');
+const description = metaDescription(
+  `Contact ${business.name} in ${location}. Call, email, or request a free quote online — we respond the same business day, every time.`
+);
 
 const breadcrumbs = [
   { label: 'Home', href: '/' },

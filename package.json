@@ -17,6 +17,12 @@
     "tailwindcss": "^4.2.0"
   },
   "devDependencies": {
-    "@types/node": "^22.0.0"
+    "@astrojs/check": "^0.9.10",
+    "@types/node": "^22.0.0",
+    "typescript": "^5.9.3",
+    "vite": "^6.4.3"
+  },
+  "overrides": {
+    "vite": "$vite"
   }
 }

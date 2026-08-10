@@ -9,7 +9,7 @@ import Testimonials from '../components/Testimonials.astro';
 import FAQSection from '../components/FAQSection.astro';
 import CTASection from '../components/CTASection.astro';
 import LocationCard from '../components/LocationCard.astro';
-import { telHref, cityState, truncate } from '../lib/utils';
+import { telHref, cityState, pageTitle, metaDescription } from '../lib/utils';
 
 export const getStaticPaths = (() => {
   return business.services.map((service) => ({
@@ -21,12 +21,10 @@ export const getStaticPaths = (() => {
 const { service } = Astro.props;
 const location = cityState();
 
-const title = `${service.shortName ?? service.name} in ${business.location.city}, ${business.location.state}`;
-const pageTitle = `${title} | ${business.name}`;
-const description = truncate(
-  `${service.description} Serving ${location} with upfront pricing, licensed technicians, and a written warranty on every job.`,
-  158
+const title = pageTitle(
+  `${service.shortName ?? service.name} in ${business.location.city}, ${business.location.state}`
 );
+const description = metaDescription(service.description);
 
 const breadcrumbs = [
   { label: 'Home', href: '/' },
@@ -77,7 +75,7 @@ const featuredAreas = business.serviceAreas.slice(0, 3);
 ---
 
 <Layout
-  title={pageTitle}
+  title={title}
   description={description}
   breadcrumbs={breadcrumbs}
   pageType="service"

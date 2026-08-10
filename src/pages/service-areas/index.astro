@@ -4,15 +4,14 @@ import Layout from '../../layouts/Layout.astro';
 import Hero from '../../components/Hero.astro';
 import LocationCard from '../../components/LocationCard.astro';
 import CTASection from '../../components/CTASection.astro';
-import { cityState, truncate } from '../../lib/utils';
+import { cityState, pageTitle, metaDescription } from '../../lib/utils';
 
 const areas = business.serviceAreas;
 const location = cityState();
 
-const title = `Service Areas | ${business.name}`;
-const description = truncate(
-  `${business.name} serves ${areas.map((a) => a.name).join(', ')} and the surrounding ${business.location.state} communities with licensed ${business.industry.toLowerCase()} service.`,
-  158
+const title = pageTitle('Service Areas');
+const description = metaDescription(
+  `${business.name} serves ${areas.map((a) => a.name).join(', ')} and the surrounding ${business.location.state} communities.`
 );
 
 const breadcrumbs = [

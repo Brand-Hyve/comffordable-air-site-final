@@ -1,10 +1,12 @@
 ---
 import business from '../config/business.json';
 import Layout from '../layouts/Layout.astro';
-import { formatAddress } from '../lib/utils';
+import { formatAddress, pageTitle, metaDescription } from '../lib/utils';
 
-const title = `Privacy Policy | ${business.name}`;
-const description = `How ${business.name} collects, uses, and protects the information you share with us through this website, phone calls, and service appointments.`;
+const title = pageTitle('Privacy Policy');
+const description = metaDescription(
+  `How ${business.name} collects, uses, and protects the information you share through this website, phone calls, and service appointments.`
+);
 
 const breadcrumbs = [
   { label: 'Home', href: '/' },

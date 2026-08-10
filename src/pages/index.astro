@@ -9,14 +9,19 @@ import Testimonials from '../components/Testimonials.astro';
 import FAQSection from '../components/FAQSection.astro';
 import CTASection from '../components/CTASection.astro';
 import LocationCard from '../components/LocationCard.astro';
-import { telHref, cityState } from '../lib/utils';
+import { telHref, cityState, pageTitle, metaDescription } from '../lib/utils';
 
 const primaryService = business.services[0];
 const location = cityState();
 
-// Title stays under 60 characters (spec A4)
-const title = `${business.name} | ${primaryService?.shortName ?? business.industry} in ${business.location.city}`;
-const description = `${business.name} provides licensed ${business.industry.toLowerCase()} service across ${location}. Upfront pricing, same-day appointments, and workmanship backed by a written warranty.`;
+// Home title is brand-led (spec A4) so it never collides with a service page.
+const title = pageTitle(
+  business.name,
+  `${primaryService?.shortName ?? business.industry} in ${business.location.city}`
+);
+const description = metaDescription(
+  `${business.name} provides licensed ${business.industry.toLowerCase()} service across ${location}. Upfront written pricing and same-day appointments.`
+);
 
 const processSteps = [
   {

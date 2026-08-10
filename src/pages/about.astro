@@ -5,11 +5,13 @@ import Layout from '../layouts/Layout.astro';
 import Hero from '../components/Hero.astro';
 import Testimonials from '../components/Testimonials.astro';
 import CTASection from '../components/CTASection.astro';
-import { cityState } from '../lib/utils';
+import { cityState, pageTitle, metaDescription } from '../lib/utils';
 
 const location = cityState();
-const title = `About Us | ${business.name}`;
-const description = `Meet the team behind ${business.name}. Licensed, insured, and serving ${location} with honest pricing and workmanship that holds up.`;
+const title = pageTitle('About Us');
+const description = metaDescription(
+  `Meet the team behind ${business.name} — licensed technicians serving ${location} with honest written pricing and workmanship that holds up.`
+);
 
 const breadcrumbs = [
   { label: 'Home', href: '/' },

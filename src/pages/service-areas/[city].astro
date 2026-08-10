@@ -10,7 +10,7 @@ import EmbeddedMap from '../../components/EmbeddedMap.astro';
 import Testimonials from '../../components/Testimonials.astro';
 import FAQSection from '../../components/FAQSection.astro';
 import CTASection from '../../components/CTASection.astro';
-import { truncate } from '../../lib/utils';
+import { pageTitle, metaDescription } from '../../lib/utils';
 
 export const getStaticPaths = (() => {
   return business.serviceAreas.map((area) => ({
@@ -21,10 +21,10 @@ export const getStaticPaths = (() => {
 
 const { area } = Astro.props;
 
-const title = `${business.industry} in ${area.name}, ${area.state} | ${business.name}`;
-const description = truncate(
-  `Licensed ${business.industry.toLowerCase()} service in ${area.name}, ${area.state}. Same-day appointments, upfront written pricing, and warrantied workmanship from ${business.name}.`,
-  158
+const title = pageTitle(`${business.industry} in ${area.name}, ${area.state}`);
+const description = metaDescription(
+  `Licensed ${business.industry.toLowerCase()} service in ${area.name}, ${area.state} from ${business.name}. Same-day appointments and upfront written pricing.`,
+  [`Covering ${area.neighborhoods.slice(0, 2).join(' and ')}.`]
 );
 
 const breadcrumbs = [

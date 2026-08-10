@@ -4,7 +4,7 @@ import Layout from './Layout.astro';
 import AuthorBio from '../components/AuthorBio.astro';
 import BlogCard from '../components/BlogCard.astro';
 import CTASection from '../components/CTASection.astro';
-import { formatDate, isoDate } from '../lib/utils';
+import { formatDate, isoDate, pageTitle, metaDescription } from '../lib/utils';
 
 export interface Props {
   title: string;
@@ -59,8 +59,8 @@ const breadcrumbs = [
 ---
 
 <Layout
-  title={`${title} | ${business.name}`}
-  description={description}
+  title={pageTitle(title)}
+  description={metaDescription(description)}
   image={image}
   breadcrumbs={breadcrumbs}
   pageType="blog"

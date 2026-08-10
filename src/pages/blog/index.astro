@@ -5,16 +5,15 @@ import Layout from '../../layouts/Layout.astro';
 import Hero from '../../components/Hero.astro';
 import BlogCard from '../../components/BlogCard.astro';
 import CTASection from '../../components/CTASection.astro';
-import { truncate } from '../../lib/utils';
+import { pageTitle, metaDescription } from '../../lib/utils';
 
 const posts = (await getCollection('blog', ({ data }) => !data.draft)).sort(
   (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
 );
 
-const title = `Blog | ${business.name}`;
-const description = truncate(
-  `Practical ${business.industry.toLowerCase()} advice from the licensed technicians at ${business.name} — maintenance guides, cost breakdowns, and answers to the questions we get every week.`,
-  158
+const title = pageTitle('Blog');
+const description = metaDescription(
+  `Practical ${business.industry.toLowerCase()} advice from the licensed technicians at ${business.name} — maintenance guides and cost breakdowns.`
 );
 
 const breadcrumbs = [

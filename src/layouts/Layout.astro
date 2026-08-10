@@ -105,7 +105,7 @@ const phoneHref = telHref(business.phone);
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
       media="print"
-      onload="this.media='all'"
+      data-async-css
     />
     <noscript>
       <link
@@ -124,7 +124,7 @@ const phoneHref = telHref(business.phone);
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
       media="print"
-      onload="this.media='all'"
+      data-async-css
     />
     <noscript>
       <link
@@ -132,6 +132,22 @@ const phoneHref = telHref(business.phone);
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
       />
     </noscript>
+
+    <!--
+      Async CSS swap: the font + icon stylesheets ship as media="print" so they
+      never block first render, then flip to media="all" once loaded.
+    -->
+    <script is:inline>
+      document.querySelectorAll('link[data-async-css]').forEach(function (link) {
+        if (link.sheet) {
+          link.media = 'all';
+        } else {
+          link.addEventListener('load', function () {
+            link.media = 'all';
+          });
+        }
+      });
+    </script>
 
     <!-- Structured data: a single @graph per page -->
     <Schema

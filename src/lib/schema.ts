@@ -136,18 +136,28 @@ export function areaServed(): SchemaNode[] {
    Base graph nodes — present on every page
    ------------------------------------------------------------------------- */
 
+/**
+ * The logo is a top-level graph node rather than an inline object, so that
+ * `{ "@id": "…#logo" }` references from Organization and LocalBusiness resolve
+ * within the graph (spec §12).
+ */
+export function logoNode(): SchemaNode {
+  return {
+    '@type': 'ImageObject',
+    '@id': ID.logo,
+    url: absoluteUrl('/images/logo.png'),
+    contentUrl: absoluteUrl('/images/logo.png'),
+    caption: business.name,
+  };
+}
+
 export function organizationNode(): SchemaNode {
   return {
     '@type': 'Organization',
     '@id': ID.organization,
     name: business.name,
     url: `${site}/`,
-    logo: {
-      '@type': 'ImageObject',
-      '@id': ID.logo,
-      url: absoluteUrl('/images/logo.png'),
-      caption: business.name,
-    },
+    logo: { '@id': ID.logo },
     image: { '@id': ID.logo },
     email: business.email,
     telephone: toE164(business.phone),
@@ -347,7 +357,12 @@ export function faqPageNode(
 
 export function buildGraph(opts: SchemaOptions): SchemaNode {
   const pageType = opts.pageType ?? 'default';
-  const graph: SchemaNode[] = [organizationNode(), webSiteNode(), webPageNode(opts)];
+  const graph: SchemaNode[] = [
+    logoNode(),
+    organizationNode(),
+    webSiteNode(),
+    webPageNode(opts),
+  ];
 
   if (opts.breadcrumbs?.length) {
     graph.push(breadcrumbNode(opts.pageUrl, opts.breadcrumbs));

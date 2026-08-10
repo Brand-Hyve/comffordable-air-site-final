@@ -70,6 +70,58 @@ export function isoDate(date: Date | string): string {
   return d.toISOString().split('T')[0];
 }
 
+/**
+ * Build a <title> that stays under 60 characters (spec A4).
+ * Appends the brand suffix only when it fits; otherwise falls back to the
+ * page-specific part alone, trimmed at a word boundary.
+ */
+export function pageTitle(primary: string, suffix: string = business.name): string {
+  const full = `${primary} | ${suffix}`;
+  if (full.length <= 60) return full;
+  if (primary.length <= 60) return primary;
+  const cut = primary.lastIndexOf(' ', 60);
+  return primary.slice(0, cut > 40 ? cut : 60).replace(/[,;:\s-]+$/, '');
+}
+
+/**
+ * Build a meta description in the 150–160 character window (spec A4).
+ *
+ * Client data swaps change string lengths, so page copy alone cannot guarantee
+ * the window. Padding clauses are appended — whole, never mid-phrase — until
+ * the description is long enough, then the result is trimmed to 160.
+ */
+export function metaDescription(text: string, extraPadding: string[] = []): string {
+  // Graded longest-to-shortest so the greedy pass below can always find a
+  // clause that fits the remaining headroom.
+  const defaultPadding = [
+    `Serving ${business.location.city}, ${business.location.state} and nearby communities.`,
+    `Call ${business.phone} for a free quote.`,
+    'Licensed, insured, and locally owned.',
+    'Same-day appointments available.',
+    'Licensed and insured.',
+    'Free written quotes.',
+    'Call us today.',
+    'Free quotes.',
+    'Call today.',
+    'Call now.',
+  ];
+
+  let out = text.trim().replace(/\s+/g, ' ');
+
+  for (const pad of [...extraPadding, ...defaultPadding]) {
+    if (out.length >= 150) break;
+    const candidate = `${out} ${pad}`;
+    if (candidate.length <= 160) out = candidate;
+  }
+
+  if (out.length > 160) {
+    const cut = out.lastIndexOf(' ', 160);
+    out = (cut >= 150 ? out.slice(0, cut) : out.slice(0, 160)).replace(/[,;:\s-]+$/, '');
+  }
+
+  return out;
+}
+
 /** Truncate to a whole word at or under `max` characters. */
 export function truncate(text: string, max = 160): string {
   if (text.length <= max) return text;

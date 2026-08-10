@@ -14,7 +14,7 @@ const hasWidget = Boolean(scriptSrc || iframeSrc);
   hasWidget && (
     <div class="reviews-widget" data-cms="reviews-widget">
       {iframeSrc && (
-        <iframe src={iframeSrc} loading="lazy" title="Customer reviews" scrolling="no" />
+        <iframe src={iframeSrc} loading="lazy" title="Customer reviews" />
       )}
       {scriptSrc && <script is:inline async src={scriptSrc} />}
     </div>

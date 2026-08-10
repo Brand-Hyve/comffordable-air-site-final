@@ -1,0 +1,48 @@
+---
+import { buildGraph } from '../lib/schema';
+import type {
+  PageType,
+  Breadcrumb,
+  ServiceSchemaInput,
+  BlogPostSchemaInput,
+  LocationSchemaInput,
+} from '../lib/schema';
+
+export interface Props {
+  pageType?: PageType;
+  pageUrl: string;
+  title: string;
+  description: string;
+  breadcrumbs?: Breadcrumb[];
+  service?: ServiceSchemaInput;
+  blogPost?: BlogPostSchemaInput;
+  location?: LocationSchemaInput;
+  image?: string;
+}
+
+const {
+  pageType = 'default',
+  pageUrl,
+  title,
+  description,
+  breadcrumbs,
+  service,
+  blogPost,
+  location,
+  image,
+} = Astro.props;
+
+const graph = buildGraph({
+  pageType,
+  pageUrl,
+  title,
+  description,
+  breadcrumbs,
+  service,
+  blogPost,
+  location,
+  image,
+});
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(graph)} />

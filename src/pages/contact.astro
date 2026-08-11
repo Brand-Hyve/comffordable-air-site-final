@@ -1,9 +1,9 @@
 ---
 import business from '../config/business.json';
 import Layout from '../layouts/Layout.astro';
+import Hero from '../components/Hero.astro';
 import ContactForm from '../components/ContactForm.astro';
 import EmbeddedMap from '../components/EmbeddedMap.astro';
-import ReviewsWidget from '../components/ReviewsWidget.astro';
 import {
   telHref,
   formatAddress,
@@ -13,10 +13,9 @@ import {
   metaDescription,
 } from '../lib/utils';
 
-const location = cityState();
 const title = pageTitle('Contact Us');
 const description = metaDescription(
-  `Contact ${business.name} in ${location}. Call, email, or request a free quote online — we respond the same business day, every time.`
+  'Contact Comffordable Air Solutions for expert HVAC repair and installation in St. Petersburg, Tampa, and Clearwater. Get a free quote today.'
 );
 
 const breadcrumbs = [
@@ -25,7 +24,17 @@ const breadcrumbs = [
 ];
 
 const address = formatAddress();
-const mapQuery = `${business.name}, ${address}`;
+// Service-area business — no street address, so the map centers on the base city.
+const mapQuery = `${business.name}, ${cityState()}`;
+
+// The original site's quote form offered these options (not a 1:1 list of the
+// service pages), plus a catch-all that ContactForm appends automatically.
+const formServices = [
+  { id: 'ac-repair', name: 'AC Repair & Installation' },
+  { id: 'heating', name: 'Heating & Furnaces' },
+  { id: 'maintenance', name: 'Preventative Maintenance' },
+  { id: 'emergency', name: 'Emergency Service' },
+];
 ---
 
 <Layout
@@ -33,23 +42,29 @@ const mapQuery = `${business.name}, ${address}`;
   description={description}
   breadcrumbs={breadcrumbs}
   pageType="contact"
+  image="/images/contact-hero.png"
   hideExitPopup
   hideCtaBar
 >
+  <Hero
+    title={`Get In <span>Touch.</span>`}
+    subtitle="Book your HVAC inspection or repair today."
+    backgroundImage="/images/contact-hero.png"
+    cmsPrefix="contact-hero"
+    size="half"
+    center
+  />
+
   <section class="section">
     <div class="container">
-      <div class="section-head-center">
-        <span class="section-label" data-cms="contact-label">Get In Touch</span>
-        <h1 class="section-title" data-cms="contact-title">Contact {business.name}</h1>
-        <p class="section-intro" data-cms="contact-intro">
-          Call us, email us, or send the form below. We answer every request the same business day.
-        </p>
-      </div>
-
       <div class="grid grid-2">
         <div>
           <div class="glass-panel">
-            <h2>Contact Details</h2>
+            <h2 data-cms="contact-title">Expert Care at Your Door</h2>
+            <p data-cms="contact-intro">
+              Fill out the form to request a quote or call us directly. We provide professional
+              HVAC services to the Tampa Bay Area, including St. Petersburg, Tampa, and Clearwater.
+            </p>
             <ul class="footer-contact" style="color:var(--text-secondary)">
               <li class="footer-contact-item">
                 <i class="fa-solid fa-phone" aria-hidden="true"></i>
@@ -83,13 +98,8 @@ const mapQuery = `${business.name}, ${address}`;
           </div>
         </div>
 
-        <ContactForm />
+        <ContactForm title="Request a Free Quote" services={formServices} />
       </div>
-
-      <ReviewsWidget
-        scriptSrc={business.reviewsWidget.scriptSrc}
-        iframeSrc={business.reviewsWidget.iframeSrc}
-      />
     </div>
   </section>
 </Layout>

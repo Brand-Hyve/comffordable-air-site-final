@@ -28,9 +28,18 @@ export function toE164(phone: string, countryCode = '1'): string {
   return `+${countryCode}${digits}`;
 }
 
-/** Full NAP address line: "123 Main Street, St. Petersburg, FL 33701" */
+/**
+ * Full NAP address line: "123 Main Street, St. Petersburg, FL 33701".
+ * Service-area businesses (no public street address) get their service-area
+ * label instead — e.g. "Serving the Greater Tampa Bay Area".
+ */
 export function formatAddress(loc = business.location): string {
-  return `${loc.street}, ${loc.city}, ${loc.state} ${loc.zip}`;
+  if (!loc.street) {
+    return (
+      ('serviceAreaLabel' in loc && loc.serviceAreaLabel) || `${loc.city}, ${loc.state}`
+    );
+  }
+  return `${loc.street}, ${loc.city}, ${loc.state}${loc.zip ? ` ${loc.zip}` : ''}`;
 }
 
 /** "St. Petersburg, FL" */
@@ -178,8 +187,12 @@ export function socialIcon(platform: string): string {
   return map[platform] ?? 'fa-solid fa-link';
 }
 
-/** "Leave us a Google review" URL built from the GBP place id. */
+/**
+ * "Leave us a Google review" URL built from the GBP place id.
+ * Falls back to the GBP profile URL when no place id is configured.
+ */
 export function reviewUrl(placeId: string = business.gbpPlaceId): string {
+  if (!placeId) return business.gbpUrl;
   return `https://search.google.com/local/writereview?placeid=${placeId}`;
 }
 

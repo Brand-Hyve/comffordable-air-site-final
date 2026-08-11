@@ -2,9 +2,16 @@
 export interface Props {
   name: string;
   neighborhoods: string[];
+  title?: string;
+  intro?: string;
 }
 
-const { name, neighborhoods } = Astro.props;
+const {
+  name,
+  neighborhoods,
+  title = `Neighborhoods We Serve in ${name}`,
+  intro = `Our technicians work across every corner of ${name} — these are the neighborhoods we are in most often.`,
+} = Astro.props;
 ---
 
 {
@@ -13,12 +20,9 @@ const { name, neighborhoods } = Astro.props;
       <div class="container">
         <div class="glass-panel animate-on-scroll">
           <h2 class="section-title" data-cms="neighborhoods-title">
-            Neighborhoods We Serve in {name}
+            {title}
           </h2>
-          <p data-cms="neighborhoods-intro">
-            Our technicians work across every corner of {name} — these are the neighborhoods we are
-            in most often.
-          </p>
+          <p data-cms="neighborhoods-intro">{intro}</p>
           <ul class="chip-list" style="margin-top:1.5rem">
             {neighborhoods.map((neighborhood) => (
               <li class="chip">

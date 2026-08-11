@@ -4,7 +4,6 @@ import business from '../config/business.json';
 import testimonials from '../config/testimonials.json';
 import Layout from '../layouts/Layout.astro';
 import Hero from '../components/Hero.astro';
-import ProcessSection from '../components/ProcessSection.astro';
 import Testimonials from '../components/Testimonials.astro';
 import FAQSection from '../components/FAQSection.astro';
 import CTASection from '../components/CTASection.astro';
@@ -20,56 +19,21 @@ export const getStaticPaths = (() => {
 
 const { service } = Astro.props;
 const location = cityState();
+const content = service.content;
 
-const title = pageTitle(
-  `${service.shortName ?? service.name} in ${business.location.city}, ${business.location.state}`
-);
-const description = metaDescription(service.description);
+const title = pageTitle(service.metaTitle ?? service.name);
+const description = metaDescription(service.metaDescription ?? service.description);
 
 const breadcrumbs = [
   { label: 'Home', href: '/' },
   { label: service.shortName ?? service.name, href: `/${service.id}/` },
 ];
 
-const processSteps = [
-  {
-    number: 1,
-    title: 'Book Your Visit',
-    description: `Call or request a quote and we will schedule your ${(service.shortName ?? service.name).toLowerCase()} appointment.`,
-  },
-  {
-    number: 2,
-    title: 'Full Diagnosis',
-    description: 'A licensed technician inspects the system and explains exactly what they found.',
-  },
-  {
-    number: 3,
-    title: 'Written Price',
-    description: 'You approve a flat, written price before any work begins.',
-  },
-  {
-    number: 4,
-    title: 'Warrantied Work',
-    description: 'We complete the job, test the result, and back it with a written warranty.',
-  },
-];
+// The same FAQ list ran on every service page of the original site.
+const faqs = business.serviceFaqs;
 
-const faqs = [
-  {
-    question: `How much does ${(service.shortName ?? service.name).toLowerCase()} cost?`,
-    answer: `Pricing depends on the size of the job and the condition of the equipment. We give you a flat, written quote before starting so the number you approve is the number you pay. Current pricing: ${service.price}.`,
-  },
-  {
-    question: `How quickly can you get out for ${(service.shortName ?? service.name).toLowerCase()}?`,
-    answer: `We hold same-day slots for ${location} and the surrounding areas. Most requests placed in the morning are handled the same afternoon.`,
-  },
-  {
-    question: 'Is the work guaranteed?',
-    answer:
-      'Yes. Every job comes with a written warranty on both parts and labor. If something is not right, we come back and make it right.',
-  },
-];
-
+const hasIntro = Boolean(content.intro.title || content.intro.paragraphs.length);
+const hasOutro = Boolean(content.outro.text || content.outro.ctaText);
 const relatedServices = business.services.filter((s) => s.id !== service.id).slice(0, 3);
 const featuredAreas = business.serviceAreas.slice(0, 3);
 ---
@@ -79,12 +43,13 @@ const featuredAreas = business.serviceAreas.slice(0, 3);
   description={description}
   breadcrumbs={breadcrumbs}
   pageType="service"
+  image={content.heroImage}
   service={{ name: service.name, description: service.description }}
 >
   <Hero
-    title={`${service.name} in <span>${business.location.city}</span>`}
-    subtitle={service.description}
-    backgroundImage="/images/hero.jpg"
+    title={content.heroTitle}
+    subtitle={content.heroSubtitle}
+    backgroundImage={content.heroImage}
     cmsPrefix={`service-hero-${service.id}`}
     size="half"
     ctaPrimary={{
@@ -95,54 +60,151 @@ const featuredAreas = business.serviceAreas.slice(0, 3);
     ctaSecondary={{ text: 'Get a Free Quote', href: '/contact/' }}
   />
 
+  {
+    hasIntro && (
+      <section class="section">
+        <div class="container">
+          <div class="section-head-center">
+            {content.intro.badge && (
+              <span class="section-label" data-cms={`service-${service.id}-intro-badge`}>
+                {content.intro.badge}
+              </span>
+            )}
+            {content.intro.title && (
+              <h2 class="section-title" data-cms={`service-${service.id}-intro-title`}>
+                {content.intro.title}
+              </h2>
+            )}
+            {content.intro.paragraphs.map((paragraph, i) => (
+              <p class="section-intro" data-cms={`service-${service.id}-intro-p-${i + 1}`}>
+                {paragraph}
+              </p>
+            ))}
+            {content.intro.note && (
+              <p class="section-intro" data-cms={`service-${service.id}-intro-note`}>
+                <strong>{content.intro.note}</strong>
+              </p>
+            )}
+          </div>
+        </div>
+      </section>
+    )
+  }
+
+  {
+    content.cardGroups.map((group, groupIndex) => (
+      <section class:list={['section', groupIndex % 2 === 1 && 'section-alt']}>
+        <div class="container">
+          {(group.label || group.title) && (
+            <div class="section-head-center">
+              {group.label && (
+                <span
+                  class="section-label"
+                  data-cms={`service-${service.id}-group-${groupIndex + 1}-label`}
+                >
+                  {group.label}
+                </span>
+              )}
+              {group.title && (
+                <h2
+                  class="section-title"
+                  data-cms={`service-${service.id}-group-${groupIndex + 1}-title`}
+                >
+                  {group.title}
+                </h2>
+              )}
+            </div>
+          )}
+
+          <div
+            class:list={['grid', group.cards.length === 4 ? 'grid-4' : 'grid-3']}
+            data-cms-collection={`service-${service.id}-group-${groupIndex + 1}-grid`}
+          >
+            {group.cards.map((card, cardIndex) => {
+              const cardPrefix = `service-${service.id}-g${groupIndex + 1}-card-${cardIndex + 1}`;
+              return (
+                <article
+                  class="glass-panel glass-panel-hover service-card animate-on-scroll"
+                  data-cms-item={`service-${service.id}-group-${groupIndex + 1}-grid`}
+                >
+                  {card.badge && (
+                    <span class="section-label" data-cms={`${cardPrefix}-badge`}>
+                      {card.badge}
+                    </span>
+                  )}
+                  <h3 data-cms={`${cardPrefix}-title`}>{card.title}</h3>
+                  {card.paragraphs.map((paragraph, i) => (
+                    <p data-cms={`${cardPrefix}-p-${i + 1}`}>{paragraph}</p>
+                  ))}
+                  {card.features.length > 0 && (
+                    <ul class="service-features" data-cms={`${cardPrefix}-features`}>
+                      {card.features.map((feature) => (
+                        <li>{feature}</li>
+                      ))}
+                    </ul>
+                  )}
+                  {card.ctaText && (
+                    <a
+                      class="btn btn-outline btn-sm"
+                      href={card.ctaHref || '/contact/'}
+                      data-cms={`${cardPrefix}-cta`}
+                    >
+                      {card.ctaText}
+                    </a>
+                  )}
+                </article>
+              );
+            })}
+          </div>
+
+          {hasOutro && groupIndex === content.cardGroups.length - 1 && (
+            <div class="section-head-center" style="margin-top:2.5rem">
+              {content.outro.text && (
+                <p class="section-intro" data-cms={`service-${service.id}-outro-text`}>
+                  {content.outro.text}
+                </p>
+              )}
+              {content.outro.ctaText && (
+                <p style="margin-top:1rem">
+                  <a
+                    class="btn btn-primary"
+                    href={content.outro.ctaHref || '/contact/'}
+                    data-cms={`service-${service.id}-outro-cta`}
+                  >
+                    {content.outro.ctaText}
+                  </a>
+                </p>
+              )}
+            </div>
+          )}
+        </div>
+      </section>
+    ))
+  }
+
   <section class="section">
     <div class="container">
-      <div class="grid grid-2">
-        <div>
-          <span class="section-label" data-cms={`service-${service.id}-label`}>
-            {service.shortName ?? service.name}
-          </span>
-          <h2 class="section-title" data-cms={`service-${service.id}-title`}>
-            What Our {service.shortName ?? service.name} Service Covers
-          </h2>
-          <p data-cms={`service-${service.id}-body`}>
-            {service.description} Our technicians work across {location} every day, so they know the
-            equipment, the climate, and the failure patterns common to homes in this area.
-          </p>
-          <p>
-            <strong>Pricing:</strong> {service.price}
-          </p>
-          <p style="margin-top:1.75rem">
-            <a class="btn btn-primary" href="/contact/">Request a Free Quote</a>
-          </p>
-        </div>
-
-        <div class="glass-panel" data-cms={`service-${service.id}-features`}>
-          <h3>Included With Every Visit</h3>
-          <ul class="service-features">
-            {service.features.map((feature) => <li>{feature}</li>)}
-          </ul>
-          <p style="margin:0">
-            <a href={telHref(business.phone)}>
-              <i class="fa-solid fa-phone" aria-hidden="true"></i>
-              {business.phone}
-            </a>
-          </p>
-        </div>
+      <div class="section-head-center">
+        <span class="section-label" data-cms={`service-${service.id}-article-label`}>
+          {content.article.label}
+        </span>
+        <h2 class="section-title" data-cms={`service-${service.id}-article-title`}>
+          {content.article.title}
+        </h2>
+      </div>
+      <div style="max-width:820px;margin:0 auto">
+        {
+          content.article.paragraphs.map((paragraph, i) => (
+            <p data-cms={`service-${service.id}-article-p-${i + 1}`}>{paragraph}</p>
+          ))
+        }
       </div>
     </div>
   </section>
 
-  <ProcessSection
-    steps={processSteps}
-    label="Our Process"
-    title={`How ${service.shortName ?? service.name} Works`}
-    cmsPrefix={`service-${service.id}-process`}
-  />
-
   {
     featuredAreas.length > 0 && (
-      <section class="section">
+      <section class="section section-alt">
         <div class="container">
           <div class="section-head-center">
             <span class="section-label">Coverage</span>
@@ -165,7 +227,7 @@ const featuredAreas = business.serviceAreas.slice(0, 3);
     cmsPrefix={`service-${service.id}-testimonials`}
   />
 
-  <FAQSection items={faqs} cmsPrefix={`service-${service.id}-faq`} />
+  <FAQSection items={faqs} title="FAQs" cmsPrefix={`service-${service.id}-faq`} />
 
   {
     relatedServices.length > 0 && (

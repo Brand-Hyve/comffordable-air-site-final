@@ -5,12 +5,11 @@ import Layout from '../layouts/Layout.astro';
 import Hero from '../components/Hero.astro';
 import Testimonials from '../components/Testimonials.astro';
 import CTASection from '../components/CTASection.astro';
-import { cityState, pageTitle, metaDescription } from '../lib/utils';
+import { pageTitle, metaDescription } from '../lib/utils';
 
-const location = cityState();
 const title = pageTitle('About Us');
 const description = metaDescription(
-  `Meet the team behind ${business.name} — licensed technicians serving ${location} with honest written pricing and workmanship that holds up.`
+  'Learn more about Comffordable Air Solutions and our dedication to providing premium HVAC repair and maintenance in the Tampa Bay Area.'
 );
 
 const breadcrumbs = [
@@ -18,22 +17,11 @@ const breadcrumbs = [
   { label: 'About', href: '/about/' },
 ];
 
-const values = [
-  {
-    icon: 'fa-solid fa-handshake',
-    title: 'Honest Pricing',
-    description: 'Flat, written quotes before work starts. What we quote is what you pay.',
-  },
-  {
-    icon: 'fa-solid fa-user-shield',
-    title: 'Licensed & Insured',
-    description: 'Fully credentialed technicians and full liability coverage on every job.',
-  },
-  {
-    icon: 'fa-solid fa-clock',
-    title: 'On Time, Every Time',
-    description: 'Real appointment windows and a call ahead so you are not waiting all day.',
-  },
+const storyParagraphs = [
+  'I take immense pride in delivering honest, high-quality work that you can count on. My family, especially my daughter and my mom, is my greatest motivation and the reason I strive to grow every single day, both personally and professionally. I truly believe in treating people with fairness and respect, because doing right by others is the only way to build lasting trust and long-term relationships.',
+  'My approach to business is simple: be straightforward, communicate clearly, and always stand behind what I do. I don’t believe in cutting corners or overcomplicating things. It’s about doing the job right the first time so you can feel completely confident in your home\'s comfort.',
+  'When I’m not working, you’ll usually find me staying active outdoors. Whether I’m out on my bicycle or embarking on a new adventure, I love to stay driven and challenge myself. At the end of the day, I’m committed to providing reliable service and earning your trust with every visit.',
+  'Comffordable Air Solutions is more than just a quick fix. We optimize your system\'s performance, protecting your home investment for years to come throughout St. Petersburg, Tampa, and Clearwater.',
 ];
 ---
 
@@ -45,8 +33,8 @@ const values = [
   image="/images/about.jpg"
 >
   <Hero
-    title={`Local, Licensed, and <span>Accountable</span>`}
-    subtitle={`${business.name} has built its reputation in ${location} the slow way — one honest job at a time.`}
+    title={`Our <span>Story.</span>`}
+    subtitle="Unwavering dedication to your home's comfort."
     backgroundImage="/images/about.jpg"
     cmsPrefix="about-hero"
     size="half"
@@ -57,18 +45,12 @@ const values = [
       <div class="grid grid-2">
         <div>
           <span class="section-label" data-cms="about-label">Our Story</span>
-          <h2 class="section-title" data-cms="about-title">Built on Doing It Right</h2>
-          <p data-cms="about-body-1">
-            We started {business.name} because too many homeowners in {location} were getting vague
-            quotes, rushed diagnoses, and repairs that did not hold. We decided to run things the
-            opposite way: diagnose thoroughly, explain plainly, price it in writing, and stand
-            behind the work.
-          </p>
-          <p data-cms="about-body-2">
-            Today we serve {business.serviceAreas.length} communities across {business.location.state}
-            with a team of licensed technicians who are trained to walk you through exactly what
-            they found and why it matters — before anyone reaches for a tool.
-          </p>
+          <h2 class="section-title" data-cms="about-title">Your Trusted HVAC Partner</h2>
+          {
+            storyParagraphs.map((paragraph, i) => (
+              <p data-cms={`about-body-${i + 1}`}>{paragraph}</p>
+            ))
+          }
           {
             business.license?.value && (
               <p data-cms="about-license">
@@ -80,79 +62,26 @@ const values = [
           }
         </div>
 
-        <div class="grid" style="gap:1rem" data-cms-collection="about-values">
-          {
-            values.map((value, i) => (
-              <div class="glass-panel animate-on-scroll" data-cms-item="about-values">
-                <span class="service-icon">
-                  <i class={value.icon} aria-hidden="true" />
-                </span>
-                <h3 data-cms={`about-value-${i + 1}-title`}>{value.title}</h3>
-                <p style="margin:0" data-cms={`about-value-${i + 1}-desc`}>{value.description}</p>
-              </div>
-            ))
-          }
+        <div class="animate-on-scroll">
+          <img
+            src="/images/owner-portrait.png"
+            alt={`John, ${business.name} owner and lead HVAC technician`}
+            width="800"
+            height="1000"
+            loading="lazy"
+            style="border-radius:16px;object-fit:cover;width:100%"
+            data-cms-img="about-portrait-img"
+          />
         </div>
       </div>
     </div>
   </section>
 
-  {
-    business.team.length > 0 && (
-      <section class="section section-alt">
-        <div class="container">
-          <div class="section-head-center">
-            <span class="section-label" data-cms="team-label">
-              The Team
-            </span>
-            <h2 class="section-title" data-cms="team-title">
-              Who Shows Up At Your Door
-            </h2>
-          </div>
-
-          <div class="grid grid-3" data-cms-collection="team-grid">
-            {business.team.map((member, i) => (
-              <article
-                class="glass-panel animate-on-scroll"
-                style="text-align:center"
-                data-cms-item="team-grid"
-              >
-                <img
-                  src={member.image}
-                  alt={`${member.name}, ${member.title}`}
-                  width="120"
-                  height="120"
-                  loading="lazy"
-                  style="width:120px;height:120px;border-radius:50%;object-fit:cover;margin:0 auto 1.25rem"
-                  data-cms-img={`team-member-${i + 1}-img`}
-                />
-                <h3 data-cms={`team-member-${i + 1}-name`}>{member.name}</h3>
-                <p style="margin-bottom:0.35rem">
-                  <strong data-cms={`team-member-${i + 1}-title`}>{member.title}</strong>
-                </p>
-                {member.credentials && (
-                  <p
-                    style="font-size:0.85rem;margin-bottom:0.75rem"
-                    data-cms={`team-member-${i + 1}-credentials`}
-                  >
-                    {member.credentials}
-                  </p>
-                )}
-                <p style="margin:0" data-cms={`team-member-${i + 1}-bio`}>{member.bio}</p>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
-    )
-  }
-
   <Testimonials testimonials={testimonials.slice(0, 3)} title="What Our Neighbors Say" />
 
   <CTASection
-    title="Work with a team that answers the phone"
-    subtitle="Get a free, no-obligation quote from a licensed technician today."
-    ctaText="Get My Free Quote"
+    title="Experience Comffordable Air"
+    ctaText="Contact Us Today"
     ctaHref="/contact/"
     cmsPrefix="about-cta"
   />

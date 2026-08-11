@@ -3,6 +3,7 @@ import business from '../config/business.json';
 import testimonials from '../config/testimonials.json';
 import Layout from '../layouts/Layout.astro';
 import Hero from '../components/Hero.astro';
+import ReviewsWidget from '../components/ReviewsWidget.astro';
 import ServicesGrid from '../components/ServicesGrid.astro';
 import ProcessSection from '../components/ProcessSection.astro';
 import AboutPreview from '../components/AboutPreview.astro';
@@ -12,38 +13,33 @@ import CTASection from '../components/CTASection.astro';
 import LocationCard from '../components/LocationCard.astro';
 import { telHref, cityState, pageTitle, metaDescription } from '../lib/utils';
 
-const primaryService = business.services[0];
 const location = cityState();
 
-// Home title is brand-led (spec A4) so it never collides with a service page.
-const title = pageTitle(
-  business.name,
-  `${primaryService?.shortName ?? business.industry} in ${business.location.city}`
-);
+// Old-site title exceeded the 60-char window with the full brand suffix, so the
+// short brand form is used ("Premium HVAC Repair & Installation | Comffordable Air").
+const title = pageTitle('Premium HVAC Repair & Installation', 'Comffordable Air');
 const description = metaDescription(
-  `${business.name} provides licensed ${business.industry.toLowerCase()} service across ${location}. Upfront written pricing and same-day appointments.`
+  'Comffordable Air Solutions provides expert AC repair, furnace maintenance, and HVAC installation in St. Petersburg, Tampa, and Clearwater, FL.'
 );
 
 const processSteps = [
   {
     number: 1,
-    title: 'Call or Request a Quote',
-    description: 'Tell us what is going on. We will ask a few questions and book a time that works.',
+    title: 'Book Service',
+    description:
+      "Give us a call to discuss your HVAC system's specific needs and set up a consistent maintenance schedule.",
   },
   {
     number: 2,
-    title: 'On-Site Diagnosis',
-    description: 'A licensed technician diagnoses the problem and explains exactly what they found.',
+    title: 'Expert Solutions',
+    description:
+      "Comfort you can afford shouldn't mean cutting corners. Our specialists prioritize quality and transparency.",
   },
   {
     number: 3,
-    title: 'Approve Upfront Pricing',
-    description: 'You get a flat, written price before any work starts. No surprises on the invoice.',
-  },
-  {
-    number: 4,
-    title: 'Work Done Right',
-    description: 'We complete the job, clean up fully, and back the work with a written warranty.',
+    title: 'We Handle the Work',
+    description:
+      'Our experienced technicians provide quality, service-driven solutions with extreme attention to detail.',
   },
 ];
 
@@ -65,12 +61,12 @@ const faqs = [
   },
   {
     question: 'What areas do you serve?',
-    answer: `We serve ${business.serviceAreas.map((a) => a.name).join(', ')} and the surrounding communities. If you are not sure whether you are in range, call and ask.`,
+    answer: `We serve ${business.serviceAreas.map((a) => a.name).join(', ')} and the surrounding communities — all of Pinellas County, into Hillsborough, and up to New Port Richey. If you are not sure whether you are in range, call and ask.`,
   },
   {
     question: 'Do you offer financing or maintenance plans?',
     answer:
-      'We offer preventative maintenance plans that bundle twice-yearly tune-ups with priority scheduling and repair discounts. Ask about financing options when you request your quote.',
+      'Yes. We offer 0% financing options and a maintenance plan that bundles twice-yearly tune-ups with priority scheduling and repair discounts. Ask about both when you request your quote.',
   },
 ];
 
@@ -79,27 +75,39 @@ const featuredAreas = business.serviceAreas.slice(0, 3);
 
 <Layout title={title} description={description} pageType="home">
   <Hero
-    title={`Licensed ${business.industry} You Can <span>Actually Trust</span>`}
-    subtitle={`Straight answers, upfront pricing, and same-day service across ${location}. Rated ${business.aggregateRating.ratingValue} stars by ${business.aggregateRating.reviewCount}+ neighbors.`}
+    title={`AC Repair & HVAC Services in <span>Tampa Bay, FL</span>`}
+    subtitle="Expert HVAC repair, installation, and maintenance across the Tampa Bay Area. We specialize in keeping your home perfectly tempered with quality service in St. Petersburg, Tampa, and Clearwater."
     backgroundImage="/images/hero.jpg"
     cmsPrefix="hero"
     size="full"
     ctaPrimary={{
-      text: `Call ${business.phone}`,
+      text: business.phone,
       href: telHref(business.phone),
       icon: 'fa-solid fa-phone',
     }}
-    ctaSecondary={{ text: 'Get a Free Quote', href: '/contact/' }}
+    ctaSecondary={{
+      text: '24/7 Emergency Service',
+      href: '/contact/',
+      icon: 'fa-solid fa-bolt',
+    }}
   />
 
-  <ServicesGrid
-    label="What We Do"
-    title="Services Built Around Your Home"
-    intro={`Every job — from a single repair to a full system replacement — comes with the same flat-rate pricing and written warranty.`}
-    showViewAll
-  />
+  {
+    (business.reviewsWidget.scriptSrc || business.reviewsWidget.iframeSrc) && (
+      <section class="section" style="padding:3rem 0 1.5rem">
+        <div class="container">
+          <ReviewsWidget
+            scriptSrc={business.reviewsWidget.scriptSrc}
+            iframeSrc={business.reviewsWidget.iframeSrc}
+          />
+        </div>
+      </section>
+    )
+  }
 
-  <ProcessSection steps={processSteps} />
+  <ProcessSection steps={processSteps} label="How It Works" title="The Comffordable Process" />
+
+  <ServicesGrid label="Our Expertise" title="Premium HVAC Services" />
 
   <AboutPreview />
 
@@ -135,9 +143,9 @@ const featuredAreas = business.serviceAreas.slice(0, 3);
   <FAQSection items={faqs} cmsPrefix="home-faq" />
 
   <CTASection
-    title="Ready to get it fixed?"
-    subtitle={`Call now or request a free quote online. Most ${location} appointments are scheduled within 24 hours.`}
-    ctaText="Get My Free Quote"
+    title="Ready for Comffordable Comfort?"
+    subtitle="Unhappy with your current service? It's time for consistency, communication, and quality. Professional HVAC repair and air quality solutions for St. Petersburg, Tampa, and Clearwater."
+    ctaText="Get Your Free Quote"
     ctaHref="/contact/"
     cmsPrefix="home-cta"
   />

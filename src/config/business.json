@@ -1,35 +1,38 @@
 {
-  "name": "Example Home Services",
-  "tagline": "Licensed, insured, and trusted across Tampa Bay for fast, honest service.",
-  "phone": "(727) 555-1700",
-  "email": "info@example.com",
-  "domain": "https://www.example.com",
+  "name": "Comffordable Air Solutions",
+  "tagline": "Premium HVAC solutions in the Tampa Bay Area. Comfort you can afford, solutions you can trust.",
+  "phone": "(727) 677-1700",
+  "email": "comffordableair@gmail.com",
+  "domain": "https://www.comairfl.com",
   "industry": "HVAC",
   "location": {
-    "street": "123 Main Street",
+    "street": "",
     "city": "St. Petersburg",
     "state": "FL",
-    "zip": "33701",
+    "zip": "",
     "country": "US",
-    "latitude": 27.8661,
-    "longitude": -82.3288
+    "latitude": 27.7676,
+    "longitude": -82.6403,
+    "serviceAreaLabel": "Serving the Greater Tampa Bay Area"
   },
   "license": {
     "name": "Florida HVAC License",
-    "value": "CAC1823516"
+    "value": "1823516"
   },
   "hours": [
-    { "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"], "opens": "08:00", "closes": "18:00" },
-    { "dayOfWeek": ["Saturday"], "opens": "09:00", "closes": "15:00" },
-    { "dayOfWeek": ["Sunday"], "opens": "00:00", "closes": "00:00" }
+    {
+      "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+      "opens": "08:00",
+      "closes": "18:00"
+    }
   ],
   "priceRange": "$$",
   "aggregateRating": {
-    "ratingValue": "4.9",
-    "reviewCount": "50"
+    "ratingValue": "5.0",
+    "reviewCount": "31"
   },
-  "gbpUrl": "https://maps.google.com/?cid=0000000000000000000",
-  "gbpPlaceId": "PLACEHOLDER",
+  "gbpUrl": "https://maps.app.goo.gl/776wqgXcCNKyQMwU6",
+  "gbpPlaceId": "",
   "serviceAreas": [
     {
       "id": "st-petersburg-fl",
@@ -37,17 +40,9 @@
       "state": "FL",
       "hero": "/images/st-petersburg-fl-hero.jpg",
       "wiki": "https://en.wikipedia.org/wiki/St._Petersburg,_Florida",
-      "neighborhoods": ["Old Northeast", "Snell Isle", "Historic Kenwood", "Downtown", "Jungle Terrace"],
-      "landmarks": ["The St. Pete Pier", "Salvador Dalí Museum", "Tropicana Field", "Sunken Gardens"]
-    },
-    {
-      "id": "clearwater-fl",
-      "name": "Clearwater",
-      "state": "FL",
-      "hero": "/images/clearwater-fl-hero.jpg",
-      "wiki": "https://en.wikipedia.org/wiki/Clearwater,_Florida",
-      "neighborhoods": ["Island Estates", "Countryside", "Morningside", "Sand Key"],
-      "landmarks": ["Clearwater Beach", "Pier 60", "Clearwater Marine Aquarium"]
+      "blurb": "We provide consistent HVAC maintenance and expert equipment repair to all residential addresses in St. Petersburg.",
+      "neighborhoods": ["Old Northeast", "Snell Isle", "Historic Kenwood", "Shore Acres", "Gandy"],
+      "landmarks": ["The St. Pete Pier", "Salvador Dalí Museum", "Tropicana Field", "Sunken Gardens", "Fort De Soto Park"]
     },
     {
       "id": "tampa-fl",
@@ -55,117 +50,377 @@
       "state": "FL",
       "hero": "/images/tampa-fl-hero.jpg",
       "wiki": "https://en.wikipedia.org/wiki/Tampa,_Florida",
-      "neighborhoods": ["Hyde Park", "Seminole Heights", "Westshore", "Ybor City"],
-      "landmarks": ["Tampa Riverwalk", "Busch Gardens", "Amalie Arena"]
+      "blurb": "We provide consistent HVAC maintenance and expert equipment repair to all residential addresses in Tampa.",
+      "neighborhoods": ["Ybor City", "Hyde Park", "South Tampa", "Westchase", "Seminole Heights"],
+      "landmarks": ["Busch Gardens Tampa Bay", "The Florida Aquarium", "ZooTampa at Lowry Park", "Armature Works", "Tampa Riverwalk"]
     },
     {
-      "id": "largo-fl",
-      "name": "Largo",
+      "id": "clearwater-fl",
+      "name": "Clearwater",
       "state": "FL",
-      "hero": "/images/largo-fl-hero.jpg",
-      "wiki": "https://en.wikipedia.org/wiki/Largo,_Florida",
-      "neighborhoods": ["Belleair Grove", "Harbor Bluffs", "East Bay"],
-      "landmarks": ["Largo Central Park", "Florida Botanical Gardens"]
+      "hero": "/images/clearwater-fl-hero.jpg",
+      "wiki": "https://en.wikipedia.org/wiki/Clearwater,_Florida",
+      "blurb": "We provide consistent HVAC maintenance and expert equipment repair to all residential addresses in Clearwater.",
+      "neighborhoods": ["Sand Key", "Island Estates", "Clearwater Beach", "Countryside", "Morningside"],
+      "landmarks": ["Clearwater Marine Aquarium", "Pier 60", "Sand Key Park", "Spectrum Field", "Moccasin Lake Nature Park"]
     }
   ],
   "services": [
     {
       "id": "ac-repair",
-      "name": "Air Conditioning Repair & Installation",
+      "name": "AC Repair & Installation",
       "shortName": "AC Repair",
-      "description": "Expert air conditioning repair and installation with same-day diagnostics, transparent pricing, and workmanship backed by a written warranty.",
+      "description": "Emergency repairs and high-efficiency installations to keep you cool during the Florida heat.",
+      "metaTitle": "AC Repair & Installation",
+      "metaDescription": "Expert air conditioning repair and high-efficiency installation services in St. Petersburg, Tampa, and Clearwater. Fast emergency service available.",
       "icon": "fa-solid fa-snowflake",
       "price": "Custom Quotes",
-      "features": ["Multi-point Inspection", "Leak Detection", "Thermostat Calibration", "Same-Day Diagnostics"],
-      "keywords": ["ac repair", "air conditioning repair", "ac installation"]
+      "features": ["Multi-point System Inspection", "Refrigerant Leak Detection", "Thermostat Calibration", "Emergency Component Repair"],
+      "keywords": ["ac repair", "air conditioning repair", "ac installation"],
+      "content": {
+        "heroTitle": "AC Repair & Installation <span>Tampa Bay, FL</span>",
+        "heroSubtitle": "Fast, reliable cooling solutions for your home. Servicing St. Petersburg, Tampa, and Clearwater.",
+        "heroImage": "/images/service-ac-repair.png",
+        "intro": { "badge": "", "title": "", "paragraphs": [], "note": "" },
+        "cardGroups": [
+          {
+            "label": "",
+            "title": "",
+            "cards": [
+              {
+                "title": "Diagnostic & Repair",
+                "badge": "",
+                "paragraphs": ["Experiencing issues? Our technicians provide thorough diagnostics to identify and fix leaks, compressor issues, or electrical faults."],
+                "features": ["Multi-point System Inspection", "Refrigerant Leak Detection", "Thermostat Calibration", "Emergency Component Repair"],
+                "ctaText": "Book Now",
+                "ctaHref": "/contact/"
+              },
+              {
+                "title": "System Installation",
+                "badge": "",
+                "paragraphs": ["Upgrade to a high-efficiency SEER2 certified system. We handle everything from sizing to final ductwork integration."],
+                "features": ["Expert Sizing & Selection", "Professional Full Installation", "Old Unit Disposal Included", "Manufacturer Warranty Protection"],
+                "ctaText": "Get Free Quote",
+                "ctaHref": "/contact/"
+              },
+              {
+                "title": "Commercial AC",
+                "badge": "",
+                "paragraphs": ["Custom solutions for office buildings, retail spaces, and restaurants across the Tampa Bay Area."],
+                "features": ["Large Scale Roof Units", "Custom Duct Layouts", "Industrial Maintenance Plans", "Rapid Business Response"],
+                "ctaText": "Consultation",
+                "ctaHref": "/contact/"
+              }
+            ]
+          },
+          {
+            "label": "",
+            "title": "Specialized Air Services",
+            "cards": [
+              {
+                "title": "Emergency Service",
+                "badge": "",
+                "paragraphs": [
+                  "HVAC failures don't follow a schedule. Our rapid-response repairs prevent your home from reaching dangerous temperatures during the peak Florida heat.",
+                  "How to Detect: Watch for burning smells, loud grinding noises, or a complete loss of cooling when the sun is at its peak. If your home feels like a sauna, don't wait.",
+                  "Comfort isn't just a luxury—it's your home's cool superpower, so keep it charged!"
+                ],
+                "features": [],
+                "ctaText": "CALL FOR QUOTE",
+                "ctaHref": "tel:+17276771700"
+              },
+              {
+                "title": "Smart Thermostats",
+                "badge": "",
+                "paragraphs": ["Modernize your home with Ecobee or Nest integration. These systems learn your habits to optimize cooling cycles and allow for remote climate management."],
+                "features": [],
+                "ctaText": "CALL FOR QUOTE",
+                "ctaHref": "tel:+17276771700"
+              },
+              {
+                "title": "UV Filter Install",
+                "badge": "",
+                "paragraphs": ["We install medical-grade UV-C light systems directly into your air handler to neutralize mold, bacteria, and airborne viruses before they circulate."],
+                "features": [],
+                "ctaText": "CALL FOR QUOTE",
+                "ctaHref": "tel:+17276771700"
+              },
+              {
+                "title": "Duct Sealing",
+                "badge": "",
+                "paragraphs": [
+                  "Our precision sealing identifies and repairs leaks in your ductwork where expensive cold air often escapes into your attic space.",
+                  "How to Detect: Look for uneven cooling between rooms, excessive dust buildup near supply vents, or unexplained spikes in your monthly electric bill.",
+                  "Don't let your conditioned air sneak out the back door; keep the cool where it belongs!"
+                ],
+                "features": [],
+                "ctaText": "CALL FOR QUOTE",
+                "ctaHref": "tel:+17276771700"
+              }
+            ]
+          }
+        ],
+        "outro": { "text": "", "ctaText": "", "ctaHref": "" },
+        "article": {
+          "label": "Florida's Unique Challenge",
+          "title": "Why Florida Homes Need Expert AC Repair",
+          "paragraphs": [
+            "In Florida, your air conditioner is not a seasonal appliance. It is the most critical piece of infrastructure in your home, running nearly every day of the year. The Tampa Bay Area's combination of intense heat, relentless humidity, and sudden afternoon thunderstorms puts mechanical stress on HVAC systems that homeowners in other states simply never experience. A system that lasts 15 years in the Midwest may start failing within 8 to 10 years here, especially without regular maintenance.",
+            "Salt air from Tampa Bay's coastal zones accelerates corrosion on condenser coils and electrical components, causing refrigerant leaks and compressor failures at a higher rate than inland markets. High humidity also creates condensation inside air handlers, leading to clogged drain lines, one of the leading causes of water damage in Florida homes. Our technicians are trained specifically for these conditions and know which failure points to inspect first, cutting diagnostic time and getting your system back online faster.",
+            "Beyond breakdowns, an improperly sized or maintained system in Florida costs you money every single month. Undersized units run constantly and never dehumidify properly, leaving your home feeling sticky at 72 degrees. Oversized units short-cycle, creating uneven temperature zones and excess moisture. Our certified technicians provide load calculations, refrigerant checks, and full system evaluations to make sure your AC is genuinely matched to your home, not just patched together for the next few months. Get proactive care before the next breakdown finds you first."
+          ]
+        }
+      }
     },
     {
-      "id": "heating-services",
-      "name": "Heating System Service & Repair",
-      "shortName": "Heating",
-      "description": "Heat pump and furnace repair, tune-ups, and replacement to keep your home comfortable through every cold snap.",
-      "icon": "fa-solid fa-fire",
-      "price": "Custom Quotes",
-      "features": ["Heat Pump Repair", "Furnace Tune-Ups", "Safety Inspection", "System Replacement"],
-      "keywords": ["heating repair", "furnace repair", "heat pump service"]
-    },
-    {
-      "id": "indoor-air-quality",
-      "name": "Indoor Air Quality Solutions",
-      "shortName": "Air Quality",
-      "description": "Air purification, humidity control, and duct sealing that measurably improve the air your family breathes every day.",
+      "id": "iaq",
+      "name": "Indoor Air Quality (IAQ)",
+      "shortName": "IAQ",
+      "description": "Florida's heat and humidity create the perfect breeding ground for mold, allergens, and airborne pollutants inside your home. Our IAQ solutions, including HEPA filtration, UV-C air scrubbers, and whole-home dehumidification, target the microscopic threats standard filters miss. Breathe cleaner air and protect your family from dust mites, bacteria, and VOCs circulating through your ductwork.",
+      "metaTitle": "Breathe Cleaner with Indoor Air Quality (IAQ)",
+      "metaDescription": "Enhance your home health with IAQ solutions in St. Petersburg, Tampa, and Clearwater. Whole-home purifiers, UV lights, and dehumidification.",
       "icon": "fa-solid fa-wind",
       "price": "Custom Quotes",
-      "features": ["Air Purification", "Humidity Control", "Duct Sealing", "Filtration Upgrades"],
-      "keywords": ["indoor air quality", "air purification", "duct cleaning"]
+      "features": ["HEPA Whole-Home Filtration", "Merv-13 Filter Upgrades", "Particle Removal Diagnosis", "Odor Reduction Technology"],
+      "keywords": ["indoor air quality", "air purification", "uv air scrubber", "dehumidification"],
+      "content": {
+        "heroTitle": "Indoor Air Quality Services <span>Tampa Bay, FL</span>",
+        "heroSubtitle": "Pure, crisp, and allergen-free air for your entire home. Servicing St. Petersburg, Tampa, and Clearwater.",
+        "heroImage": "/images/service-iaq.png",
+        "intro": { "badge": "", "title": "", "paragraphs": [], "note": "" },
+        "cardGroups": [
+          {
+            "label": "",
+            "title": "",
+            "cards": [
+              {
+                "title": "Air Purification",
+                "badge": "",
+                "paragraphs": ["Standard filters only catch the visible stuff. Our medical-grade HEPA and Merv-13 systems are designed to trap microscopic particles like pet dander, pollen, and smoke that often trigger asthma and allergies. By filtering your air at the intake, we ensure that every breath you take inside your home is crisp, clean, and truly refreshing."],
+                "features": ["HEPA Whole-Home Filtration", "Merv-13 Filter Upgrades", "Particle Removal Diagnosis", "Odor Reduction Technology"],
+                "ctaText": "BREATHE BETTER",
+                "ctaHref": "/contact/"
+              },
+              {
+                "title": "UV Air Scrubbers",
+                "badge": "Most Effective",
+                "paragraphs": ["Think of this as \"sunlight\" for your lungs. Our advanced UV-C coil cleaners are installed directly into your air handler, where they neutralize mold spores, bacteria, and airborne viruses before they can enter your ductwork. This 24/7 silent protection prevents the \"dirty sock\" smell and ensures your internal system components stay as clean as the day they were installed."],
+                "features": ["Advanced UV-C Coil Cleaners", "Microbial Growth Prevention", "Silent, 24/7 Protection", "Low-Maintenance Efficiency"],
+                "ctaText": "GET IAQ QUOTE",
+                "ctaHref": "/contact/"
+              },
+              {
+                "title": "Dehumidification",
+                "badge": "",
+                "paragraphs": ["In Florida, humidity is the enemy of both comfort and health. High indoor moisture levels can lead to structural damage and are the primary breeding ground for mold and dust mites. Our whole-home dehumidifiers work in tandem with your AC to maintain a precise, comfortable humidity level between 45% and 55%, keeping your home's air feeling light and your surfaces dry."],
+                "features": ["Precision Humidity Control", "Mold Risk Mitigation", "Improved AC Efficiency", "Home Structural Protection"],
+                "ctaText": "REDUCE MOISTURE",
+                "ctaHref": "/contact/"
+              }
+            ]
+          }
+        ],
+        "outro": { "text": "", "ctaText": "", "ctaHref": "" },
+        "article": {
+          "label": "Why It Matters Here",
+          "title": "Why Florida Homes Need IAQ Solutions",
+          "paragraphs": [
+            "Florida's subtropical climate creates indoor air quality challenges that most homeowners never think about until a problem becomes impossible to ignore. With humidity regularly exceeding 80 percent during summer months, the interior of a Florida home becomes an ideal breeding ground for mold spores, dust mites, and bacteria. These threats thrive in warm, moist environments and circulate silently through your ductwork every time your AC runs.",
+            "Unlike homes in drier climates, Florida properties fight year-round humidity rather than a seasonal spike. This constant moisture pressure means even a well-sealed home can accumulate dangerous levels of airborne contaminants over time. Standard 1-inch air filters ship designed to protect the equipment, not your lungs. They capture only a fraction of the microscopic particles that actually affect your health, including pet dander, pollen, VOCs from household products, and fine particulate matter tracked in from outside.",
+            "Our IAQ solutions are built for the Florida environment. Whole-home HEPA and Merv-13 filtration systems intercept particles before they enter your living space. UV-C air scrubbers installed inside your air handler neutralize mold, bacteria, and viruses 24 hours a day without chemicals or maintenance. Whole-home dehumidifiers work alongside your AC to keep indoor humidity between 45 and 55 percent, the range the EPA recommends, dramatically reducing mold risk. Pair IAQ with proactive care and your system stays clean from the inside out. For Tampa Bay families, clean indoor air is a health necessity, not a luxury."
+          ]
+        }
+      }
     },
     {
-      "id": "duct-cleaning",
-      "name": "Air Duct Cleaning & Sealing",
-      "shortName": "Duct Cleaning",
-      "description": "Professional duct cleaning and sealing that removes built-up debris, improves airflow, and lowers monthly energy costs.",
-      "icon": "fa-solid fa-fan",
-      "price": "Custom Quotes",
-      "features": ["Full System Cleaning", "Sanitizing Treatment", "Airflow Testing", "Leak Sealing"],
-      "keywords": ["duct cleaning", "air duct sealing", "vent cleaning"]
-    },
-    {
-      "id": "maintenance-plans",
-      "name": "Preventative Maintenance Plans",
+      "id": "maintenance",
+      "name": "Preventative Maintenance",
       "shortName": "Maintenance",
-      "description": "Twice-yearly tune-ups, priority scheduling, and member-only repair discounts that extend the life of your equipment.",
+      "description": "Florida AC systems run 10+ months a year, twice the wear of northern climates. Proactive care catches drain clogs, coil corrosion, and refrigerant loss before they become emergencies. Our maintenance plans extend system life and keep energy bills low.",
+      "metaTitle": "Preventative HVAC Maintenance",
+      "metaDescription": "Proactive preventative maintenance plans for your HVAC system in St. Petersburg, Tampa, and Clearwater. Extend your system's life and avoid costly breakdowns.",
       "icon": "fa-solid fa-clipboard-check",
-      "price": "From $19/mo",
-      "features": ["Two Visits Per Year", "Priority Scheduling", "Repair Discounts", "No Overtime Fees"],
-      "keywords": ["hvac maintenance", "ac tune up", "maintenance plan"]
+      "price": "Starting at $99",
+      "features": ["Two full system tune-ups per year (Cooling & Heating)", "Complete system inspection & performance check", "Full drain line flush + 1-year no-clog guarantee", "Priority scheduling—especially during peak season"],
+      "keywords": ["hvac maintenance", "ac tune up", "maintenance plan"],
+      "content": {
+        "heroTitle": "HVAC Maintenance Plans <span>Tampa Bay, FL</span>",
+        "heroSubtitle": "Reliable comfort. No surprises. Just peace of mind year-round.",
+        "heroImage": "/images/service-maintenance.jpg",
+        "intro": {
+          "badge": "SPECIAL OFFER",
+          "title": "Simple. Affordable. Protected.",
+          "paragraphs": ["For just $23/month or $269/year, keep your system running at its best while avoiding costly breakdowns and unexpected repairs."],
+          "note": "Limited-Time Offer: Sign up today and save $31 on your membership"
+        },
+        "cardGroups": [
+          {
+            "label": "",
+            "title": "",
+            "cards": [
+              {
+                "title": "What’s Included",
+                "badge": "",
+                "paragraphs": [],
+                "features": [
+                  "Two full system tune-ups per year (Cooling & Heating)",
+                  "Complete system inspection & performance check",
+                  "Outdoor condenser coil cleaning",
+                  "Indoor coil inspection with cleaning recommendations",
+                  "Electrical inspection & tightening of all connections",
+                  "Full drain line flush + 1-year no-clog guarantee",
+                  "Up to 1 lb of refrigerant included if needed",
+                  "Thermostat testing & calibration",
+                  "Blower motor inspection & performance check",
+                  "Filter check/replacement (customer-provided)",
+                  "Safety control testing",
+                  "Detailed system performance report after each visit"
+                ],
+                "ctaText": "",
+                "ctaHref": ""
+              },
+              {
+                "title": "Member-Only Benefits",
+                "badge": "",
+                "paragraphs": [],
+                "features": [
+                  "FREE service calls (no diagnostic fees)",
+                  "15% OFF all repairs and parts",
+                  "Priority scheduling—especially during peak season",
+                  "No after-hours or emergency service fees",
+                  "Loyalty pricing on system replacements",
+                  "Transferable plan (great for homeowners selling)"
+                ],
+                "ctaText": "",
+                "ctaHref": ""
+              },
+              {
+                "title": "Why Choose This Plan",
+                "badge": "",
+                "paragraphs": [],
+                "features": [
+                  "Prevent costly breakdowns before they happen",
+                  "Lower monthly energy bills with efficiency",
+                  "Extend the life of your HVAC equipment",
+                  "Stay protected with our drain line guarantee",
+                  "Get service fast—even during hottest days"
+                ],
+                "ctaText": "",
+                "ctaHref": ""
+              }
+            ]
+          }
+        ],
+        "outro": {
+          "text": "No stress. No surprises. Just reliable comfort all year long.",
+          "ctaText": "Join for $23/month or $269/year",
+          "ctaHref": "/contact/"
+        },
+        "article": {
+          "label": "The Florida Difference",
+          "title": "Why Florida Homes Need Year-Round Maintenance",
+          "paragraphs": [
+            "Most HVAC manufacturers recommend a maintenance tune-up once per year. In Florida, that recommendation does not go far enough. Tampa Bay area homes run their air conditioning systems an average of 10 to 11 months per year, compared to 4 to 6 months in northern states. That is nearly twice the mechanical wear. Components that last three seasons elsewhere can degrade within one to two years here without proactive care, leading to repairs or full system replacements that could have been prevented entirely.",
+            "Florida's humidity creates specific maintenance challenges that simply do not exist in drier climates. Condensate drain lines carry moisture from the air handler to the exterior and can clog with algae and biological growth rapidly in our warm, humid environment. A single blocked drain line can overflow inside your air handler, causing water damage to ceilings, walls, and flooring that costs far more to fix than any maintenance plan. Our twice-annual tune-up program includes a full drain line flush and our exclusive one-year no-clog guarantee, giving you real protection against one of Florida's most common HVAC failures.",
+            "Salt air from Tampa Bay and the Gulf Coast accelerates oxidation on outdoor condenser coils and electrical terminals, quietly reducing system efficiency by 10 to 15 percent before any symptom appears on your thermostat or energy bill. Regular coil cleaning, electrical connection tightening, and refrigerant level verification, all included in our Comfort Membership Plan, keep your system running at factory efficiency. This is the kind of proactive care that protects your investment and keeps your family comfortable through even the most brutal Florida summers."
+          ]
+        }
+      }
+    }
+  ],
+  "serviceFaqs": [
+    {
+      "question": "Do you offer air conditioner installation for new systems as well as replacements?",
+      "answer": "Both new air conditioner installations and replacements are offered. If you’re building a new home or adding a system to a space that never had one, installation can be set up from scratch. If your current system is old, broken, or just not working well, it can be replaced with a newer, more efficient one. Everything from helping choose the right size and type, to handling the full installation process, is covered."
     },
     {
-      "id": "emergency-service",
-      "name": "24/7 Emergency HVAC Service",
-      "shortName": "Emergency",
-      "description": "Round-the-clock emergency response with fully stocked trucks so most breakdowns are resolved on the first visit.",
-      "icon": "fa-solid fa-truck-fast",
-      "price": "Custom Quotes",
-      "features": ["24/7 Dispatch", "Stocked Trucks", "Upfront Pricing", "First-Visit Repairs"],
-      "keywords": ["emergency ac repair", "24 hour hvac", "after hours hvac"]
+      "question": "Do you offer emergency ac repair when my system stops cooling?",
+      "answer": "Emergency AC repair is available when your system stops cooling. Technicians are ready to respond quickly, even outside regular business hours. If your air conditioner breaks down suddenly, you can call any time to get help getting things back to normal fast. Prompt service aims to restore comfort as soon as possible, especially during Tampa Bay’s hottest months."
+    },
+    {
+      "question": "Do you offer maintenance plans for regular air conditioning service?",
+      "answer": "There are maintenance plans available that make it easy to keep your air conditioning working right all year. These plans usually include things like regular check-ups, cleaning, and tune-ups on your HVAC system. Having a maintenance plan can help catch small issues before they turn into expensive repairs, keep your system running more efficiently, and even help it last longer. Plus, it’s one less thing to worry about, since actual service dates and reminders are handled for you."
+    },
+    {
+      "question": "Do you provide air conditioning service that includes filter changes and coil cleaning?",
+      "answer": "Air conditioning service usually covers important maintenance tasks like filter changes and coil cleaning. These are essential to keep your system running efficiently, help with indoor air quality, and prevent breakdowns. Regular filter changes help your AC work better and last longer, while coil cleaning can improve cooling performance and energy savings. Most HVAC service appointments can include these, but it’s a good idea to mention them when you schedule to make sure everything you want is covered."
+    },
+    {
+      "question": "How quickly can you schedule ac repair if my unit is running but not cooling properly?",
+      "answer": "AC repair jobs where the unit is running but not cooling are treated as a priority. In most cases, same-day or next-day service can be scheduled, especially during business hours. Available slots depend on how busy the schedule is, but the goal is to get to your home as fast as possible because Florida heat isn’t something you want to mess with. Calling early in the day usually gives the best chance for a same-day appointment."
+    },
+    {
+      "question": "Do you provide ac repair for issues like strange noises, leaks, or weak airflow?",
+      "answer": "AC repair is available for common problems like strange noises, leaks, and weak airflow. These issues can be caused by things like loose parts, clogged drain lines, or dirty air filters. A technician will inspect the system, find the source of the problem, and make the needed repairs so your AC runs smoothly again. Regular maintenance can also help prevent these types of issues from happening in the future."
+    },
+    {
+      "question": "Do you offer ac repair for thermostat problems and electrical issues?",
+      "answer": "AC repair includes help with thermostat problems and electrical issues. If your thermostat isn’t working right or you’re having trouble with electrical parts of your system, a technician can check it out, find the cause, and fix it. This helps your air conditioning run smoothly and keeps your home comfortable. Proper repairs also help prevent more expensive problems down the line."
+    },
+    {
+      "question": "Do you provide air conditioning service for improving indoor air quality, like installing UV lights or upgraded air filters?",
+      "answer": "Yes, air conditioning service can definitely help improve indoor air quality. Installing UV lights in your HVAC system helps kill bacteria, viruses, and mold that might be growing inside. Upgraded air filters, like HEPA or high-MERV filters, catch smaller particles such as dust, pollen, and pet dander, which can lead to cleaner air in your home. Both options are good for people with allergies or anyone wanting a healthier indoor environment. Technicians can check your system and help recommend the right solutions for your specific space."
+    },
+    {
+      "question": "Do you handle hvac repair for both heating and cooling systems, or only air conditioning?",
+      "answer": "Both heating and cooling systems are covered. HVAC repair includes fixing furnaces, heat pumps, and central air conditioners, not just AC units. If you have issues with your heater in the winter or your AC in the summer, you can get service for both. This way your home stays comfortable all year round, whether it's hot or cold outside."
+    },
+    {
+      "question": "Do you offer hvac repair for heating issues like a furnace that won’t turn on or is blowing cold air?",
+      "answer": "Yes, repair services are available for heating problems like a furnace that won't turn on or is blowing cold air. Trained technicians can check what's wrong, whether it's an electrical issue, a thermostat problem, or something else. They use the right tools to diagnose the problem and make the necessary repairs so your home stays warm. If your heater isn’t working right, just reach out for service."
+    },
+    {
+      "question": "Do you provide hvac installation for both residential homes and small commercial spaces?",
+      "answer": "Yes, HVAC installation is available for both residential homes and small commercial spaces. The installation covers heating, cooling, and ventilation systems. This means help is available whether you need a new air conditioner for your house or a full system for your business or office. The right unit is chosen based on your building’s size and needs, and the work is done according to local codes for safety and efficiency."
+    },
+    {
+      "question": "Do you offer any warranties or guarantees on parts and labor for hvac installation?",
+      "answer": "Most HVAC installations come with both parts and labor warranties. Parts warranties are usually provided by the manufacturer and can last anywhere from 5 to 10 years depending on the brand and equipment. Labor is often covered for a set period, like one year, and covers any issues related to how the system was installed. It’s important to register your unit and keep your paperwork to make sure your warranty is valid. If something goes wrong within the covered time, repairs or replacements are usually taken care of at no extra cost to you. Always ask for details and make sure you understand what’s covered before the job starts."
+    },
+    {
+      "question": "Do you offer upfront estimates for hvac repair before any work begins?",
+      "answer": "Upfront estimates are always given before starting any HVAC repair work. This way, you know exactly what to expect in terms of cost—no surprises or hidden fees later. A technician will check out the problem, explain what needs to be fixed, and give you an honest price so you can decide what to do next."
+    },
+    {
+      "question": "Do you offer financing or payment plans for hvac installation?",
+      "answer": "Financing and payment plans are available for HVAC installation. This lets you spread out the cost over time instead of paying it all at once. Options vary, but most plans are designed to make payments more manageable based on your budget. This way, you can upgrade your system without waiting until you have the full amount saved up. If you’re interested, ask about current financing options during your estimate or service call."
+    },
+    {
+      "question": "Do you provide hvac repair for refrigerant leaks and frozen evaporator coils?",
+      "answer": "HVAC repair service covers refrigerant leaks and frozen evaporator coils. If your air conditioner isn’t cooling right, makes hissing noises, or you see ice buildup, these can be signs of leaks or coil problems. Fixing these issues is important to keep your system running efficiently and to avoid bigger breakdowns. Licensed technicians have the proper tools to find leaks, repair them, recharge refrigerant, and thaw out frozen coils so your system works like it should."
+    },
+    {
+      "question": "What’s included in your hvac installation service, and do you help with sizing the system and pulling permits?",
+      "answer": "HVAC installation covers removing your old system if you have one, setting up the new unit, making sure it’s the right size for your house, and connecting everything like ductwork, wiring, and thermostats. Sizing matters a lot, so part of the job is figuring out the best system to fit your home so it works efficiently and keeps you comfortable. Pulling permits is also included, which means we'll handle the paperwork with your local city or county so your installation follows building codes and is fully approved."
+    },
+    {
+      "question": "Do you offer hvac repair for ductwork issues like air leaks, poor airflow, or rooms that won’t heat or cool evenly?",
+      "answer": "HVAC repair for ductwork problems is available, including fixing air leaks, improving poor airflow, and addressing rooms that don't heat or cool evenly. Common signs of duct issues are stuffy rooms, higher energy bills, or some spaces feeling uncomfortable. Properly repairing or sealing ductwork can make your HVAC system run better and help every room reach the right temperature. A technician can inspect your ducts, find the main problems, and suggest the best way to fix them so your house feels comfortable all over."
+    },
+    {
+      "question": "Can your hvac company help with replacing old ductwork or installing new ducts during a remodel?",
+      "answer": "Replacing old ductwork or installing new ducts is a big part of most remodel projects, especially if you want your heating and cooling system to work better. A professional HVAC team can remove worn-out ducts, add new ducts where you need them, and make sure the whole system is sealed and sized right for your house. Upgrading your ductwork during a remodel can boost energy efficiency, fix airflow problems, and help your system last longer."
     }
   ],
   "socials": {
-    "facebook": "https://www.facebook.com/example",
-    "instagram": "https://www.instagram.com/example",
-    "yelp": "https://www.yelp.com/biz/example",
-    "nextdoor": "https://nextdoor.com/pages/example/",
-    "google": "https://maps.google.com/?cid=0000000000000000000",
+    "facebook": "",
+    "instagram": "",
+    "yelp": "",
+    "nextdoor": "",
+    "google": "",
     "linkedin": "",
     "tiktok": "",
     "youtube": ""
   },
-  "team": [
-    {
-      "name": "Jeremy Smith",
-      "title": "Owner & Lead Technician",
-      "image": "/images/team-jeremy.png",
-      "bio": "With 15 years of experience in Tampa Bay HVAC, Jeremy founded the company on one rule: quote it honestly, fix it once.",
-      "credentials": "EPA 608 Certified",
-      "linkedin": ""
-    },
-    {
-      "name": "Marisol Rivera",
-      "title": "Service Manager",
-      "image": "/images/team-marisol.png",
-      "bio": "Marisol runs dispatch and quality control, and personally follows up on every install to make sure the job was done right.",
-      "credentials": "NATE Certified",
-      "linkedin": ""
-    }
-  ],
+  "team": [],
   "gtmId": "",
-  "ga4Id": "",
-  "searchConsoleVerification": "",
-  "ghlWebhookUrl": "",
+  "ga4Id": "G-7D4LNJ4H54",
+  "searchConsoleVerification": "SUr_FD06DZgca1bZ0VAoyjEMqRGT2yzJPEOX-95yHko",
+  "ghlWebhookUrl": "https://services.leadconnectorhq.com/hooks/jd6pyXtJMDm0jnfx7iMr/webhook-trigger/25d431d9-98d4-47f8-9d27-74c347f0faa7",
   "formRelayUrl": "https://relay.brandhyve.com/api/lead",
   "cookieConsentEnabled": true,
   "reviewsWidget": {
     "scriptSrc": "",
-    "iframeSrc": ""
+    "iframeSrc": "https://links.comairfl.com/reputation/widgets/review_widget/jd6pyXtJMDm0jnfx7iMr"
   }
 }

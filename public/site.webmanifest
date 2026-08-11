@@ -1,7 +1,7 @@
 {
-  "name": "{{BUSINESS_NAME}}",
-  "short_name": "{{BUSINESS_SHORT_NAME}}",
-  "description": "{{BUSINESS_DESCRIPTION}}",
+  "name": "Comffordable Air Solutions",
+  "short_name": "Comffordable Air",
+  "description": "Premium HVAC solutions in the Tampa Bay Area. Comfort you can afford, solutions you can trust.",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",

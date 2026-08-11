@@ -3,14 +3,14 @@ import type { GetStaticPaths } from 'astro';
 import business from '../../config/business.json';
 import testimonials from '../../config/testimonials.json';
 import Layout from '../../layouts/Layout.astro';
-import LocationHero from '../../components/LocationHero.astro';
+import Hero from '../../components/Hero.astro';
 import Neighborhoods from '../../components/Neighborhoods.astro';
 import Landmarks from '../../components/Landmarks.astro';
 import EmbeddedMap from '../../components/EmbeddedMap.astro';
 import Testimonials from '../../components/Testimonials.astro';
 import FAQSection from '../../components/FAQSection.astro';
 import CTASection from '../../components/CTASection.astro';
-import { pageTitle, metaDescription } from '../../lib/utils';
+import { telHref, pageTitle, metaDescription } from '../../lib/utils';
 
 export const getStaticPaths = (() => {
   return business.serviceAreas.map((area) => ({
@@ -21,10 +21,9 @@ export const getStaticPaths = (() => {
 
 const { area } = Astro.props;
 
-const title = pageTitle(`${business.industry} in ${area.name}, ${area.state}`);
+const title = pageTitle(`${area.name} AC Repair`);
 const description = metaDescription(
-  `Licensed ${business.industry.toLowerCase()} service in ${area.name}, ${area.state} from ${business.name}. Same-day appointments and upfront written pricing.`,
-  [`Covering ${area.neighborhoods.slice(0, 2).join(' and ')}.`]
+  `Premium HVAC repair, installation, and preventative maintenance services in ${area.name}, ${area.state}.`
 );
 
 const breadcrumbs = [
@@ -52,6 +51,9 @@ const faqs = [
   },
 ];
 
+const firstLandmark = area.landmarks[0];
+const lastLandmark = area.landmarks[area.landmarks.length - 1];
+
 const localTestimonials = testimonials.filter((t) => t.location.startsWith(area.name));
 const shownTestimonials = (localTestimonials.length ? localTestimonials : testimonials).slice(0, 3);
 ---
@@ -64,7 +66,20 @@ const shownTestimonials = (localTestimonials.length ? localTestimonials : testim
   image={area.hero}
   location={{ name: area.name, state: area.state, wiki: area.wiki }}
 >
-  <LocationHero area={area} phone={business.phone} />
+  <Hero
+    title={`AC Repair in <span>${area.name}, ${area.state}.</span>`}
+    subtitle={`Premium HVAC solutions delivered straight to your home in ${area.name}. Experience Comffordable Air today.`}
+    backgroundImage={area.hero}
+    cmsPrefix={`location-hero-${area.id}`}
+    size="half"
+    center
+    ctaPrimary={{ text: 'Book Now', href: '/contact/', icon: 'fa-solid fa-calendar-check' }}
+    ctaSecondary={{
+      text: `Call ${business.phone}`,
+      href: telHref(business.phone),
+      icon: 'fa-solid fa-phone',
+    }}
+  />
 
   <section class="section">
     <div class="container">
@@ -74,33 +89,113 @@ const shownTestimonials = (localTestimonials.length ? localTestimonials : testim
             {area.name}, {area.state}
           </span>
           <h2 class="section-title" data-cms={`city-${area.id}-title`}>
-            Your Local {business.industry} Team in {area.name}
+            Your Local {area.name} HVAC Experts
           </h2>
-          <p data-cms={`city-${area.id}-body`}>
-            {business.name} has been serving {area.name} homeowners with licensed, insured
-            technicians and honest, written pricing. We know the housing stock here and the
-            equipment failures that come with it — which means faster diagnosis and fewer repeat
-            visits.
+          <p data-cms={`city-${area.id}-body-1`}>
+            As a dedicated service area, {area.name}, {area.state} holds a special place for
+            {business.name}. We traverse the entire area to provide the highest standard of AC
+            repair, heating maintenance, and full system installations.
           </p>
-
-          <h3>Services available in {area.name}</h3>
-          <ul class="service-features">
-            {business.services.map((service) => (
-              <li>
-                <a href={`/${service.id}/`}>{service.name}</a>
-              </li>
-            ))}
+          <p data-cms={`city-${area.id}-body-2`}>
+            Whether you need an emergency repair during the peak of the Florida summer, or a
+            proactive maintenance tune-up to extend the life of your equipment, we have the
+            expertise and the dedication to get it done right in your home.
+          </p>
+          <ul class="service-features" data-cms={`city-${area.id}-points`}>
+            <li>Transparent, upfront pricing with no hidden fees.</li>
+            <li>Professional HVAC technicians serving the {area.name} community.</li>
+            <li>5-Star Rated for comfort you can afford and trust.</li>
           </ul>
         </div>
 
-        <EmbeddedMap query={`${area.name}, ${area.state}`} height={420} />
+        <div class="glass-panel animate-on-scroll">
+          <h3 data-cms={`city-${area.id}-panel-title`}>Service in {area.name}</h3>
+          <p data-cms={`city-${area.id}-panel-body`}>
+            {business.name} provides reliable HVAC care throughout {area.name}. We take the
+            guesswork out of air conditioning by handling the repairs and the optimization,
+            allowing you to enjoy a perfectly tempered home with family and friends.
+          </p>
+          <p style="margin:0">
+            <a class="btn btn-primary" href="/ac-repair/" data-cms={`city-${area.id}-panel-cta`}>
+              View Services
+            </a>
+          </p>
+        </div>
       </div>
     </div>
   </section>
 
-  <Neighborhoods name={area.name} neighborhoods={area.neighborhoods} />
+  <Neighborhoods
+    name={area.name}
+    neighborhoods={area.neighborhoods}
+    title={`Serving All ${area.name} Neighborhoods`}
+    intro={`Our technicians are frequent visitors to your neighborhood and beyond. We provide ${area.name} residents with professional HVAC care that stands up to the intense Florida elements.`}
+  />
 
-  <Landmarks name={area.name} landmarks={area.landmarks} wiki={area.wiki} />
+  <Landmarks
+    name={area.name}
+    landmarks={area.landmarks}
+    wiki={area.wiki}
+    label="Local Favorites"
+    title="Landmarks & Points of Interest"
+    intro={`Whether you're visiting ${firstLandmark} or living right next to ${lastLandmark}, we're your go-to HVAC pros in the ${area.name} area.`}
+  />
+
+  <section class="section">
+    <div class="container">
+      <div class="section-head-center">
+        <span class="section-label" data-cms={`city-${area.id}-services-label`}>
+          Expert Comfort
+        </span>
+        <h2 class="section-title" data-cms={`city-${area.id}-services-title`}>
+          Premium HVAC in {area.name}
+        </h2>
+      </div>
+      <div class="grid grid-2" data-cms-collection={`city-${area.id}-services-grid`}>
+        <article
+          class="glass-panel glass-panel-hover service-card animate-on-scroll"
+          data-cms-item={`city-${area.id}-services-grid`}
+        >
+          <span class="service-icon">
+            <i class="fa-solid fa-snowflake" aria-hidden="true"></i>
+          </span>
+          <h3 data-cms={`city-${area.id}-svc-1-title`}>AC Repair</h3>
+          <p data-cms={`city-${area.id}-svc-1-desc`}>
+            From emergency repairs to high-efficiency installations in {area.name}.
+          </p>
+          <a class="btn btn-outline btn-sm" href="/ac-repair/" data-cms={`city-${area.id}-svc-1-cta`}>
+            Learn More →
+          </a>
+        </article>
+        <article
+          class="glass-panel glass-panel-hover service-card animate-on-scroll"
+          data-cms-item={`city-${area.id}-services-grid`}
+        >
+          <span class="service-icon">
+            <i class="fa-solid fa-clipboard-check" aria-hidden="true"></i>
+          </span>
+          <h3 data-cms={`city-${area.id}-svc-2-title`}>Maintenance</h3>
+          <p data-cms={`city-${area.id}-svc-2-desc`}>
+            Proactive tune-ups and air quality solutions right here in {area.name}.
+          </p>
+          <a class="btn btn-outline btn-sm" href="/maintenance/" data-cms={`city-${area.id}-svc-2-cta`}>
+            Learn More →
+          </a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt">
+    <div class="container">
+      <div class="section-head-center">
+        <h2 class="section-title" data-cms={`city-${area.id}-map-title`}>
+          Our {area.name} Service Area
+        </h2>
+      </div>
+      <EmbeddedMap query={`${area.name}, ${area.state}`} height={420} />
+    </div>
+  </section>
 
   <Testimonials
     testimonials={shownTestimonials}

@@ -5,6 +5,8 @@ export interface Props {
     name: string;
     state: string;
     neighborhoods?: string[];
+    /** Per-area card copy from business.json; falls back to generic coverage text. */
+    blurb?: string;
   };
   /** data-cms-collection id of the surrounding grid, when this card is a collection item. */
   collectionId?: string;
@@ -34,7 +36,8 @@ const neighborhoods = area.neighborhoods?.slice(0, 4) ?? [];
   }
 
   <p style="flex:1" data-cms={`location-card-${area.id}-body`}>
-    Full service coverage across {area.name} and the surrounding {area.state} communities.
+    {area.blurb ??
+      `Full service coverage across ${area.name} and the surrounding ${area.state} communities.`}
   </p>
 
   <a
@@ -42,6 +45,6 @@ const neighborhoods = area.neighborhoods?.slice(0, 4) ?? [];
     href={`/service-areas/${area.id}/`}
     data-cms={`location-card-${area.id}-cta`}
   >
-    View Services in {area.name}
+    View {area.name} Services
   </a>
 </article>

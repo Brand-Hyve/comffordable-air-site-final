@@ -2,7 +2,7 @@
   "photos": [
     {
       "src": "/images/gallery/project-01.jpg",
-      "alt": "Residential AC installation by Example Home Services in St. Petersburg, FL",
+      "alt": "Residential AC installation by Comffordable Air Solutions in St. Petersburg, FL",
       "caption": "Residential AC Installation — St. Petersburg, FL",
       "category": "installation"
     },
@@ -37,16 +37,5 @@
       "category": "repair"
     }
   ],
-  "videos": [
-    {
-      "youtubeId": "dQw4w9WgXcQ",
-      "title": "How to Tell If Your AC Needs Repair",
-      "description": "Our lead technician walks through the warning signs that mean it is time to call for service."
-    },
-    {
-      "youtubeId": "aqz-KE-bpKQ",
-      "title": "What Happens During a Maintenance Visit",
-      "description": "A full walkthrough of the multi-point inspection we run on every maintenance appointment."
-    }
-  ]
+  "videos": []
 }

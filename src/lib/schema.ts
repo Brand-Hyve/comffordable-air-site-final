@@ -92,15 +92,21 @@ export function sameAs(): string[] {
   return urls;
 }
 
+/**
+ * Service-area businesses have no public street address — omit the empty
+ * fields rather than emitting blank strings (schema areaServed carries the
+ * coverage instead).
+ */
 export function postalAddress(): SchemaNode {
-  return {
+  const node: SchemaNode = {
     '@type': 'PostalAddress',
-    streetAddress: business.location.street,
     addressLocality: business.location.city,
     addressRegion: business.location.state,
-    postalCode: business.location.zip,
     addressCountry: business.location.country,
   };
+  if (business.location.street) node.streetAddress = business.location.street;
+  if (business.location.zip) node.postalCode = business.location.zip;
+  return node;
 }
 
 export function geoCoordinates(): SchemaNode {

@@ -4,14 +4,14 @@ import Layout from '../../layouts/Layout.astro';
 import Hero from '../../components/Hero.astro';
 import LocationCard from '../../components/LocationCard.astro';
 import CTASection from '../../components/CTASection.astro';
-import { cityState, pageTitle, metaDescription } from '../../lib/utils';
+import { telHref, pageTitle, metaDescription } from '../../lib/utils';
 
 const areas = business.serviceAreas;
-const location = cityState();
 
-const title = pageTitle('Service Areas');
+// Original title used a descriptive suffix rather than the brand name.
+const title = pageTitle('Service Areas', 'HVAC Solutions Florida');
 const description = metaDescription(
-  `${business.name} serves ${areas.map((a) => a.name).join(', ')} and the surrounding ${business.location.state} communities.`
+  'Comffordable Air Solutions provides premium AC repair and maintenance to St. Petersburg, Tampa, and Clearwater.'
 );
 
 const breadcrumbs = [
@@ -22,9 +22,9 @@ const breadcrumbs = [
 
 <Layout title={title} description={description} breadcrumbs={breadcrumbs} pageType="location">
   <Hero
-    title={`Serving <span>${business.location.state}</span> Homeowners`}
-    subtitle={`Licensed technicians based in ${location}, covering ${areas.length} communities with same-day availability.`}
-    backgroundImage="/images/hero.jpg"
+    title={`Service <span>Areas.</span>`}
+    subtitle="Premium HVAC maintenance delivered to your doorstep in the Tampa Bay Area."
+    backgroundImage="/images/service-areas-hero.jpg"
     cmsPrefix="areas-hero"
     size="half"
     center
@@ -35,10 +35,11 @@ const breadcrumbs = [
     <div class="container">
       <div class="section-head-center">
         <span class="section-label" data-cms="areas-index-label">Coverage Map</span>
-        <h2 class="section-title" data-cms="areas-index-title">Where We Work</h2>
+        <h2 class="section-title" data-cms="areas-index-title">We Come To You</h2>
         <p class="section-intro" data-cms="areas-index-intro">
-          Pick your city to see the neighborhoods we cover and what to expect from a visit. Not on
-          the list? Call us — we frequently service surrounding communities.
+          Don't suffer in the Florida heat with a broken AC. Our fully-equipped HVAC specialists
+          travel to your home, complete with all the necessary tools and professional-grade
+          equipment.
         </p>
       </div>
 
@@ -59,10 +60,10 @@ const breadcrumbs = [
   </section>
 
   <CTASection
-    title="Not sure if you are in range?"
-    subtitle="Give us a call with your address and we will tell you straight away."
-    ctaText="Contact Us"
-    ctaHref="/contact/"
+    title="Don't see your city listed?"
+    subtitle="We serve many other surrounding communities in the area."
+    ctaText="Call to Verify Your Area"
+    ctaHref={telHref(business.phone)}
     cmsPrefix="areas-cta"
   />
 </Layout>

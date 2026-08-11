@@ -28,4 +28,4 @@ Allow: /
 User-agent: Applebot-Extended
 Allow: /
 
-Sitemap: https://{{DOMAIN}}/sitemap-index.xml
+Sitemap: https://www.comairfl.com/sitemap-index.xml

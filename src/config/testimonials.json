@@ -1,50 +1,66 @@
 [
   {
     "id": "testimonial-1",
-    "name": "Sarah M.",
-    "location": "St. Petersburg, FL",
+    "name": "Matthew Stir",
+    "location": "Google Review",
     "rating": 5,
-    "text": "Excellent service! They arrived on time and fixed our AC quickly. The technician explained exactly what failed and what it would cost before touching anything.",
-    "date": "2025-06-15"
+    "text": "Reliable, fair, priced friendly and fast. 5 star service. I called Comffordable Air l for air conditioning repair that shut off today during business house. The tech was professional, explained the issue clearly, and finished the work on time. Communication was easy from the first call to the final check, and I could rely on them to get the job done right. Highly recommend for anyone needing HVAC service.",
+    "date": "2026-06-23"
   },
   {
     "id": "testimonial-2",
-    "name": "Daniel R.",
-    "location": "Clearwater, FL",
+    "name": "Ham Squad",
+    "location": "Google Review",
     "rating": 5,
-    "text": "Called at 9pm on a Sunday and had a working system by 11pm. Fair after-hours pricing and no upsell pressure at all.",
-    "date": "2025-05-02"
+    "text": "Helped me out in a pinch on a Saturday @ 7pm with fan motor install. Showed up to my home 15 minutes after phone call and fixed the issue with ease. Didn't try to bs me and gave me a fair price! I truly appreciate your time and help! Thanks again!",
+    "date": "2026-06-21"
   },
   {
     "id": "testimonial-3",
-    "name": "Priya N.",
-    "location": "Tampa, FL",
+    "name": "Todd Hague",
+    "location": "Google Review",
     "rating": 5,
-    "text": "We signed up for the maintenance plan two years ago and have not had a single breakdown since. Worth every dollar.",
-    "date": "2025-04-18"
+    "text": "Jonathan is very reputable and reliable. His pricing is very fair and he takes the time to explain the issues and then makes the correct repairs.",
+    "date": "2026-03-25"
   },
   {
     "id": "testimonial-4",
-    "name": "Mike T.",
-    "location": "Largo, FL",
+    "name": "Bill Miller",
+    "location": "Google Review",
     "rating": 5,
-    "text": "Full system replacement done in one day. The crew laid down floor protection and left the house cleaner than they found it.",
-    "date": "2025-03-27"
+    "text": "Great work for a fair price. Very professional and courteous. Thanks for your extra efforts in making it look great!",
+    "date": "2026-03-26"
   },
   {
     "id": "testimonial-5",
-    "name": "Angela K.",
-    "location": "St. Petersburg, FL",
+    "name": "eulogio rios",
+    "location": "Google Review",
     "rating": 5,
-    "text": "Two other companies told us we needed a whole new unit. These folks found a bad capacitor and charged us a fraction of that.",
-    "date": "2025-02-11"
+    "text": "It was a great experience, got an excellent quote on new unit, it got installed the next day, they did a great job and worked with respect and cleaned up everything when done, if I have a question always quick to respond",
+    "date": "2026-03-24"
   },
   {
     "id": "testimonial-6",
-    "name": "Chris B.",
-    "location": "Tampa, FL",
+    "name": "Tracy Cook",
+    "location": "Google Review",
     "rating": 5,
-    "text": "The duct cleaning made a noticeable difference in airflow upstairs, and my allergy symptoms are dramatically better.",
-    "date": "2025-01-09"
+    "text": "John did a great job for us, he is such a nice guy, knows what he is doing and is reasonably priced. I felt very comfortable and confident working with him. Great company.",
+    "date": "2026-03-23"
+  },
+  {
+    "id": "testimonial-7",
+    "name": "David Hankins",
+    "location": "Google Review",
+    "rating": 5,
+    "text": "Great attention to customer needs and providing a high quality solution. Great crew as well. Quality contractor. I highly recommend them",
+    "date": "2026-03-23"
+  },
+  {
+    "id": "testimonial-8",
+    "name": "David Joyce",
+    "location": "Google Review",
+    "rating": 5,
+    "text": "Quality work, nice guy, fair pricing, responsive",
+    "date": "2026-03-23"
   }
 ]

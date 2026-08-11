@@ -64,7 +64,7 @@ const phoneHref = telHref(business.phone);
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="generator" content={Astro.generator} />
 
-    <title>{title}</title>
+    <title data-cms="page-title">{title}</title>
     <meta name="description" content={description} data-cms="meta-description" />
     <link rel="canonical" href={canonicalURL} />
     {noindex && <meta name="robots" content="noindex, nofollow" />}
@@ -93,60 +93,17 @@ const phoneHref = telHref(business.phone);
     <link rel="manifest" href="/site.webmanifest" />
     <meta name="theme-color" content="#0d1b2a" />
 
-    <!-- Google Fonts (Inter) -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      rel="preload"
-      as="style"
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
-    />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
-      media="print"
-      data-async-css
-    />
-    <noscript>
-      <link
-        rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
-      />
-    </noscript>
-
-    <!-- Font Awesome 6.4 (CDN) -->
-    <link
-      rel="preload"
-      as="style"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-      media="print"
-      data-async-css
-    />
-    <noscript>
-      <link
-        rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-      />
-    </noscript>
-
     <!--
-      Async CSS swap: the font + icon stylesheets ship as media="print" so they
-      never block first render, then flip to media="all" once loaded.
+      Fonts + icons are self-hosted (imported in global.css) — no external
+      origins on the critical path and nothing that depends on JS to load.
+
+      Progressive-enhancement gate: `.js` on <html> is what lets the stylesheet
+      apply JS-dependent states (scroll animations, CTA-bar slide-in). Hyve CMS
+      strips every <script> from a published page, so those pages simply render
+      everything visible.
     -->
     <script is:inline>
-      document.querySelectorAll('link[data-async-css]').forEach(function (link) {
-        if (link.sheet) {
-          link.media = 'all';
-        } else {
-          link.addEventListener('load', function () {
-            link.media = 'all';
-          });
-        }
-      });
+      document.documentElement.classList.add('js');
     </script>
 
     <!-- Structured data: a single @graph per page -->
@@ -221,7 +178,7 @@ const phoneHref = telHref(business.phone);
 
     {
       breadcrumbs.length > 0 && (
-        <nav class="breadcrumbs container" aria-label="Breadcrumb" data-cms="breadcrumbs">
+        <nav class="breadcrumbs container" aria-label="Breadcrumb">
           <ol itemscope itemtype="https://schema.org/BreadcrumbList">
             {breadcrumbs.map((crumb, i) => (
               <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
@@ -244,7 +201,7 @@ const phoneHref = telHref(business.phone);
 
     {
       showCtaBar && (
-        <div class="mobile-cta-bar" id="mobile-cta-bar" data-cms="mobile-cta-bar">
+        <div class="mobile-cta-bar" id="mobile-cta-bar">
           <a class="btn btn-outline btn-sm" href={phoneHref} data-cms="mobile-cta-call">
             <i class="fa-solid fa-phone" aria-hidden="true" /> Call Now
           </a>
@@ -282,7 +239,7 @@ const phoneHref = telHref(business.phone);
 
     {
       showCookieBanner && (
-        <div class="cookie-banner" id="cookie-banner" data-cms="cookie-banner" hidden>
+        <div class="cookie-banner" id="cookie-banner" hidden>
           <p data-cms="cookie-text">
             We use cookies to improve your experience and analyze site traffic. See our{' '}
             <a href="/privacy/">Privacy Policy</a>.
@@ -295,8 +252,10 @@ const phoneHref = telHref(business.phone);
     }
 
     <script>
-      // All listeners bind on astro:page-load so they survive View Transitions.
-      document.addEventListener('astro:page-load', () => {
+      import { onReady } from '../lib/onReady';
+
+      // onReady runs at DOM-ready and again after any View Transitions swap.
+      onReady(() => {
         // 1. Scroll-triggered fade-in
         const animated = document.querySelectorAll<HTMLElement>('.animate-on-scroll');
         if (animated.length) {

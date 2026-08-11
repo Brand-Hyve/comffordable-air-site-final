@@ -1,6 +1,13 @@
 ---
 import { faqPageNode } from '../lib/schema';
 
+/**
+ * Native <details>/<summary> accordion — answers are reachable with zero JS
+ * (and after Hyve CMS strips scripts). The `name` attribute gives the
+ * one-open-at-a-time behaviour natively in modern browsers; older browsers
+ * simply allow multiple items open, which is fine.
+ */
+
 export interface Props {
   items: { question: string; answer: string }[];
   cmsPrefix?: string;
@@ -17,7 +24,7 @@ const faqSchema = items.length ? faqPageNode(pageUrl, items) : null;
 
 {
   items.length > 0 && (
-    <section class="section section-alt" data-cms={`${cmsPrefix}-section`}>
+    <section class="section section-alt">
       <div class="container">
         <div class="section-head-center">
           <span class="section-label">{label}</span>
@@ -26,28 +33,17 @@ const faqSchema = items.length ? faqPageNode(pageUrl, items) : null;
           </h2>
         </div>
 
-        <div class="faq-list" data-cms={`${cmsPrefix}-list`}>
+        <div class="faq-list" data-cms-collection={`${cmsPrefix}-list`}>
           {items.map((item, index) => (
-            <div class="faq-item" data-cms={`${cmsPrefix}-item-${index + 1}`}>
-              <button
-                class="faq-question"
-                type="button"
-                aria-expanded="false"
-                aria-controls={`${cmsPrefix}-answer-${index + 1}`}
-                id={`${cmsPrefix}-question-${index + 1}`}
-              >
-                <span>{item.question}</span>
+            <details class="faq-item" name={cmsPrefix} data-cms-item={`${cmsPrefix}-list`}>
+              <summary class="faq-question">
+                <span data-cms={`${cmsPrefix}-item-${index + 1}-question`}>{item.question}</span>
                 <i class="fa-solid fa-chevron-down faq-chevron" aria-hidden="true" />
-              </button>
-              <div
-                class="faq-answer"
-                id={`${cmsPrefix}-answer-${index + 1}`}
-                role="region"
-                aria-labelledby={`${cmsPrefix}-question-${index + 1}`}
-              >
-                <p>{item.answer}</p>
+              </summary>
+              <div class="faq-answer">
+                <p data-cms={`${cmsPrefix}-item-${index + 1}-answer`}>{item.answer}</p>
               </div>
-            </div>
+            </details>
           ))}
         </div>
       </div>
@@ -58,27 +54,3 @@ const faqSchema = items.length ? faqPageNode(pageUrl, items) : null;
     </section>
   )
 }
-
-<script>
-  document.addEventListener('astro:page-load', () => {
-    document.querySelectorAll<HTMLElement>('.faq-list').forEach((list) => {
-      const items = list.querySelectorAll<HTMLElement>('.faq-item');
-      items.forEach((item) => {
-        const button = item.querySelector<HTMLButtonElement>('.faq-question');
-        if (!button) return;
-        button.addEventListener('click', () => {
-          const isOpen = item.classList.contains('open');
-          // Only one item open at a time
-          items.forEach((other) => {
-            other.classList.remove('open');
-            other.querySelector('.faq-question')?.setAttribute('aria-expanded', 'false');
-          });
-          if (!isOpen) {
-            item.classList.add('open');
-            button.setAttribute('aria-expanded', 'true');
-          }
-        });
-      });
-    });
-  });
-</script>

@@ -25,10 +25,12 @@ The same applies to `gallery.json` (photos + videos) and `testimonials.json`.
 | Tailwind CSS | ^4.x | Via `@tailwindcss/vite` — no `tailwind.config.js`, no PostCSS config |
 | TypeScript | ^5.x | `astro/tsconfigs/strict` |
 | @astrojs/sitemap | ^3.x | Auto sitemap at build |
-| Font Awesome | 6.4 CDN | Icon classes live in `business.json` (`services[].icon`) |
+| Font Awesome | ^7 self-hosted | `@fortawesome/fontawesome-free` (solid + brands), imported in `global.css`. Icon classes live in `business.json` (`services[].icon`) |
+| Inter | self-hosted | `@fontsource-variable/inter`, imported in `global.css` |
 
 No React/Vue/Svelte. No CSS framework beyond Tailwind's utility layer. Interactivity is plain
-vanilla JS in `<script>` blocks.
+vanilla JS in `<script>` blocks. **No external origins on the critical path** — fonts and icons
+are bundled; do not reintroduce CDN `<link>`s.
 
 ## Commands
 
@@ -38,20 +40,53 @@ npm run build    # production build — must finish with zero errors
 npm run preview  # serve the built output
 npm run lint     # astro check (type + template diagnostics)
 npm run qa       # hyve-qa-pipeline against a deployed URL
+npm run test:cms # run the real Hyve CMS engine over dist/ (build first; set HYVE_CMS_DIR)
 ```
 
 ## Conventions
 
 - **Components:** PascalCase (`ServicesGrid.astro`). **Pages:** kebab-case. **Lib/config:** camelCase.
 - **Every component exports a TypeScript `Props` interface.** No untyped `Astro.props`.
-- **Every editable element carries a `data-cms` attribute** so the Hyve visual editor can target it.
-  Naming: `{cmsPrefix}-{element}`, and `{cmsPrefix}-item-{id}` for repeated items.
 - **Styling lives in `src/styles/global.css`.** Brand changes are CSS custom properties in `:root` —
   do not edit component internals to restyle a client.
-- **Scripts bind on `astro:page-load`**, never bare `DOMContentLoaded`, so they survive View
-  Transitions.
+- **Scripts wrap their initializer in `onReady()`** (`src/lib/onReady.ts`), never bare
+  `DOMContentLoaded` or a bare `astro:page-load` listener. This starter ships no ClientRouter, so
+  `astro:page-load` never fires on its own; `onReady` runs at DOM-ready and re-runs after View
+  Transitions swaps if a router is ever added.
 - **Trailing slashes are enforced sitewide.** Internal links end in `/`; `Layout.astro` normalizes
   the canonical to match.
+
+## Progressive enhancement — never require JS
+
+Hyve CMS ingests the BUILT page and **strips every `<script>`** before publishing. Anything that
+depends on JS is dead on a CMS-published site. The rules:
+
+- Content is visible and functional by default; JS only *enhances*. JS-dependent hidden states in
+  CSS must be gated behind `html.js` (an inline script in `Layout.astro` adds `.js` — the CMS
+  strips it, so published pages never hide anything). `.animate-on-scroll` works this way.
+- FAQ accordions are native `<details>/<summary>`. The mobile nav is a CSS-only checkbox
+  disclosure. Gallery photos are plain `<a>` image links, video facades are `<a>` links to the
+  YouTube watch page — JS upgrades them to lightbox/embed by intercepting the click.
+- Verify with `npm run build && npm run test:cms` — it runs the real CMS engine
+  (autotag → render → resync) over every built page and fails on regressions.
+
+## Hyve CMS tagging
+
+The CMS parses four attributes: `data-cms` (text field), `data-cms-img` (image field),
+`data-cms-collection` / `data-cms-item` (repeatable grids).
+
+- **Text:** `data-cms` on the LEAF element that holds the copy. Naming: `{cmsPrefix}-{element}`,
+  and `{cmsPrefix}-item-{id}-{element}` inside repeated items.
+- **Images:** `data-cms-img` on the `<img>` — never `data-cms`. Autotag falls back to sequential
+  `cms-N` ids for untagged images; hand-authored ids are what let a client's edits survive a
+  rebuild losslessly (resync matches authored ids exactly).
+- **Collections:** `data-cms-collection="{id}"` on the grid container; `data-cms-item="{id}"`
+  (same id) on each item, which must be a DIRECT child of the container.
+- **Never put `data-cms` on a structural wrapper** (a section/div that contains other tagged
+  elements). The CMS skips those, but emitting them is still a bug — the wrapper would otherwise
+  double-register the copy of its children.
+- `data-cms` ids must be unique per page — they are map keys; duplicates silently apply edits to
+  the wrong element.
 
 ## SEO invariants — do not break these
 
@@ -130,7 +165,22 @@ Add an entry to `services[]` or `serviceAreas[]` in `business.json`. The routes
 - Empty `hours` → schema omits `openingHoursSpecification`
 - Empty `gtmId` / `ga4Id` → those script blocks are omitted entirely
 - `cookieConsentEnabled: false` → banner is not rendered at all
-- Empty `ghlWebhookUrl` → contact form logs the payload to the console instead of posting
+- Empty `ghlWebhookUrl` → contact form has no `action`; a script logs the payload to the console
+
+## Contact form → relay → GHL
+
+GHL's inbound webhook accepts **JSON only** and **never redirects** — a native form POST aimed
+straight at it strands the visitor on raw JSON. So the form never posts to GHL directly:
+
+1. `ContactForm.astro` does a native form-encoded POST to the shared Brand Hyve relay
+   (`business.json > formRelayUrl`, normally `https://relay.brandhyve.com/api/lead`) with hidden
+   `_webhook` / `_redirect` / `_source` fields, all derived from `business.json` at build time.
+2. The relay (`relay/` — deployed as its OWN Vercel project, never through the CMS) forwards the
+   lead as JSON to that client's `ghlWebhookUrl` and 303-redirects to `/thank-you/`.
+3. `/thank-you/` is noindex, excluded from the sitemap, and is the GA4 conversion page.
+
+Zero JS involved, so the form works on CMS-published sites. Switching a client between GHL and
+Google Forms is a `business.json` change (the relay allowlists both webhook host families).
 
 ## Client setup checklist
 

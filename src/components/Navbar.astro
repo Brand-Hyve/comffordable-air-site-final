@@ -5,6 +5,10 @@ import { telHref } from '../lib/utils';
 /**
  * Sticky site header. Reads everything from business.json — takes no props.
  * Nav links: Home + first 4 services + About + Blog + Contact CTA.
+ *
+ * The mobile menu is a CSS-only checkbox disclosure (see global.css §7), so it
+ * keeps working after Hyve CMS strips scripts. JS only adds polish: closing
+ * the menu when a link is tapped and the shrink-on-scroll header.
  */
 
 const navServices = business.services.slice(0, 4);
@@ -13,32 +17,31 @@ const isCurrent = (href: string) => (href.replace(/\/+$/, '') || '/') === curren
 const phoneHref = telHref(business.phone);
 ---
 
-<header class="site-header" id="main-header" data-cms="header">
+<header class="site-header" id="main-header">
   <div class="container">
-    <a class="header-logo" href="/" data-cms="header-logo">
+    <a class="header-logo" href="/">
       <img
         src="/images/logo.png"
         alt={`${business.name} logo`}
         width="42"
         height="42"
-        data-cms="header-logo-img"
+        data-cms-img="header-logo-img"
       />
       <span class="header-logo-text" data-cms="header-logo-text">{business.name}</span>
     </a>
 
-    <button
-      class="nav-toggle"
-      id="nav-toggle"
-      type="button"
+    <input
+      class="nav-checkbox"
+      id="nav-open"
+      type="checkbox"
       aria-label="Toggle navigation menu"
-      aria-expanded="false"
-      aria-controls="main-nav"
-      data-cms="header-mobile-btn"
-    >
-      <i class="fa-solid fa-bars" aria-hidden="true"></i>
-    </button>
+    />
+    <label class="nav-toggle" for="nav-open" aria-hidden="true">
+      <i class="fa-solid fa-bars nav-icon-open"></i>
+      <i class="fa-solid fa-xmark nav-icon-close"></i>
+    </label>
 
-    <nav class="main-nav" id="main-nav" aria-label="Main" data-cms="header-nav">
+    <nav class="main-nav" id="main-nav" aria-label="Main">
       <ul>
         <li>
           <a href="/" data-cms="nav-home" aria-current={isCurrent('/') ? 'page' : undefined}>Home</a>
@@ -80,9 +83,11 @@ const phoneHref = telHref(business.phone);
 </header>
 
 <script>
-  document.addEventListener('astro:page-load', () => {
+  import { onReady } from '../lib/onReady';
+
+  onReady(() => {
     const header = document.getElementById('main-header');
-    const toggle = document.getElementById('nav-toggle');
+    const checkbox = document.getElementById('nav-open') as HTMLInputElement | null;
     const nav = document.getElementById('main-nav');
 
     if (header) {
@@ -91,20 +96,11 @@ const phoneHref = telHref(business.phone);
       window.addEventListener('scroll', onScroll, { passive: true });
     }
 
-    if (toggle && nav) {
-      toggle.addEventListener('click', () => {
-        const open = nav.classList.toggle('open');
-        toggle.setAttribute('aria-expanded', String(open));
-        const icon = toggle.querySelector('i');
-        if (icon) icon.className = open ? 'fa-solid fa-xmark' : 'fa-solid fa-bars';
-      });
-
+    // Enhancement only: collapse the CSS-only menu after a link is tapped.
+    if (checkbox && nav) {
       nav.querySelectorAll('a').forEach((link) => {
         link.addEventListener('click', () => {
-          nav.classList.remove('open');
-          toggle.setAttribute('aria-expanded', 'false');
-          const icon = toggle.querySelector('i');
-          if (icon) icon.className = 'fa-solid fa-bars';
+          checkbox.checked = false;
         });
       });
     }

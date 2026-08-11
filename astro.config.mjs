@@ -12,7 +12,8 @@ export default defineConfig({
   },
   integrations: [
     sitemap({
-      filter: (page) => !page.includes('/admin/')
+      // /thank-you/ is noindex (post-form landing) — keep it out of the sitemap
+      filter: (page) => !page.includes('/admin/') && !page.includes('/thank-you/')
     })
   ],
   // Static output (no SSR needed for brochure sites)

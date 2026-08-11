@@ -48,7 +48,7 @@ const mapQuery = `${business.name}, ${address}`;
 
       <div class="grid grid-2">
         <div>
-          <div class="glass-panel" data-cms="contact-details">
+          <div class="glass-panel">
             <h2>Contact Details</h2>
             <ul class="footer-contact" style="color:var(--text-secondary)">
               <li class="footer-contact-item">
@@ -65,11 +65,11 @@ const mapQuery = `${business.name}, ${address}`;
               </li>
               {
                 business.hours.length > 0 && (
-                  <li class="footer-contact-item" data-cms="contact-hours">
+                  <li class="footer-contact-item">
                     <i class="fa-solid fa-clock" aria-hidden="true" />
                     <ul class="footer-hours">
-                      {business.hours.map((entry) => (
-                        <li>{formatHours(entry)}</li>
+                      {business.hours.map((entry, i) => (
+                        <li data-cms={`contact-hours-${i + 1}`}>{formatHours(entry)}</li>
                       ))}
                     </ul>
                   </li>

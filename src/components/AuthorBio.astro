@@ -10,10 +10,17 @@ export interface Props {
 const { name, title, image, bio, linkedin } = Astro.props;
 ---
 
-<aside class="glass-panel author-bio" data-cms="author-bio">
+<aside class="glass-panel author-bio">
   {
     image && (
-      <img src={image} alt={`${name}, ${title ?? 'author'}`} loading="lazy" width="84" height="84" />
+      <img
+        src={image}
+        alt={`${name}, ${title ?? 'author'}`}
+        loading="lazy"
+        width="84"
+        height="84"
+        data-cms-img="author-img"
+      />
     )
   }
 

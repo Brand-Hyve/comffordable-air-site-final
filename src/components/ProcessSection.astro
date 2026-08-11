@@ -21,13 +21,13 @@ const {
       <h2 class="section-title" data-cms={`${cmsPrefix}-title`}>{title}</h2>
     </div>
 
-    <div class="grid grid-4">
+    <div class="grid grid-4" data-cms-collection={`${cmsPrefix}-grid`}>
       {
         steps.map((step) => (
-          <div class="process-step animate-on-scroll" data-cms={`${cmsPrefix}-step-${step.number}`}>
+          <div class="process-step animate-on-scroll" data-cms-item={`${cmsPrefix}-grid`}>
             <span class="process-number">{step.number}</span>
-            <h3>{step.title}</h3>
-            <p>{step.description}</p>
+            <h3 data-cms={`${cmsPrefix}-step-${step.number}-title`}>{step.title}</h3>
+            <p data-cms={`${cmsPrefix}-step-${step.number}-desc`}>{step.description}</p>
           </div>
         ))
       }

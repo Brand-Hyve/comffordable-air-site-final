@@ -1,0 +1,7 @@
+{
+  "name": "brandhyve-form-relay",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Shared Brand Hyve lead relay: native form POST in, JSON to the client's GHL webhook out, 303 to /thank-you/."
+}

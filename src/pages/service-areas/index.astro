@@ -48,9 +48,9 @@ const breadcrumbs = [
             Service area details are coming soon. Call us to confirm coverage for your address.
           </p>
         ) : (
-          <div class="grid grid-3">
+          <div class="grid grid-3" data-cms-collection="areas-grid">
             {areas.map((area) => (
-              <LocationCard area={area} />
+              <LocationCard area={area} collectionId="areas-grid" />
             ))}
           </div>
         )

@@ -80,15 +80,15 @@ const values = [
           }
         </div>
 
-        <div class="grid" style="gap:1rem">
+        <div class="grid" style="gap:1rem" data-cms-collection="about-values">
           {
-            values.map((value) => (
-              <div class="glass-panel animate-on-scroll" data-cms={`about-value-${value.title}`}>
+            values.map((value, i) => (
+              <div class="glass-panel animate-on-scroll" data-cms-item="about-values">
                 <span class="service-icon">
                   <i class={value.icon} aria-hidden="true" />
                 </span>
-                <h3>{value.title}</h3>
-                <p style="margin:0">{value.description}</p>
+                <h3 data-cms={`about-value-${i + 1}-title`}>{value.title}</h3>
+                <p style="margin:0" data-cms={`about-value-${i + 1}-desc`}>{value.description}</p>
               </div>
             ))
           }
@@ -110,12 +110,12 @@ const values = [
             </h2>
           </div>
 
-          <div class="grid grid-3">
-            {business.team.map((member) => (
+          <div class="grid grid-3" data-cms-collection="team-grid">
+            {business.team.map((member, i) => (
               <article
                 class="glass-panel animate-on-scroll"
                 style="text-align:center"
-                data-cms={`team-member-${member.name}`}
+                data-cms-item="team-grid"
               >
                 <img
                   src={member.image}
@@ -124,13 +124,21 @@ const values = [
                   height="120"
                   loading="lazy"
                   style="width:120px;height:120px;border-radius:50%;object-fit:cover;margin:0 auto 1.25rem"
+                  data-cms-img={`team-member-${i + 1}-img`}
                 />
-                <h3>{member.name}</h3>
-                <p style="margin-bottom:0.35rem"><strong>{member.title}</strong></p>
+                <h3 data-cms={`team-member-${i + 1}-name`}>{member.name}</h3>
+                <p style="margin-bottom:0.35rem">
+                  <strong data-cms={`team-member-${i + 1}-title`}>{member.title}</strong>
+                </p>
                 {member.credentials && (
-                  <p style="font-size:0.85rem;margin-bottom:0.75rem">{member.credentials}</p>
+                  <p
+                    style="font-size:0.85rem;margin-bottom:0.75rem"
+                    data-cms={`team-member-${i + 1}-credentials`}
+                  >
+                    {member.credentials}
+                  </p>
                 )}
-                <p style="margin:0">{member.bio}</p>
+                <p style="margin:0" data-cms={`team-member-${i + 1}-bio`}>{member.bio}</p>
               </article>
             ))}
           </div>

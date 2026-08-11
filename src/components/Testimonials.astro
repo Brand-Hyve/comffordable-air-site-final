@@ -36,21 +36,32 @@ const {
           </h2>
         </div>
 
-        <div class="grid grid-3">
+        <div class="grid grid-3" data-cms-collection={`${cmsPrefix}-grid`}>
           {testimonials.map((testimonial) => (
             <figure
               class="glass-panel testimonial-card animate-on-scroll"
-              data-cms={`${cmsPrefix}-item-${testimonial.id}`}
+              data-cms-item={`${cmsPrefix}-grid`}
             >
               <div class="testimonial-stars" aria-label={`${testimonial.rating} out of 5 stars`}>
                 {stars(testimonial.rating)}
               </div>
-              <blockquote class="testimonial-text" style="margin:0 0 1.25rem">
+              <blockquote
+                class="testimonial-text"
+                style="margin:0 0 1.25rem"
+                data-cms={`${cmsPrefix}-item-${testimonial.id}-text`}
+              >
                 {testimonial.text}
               </blockquote>
               <figcaption>
-                <p class="testimonial-name">{testimonial.name}</p>
-                <p class="testimonial-location">{testimonial.location}</p>
+                <p class="testimonial-name" data-cms={`${cmsPrefix}-item-${testimonial.id}-name`}>
+                  {testimonial.name}
+                </p>
+                <p
+                  class="testimonial-location"
+                  data-cms={`${cmsPrefix}-item-${testimonial.id}-location`}
+                >
+                  {testimonial.location}
+                </p>
               </figcaption>
             </figure>
           ))}

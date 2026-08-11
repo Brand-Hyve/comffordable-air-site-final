@@ -17,6 +17,8 @@
   /* Brand Tokens — swapped per client */
   --primary: #1e88e5;              /* Primary brand color */
   --primary-hover: #61a82f;        /* Hover/active (green by default) */
+  --glow: #61a82f;                 /* Hover glow: borders + halo on cards/buttons */
+  --glow-rgb: 97, 168, 47;         /* Same colour, for rgba() halos */
   --secondary: #0d1b2a;            /* Secondary dark surface */
   --accent: #f5ca13;               /* Accent/warning color */
 
@@ -50,12 +52,12 @@
 /* Dark mode (default for glass-morphism aesthetic) */
 @media (prefers-color-scheme: dark) {
   :root {
-    --bg-dark: #0a0a0f;
-    --bg-darker: #0d0d14;
+    --bg-dark: #16161f;
+    --bg-darker: #1c1c27;
     --text-primary: #f0f0f0;
     --text-secondary: #a0a0a0;
-    --glass-bg: rgba(255, 255, 255, 0.05);
-    --glass-border: rgba(255, 255, 255, 0.1);
+    --glass-bg: rgba(255, 255, 255, 0.07);
+    --glass-border: rgba(255, 255, 255, 0.14);
   }
 }
 
@@ -214,8 +216,10 @@ ul, ol { margin: 0 0 1rem; padding-left: 1.25rem; }
 
 .glass-panel-hover:hover {
   transform: translateY(-4px);
-  border-color: var(--primary);
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12);
+  border-color: var(--glow);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12),
+              0 0 0 1px rgba(var(--glow-rgb), 0.35),
+              0 8px 28px rgba(var(--glow-rgb), 0.22);
 }
 
 /* ==========================================================================
@@ -248,6 +252,7 @@ ul, ol { margin: 0 0 1rem; padding-left: 1.25rem; }
   background: var(--primary-hover);
   color: var(--text-white);
   transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(var(--glow-rgb), 0.38);
 }
 
 .btn-outline {
@@ -257,9 +262,10 @@ ul, ol { margin: 0 0 1rem; padding-left: 1.25rem; }
 }
 
 .btn-outline:hover {
-  background: var(--primary);
-  border-color: var(--primary);
+  background: var(--glow);
+  border-color: var(--glow);
   color: var(--text-white);
+  box-shadow: 0 6px 20px rgba(var(--glow-rgb), 0.38);
 }
 
 .btn-sm {
@@ -801,7 +807,7 @@ html.js .animate-on-scroll.is-visible {
   color: var(--text-white);
 }
 
-.footer-socials a:hover { background: var(--primary); border-color: var(--primary); color: var(--text-white); }
+.footer-socials a:hover { background: var(--glow); border-color: var(--glow); color: var(--text-white); }
 
 .footer-bottom {
   display: flex;

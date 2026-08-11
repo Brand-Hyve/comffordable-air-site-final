@@ -25,7 +25,14 @@ const {
 ---
 
 <section class:list={['hero', size === 'full' ? 'hero-full' : 'hero-half']}>
-  <img class="hero-bg" src={backgroundImage} alt="" aria-hidden="true" fetchpriority="high" />
+  <img
+    class="hero-bg"
+    src={backgroundImage}
+    alt=""
+    aria-hidden="true"
+    fetchpriority="high"
+    data-cms-img={`${cmsPrefix}-bg`}
+  />
   <div class="hero-overlay" style={overlayStyle}></div>
 
   <div class="container">

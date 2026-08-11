@@ -6,17 +6,19 @@ export interface Props {
     state: string;
     neighborhoods?: string[];
   };
+  /** data-cms-collection id of the surrounding grid, when this card is a collection item. */
+  collectionId?: string;
 }
 
-const { area } = Astro.props;
+const { area, collectionId } = Astro.props;
 const neighborhoods = area.neighborhoods?.slice(0, 4) ?? [];
 ---
 
 <article
   class="glass-panel glass-panel-hover location-card animate-on-scroll"
-  data-cms={`location-card-${area.id}`}
+  data-cms-item={collectionId}
 >
-  <h3>{area.name}, {area.state}</h3>
+  <h3 data-cms={`location-card-${area.id}-title`}>{area.name}, {area.state}</h3>
 
   {
     neighborhoods.length > 0 && (
@@ -31,11 +33,15 @@ const neighborhoods = area.neighborhoods?.slice(0, 4) ?? [];
     )
   }
 
-  <p style="flex:1">
+  <p style="flex:1" data-cms={`location-card-${area.id}-body`}>
     Full service coverage across {area.name} and the surrounding {area.state} communities.
   </p>
 
-  <a class="btn btn-outline btn-sm" href={`/service-areas/${area.id}/`}>
+  <a
+    class="btn btn-outline btn-sm"
+    href={`/service-areas/${area.id}/`}
+    data-cms={`location-card-${area.id}-cta`}
+  >
     View Services in {area.name}
   </a>
 </article>

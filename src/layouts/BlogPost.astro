@@ -80,8 +80,8 @@ const breadcrumbs = [
         <p class="blog-meta" style="justify-content:center">
           <span class="blog-category">{category}</span>
         </p>
-        <h1>{title}</h1>
-        <p>{description}</p>
+        <h1 data-cms="post-title">{title}</h1>
+        <p data-cms="post-intro">{description}</p>
 
         <!-- Freshness signals (spec C3) — must match schema dates -->
         <p class="article-dates" style="justify-content:center">
@@ -107,16 +107,17 @@ const breadcrumbs = [
             width="1200"
             height="675"
             style="margin:2.5rem auto;border-radius:16px"
+            data-cms-img="post-image"
           />
         )
       }
 
-      <div class="article-body" data-cms="post-body">
+      <div class="article-body">
         <slot />
 
         {
           tags.length > 0 && (
-            <ul class="tag-list" data-cms="post-tags">
+            <ul class="tag-list">
               {tags.map((tag) => (
                 <li class="chip">#{tag}</li>
               ))}
@@ -139,9 +140,9 @@ const breadcrumbs = [
             <h2 class="section-title" style="text-align:center">
               Related Reading
             </h2>
-            <div class="blog-grid">
+            <div class="blog-grid" data-cms-collection="related-posts">
               {relatedPosts.map((post, index) => (
-                <BlogCard post={post} index={index} />
+                <BlogCard post={post} index={index} collectionId="related-posts" />
               ))}
             </div>
           </section>

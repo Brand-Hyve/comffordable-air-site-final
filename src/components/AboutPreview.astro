@@ -58,9 +58,9 @@ const {
 
         {
           stats.length > 0 && (
-            <ul class="chip-list" style="margin-top:1.5rem" data-cms={`${cmsPrefix}-stats`}>
-              {stats.map((stat) => (
-                <li class="chip">
+            <ul class="chip-list" style="margin-top:1.5rem" data-cms-collection={`${cmsPrefix}-stats`}>
+              {stats.map((stat, i) => (
+                <li class="chip" data-cms-item={`${cmsPrefix}-stats`} data-cms={`${cmsPrefix}-stat-${i + 1}`}>
                   <strong>{stat.value}</strong> {stat.label}
                 </li>
               ))}
@@ -81,7 +81,7 @@ const {
           height="600"
           loading="lazy"
           style="border-radius:16px;aspect-ratio:4/3;object-fit:cover;width:100%"
-          data-cms={`${cmsPrefix}-image`}
+          data-cms-img={`${cmsPrefix}-image`}
         />
       </div>
     </div>

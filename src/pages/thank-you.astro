@@ -1,0 +1,36 @@
+---
+import business from '../config/business.json';
+import Layout from '../layouts/Layout.astro';
+import { telHref, pageTitle, metaDescription } from '../lib/utils';
+
+/**
+ * Post-submission landing page. The form relay 303-redirects here, which is
+ * what makes GA4 conversion tracking possible without any client-side JS.
+ * noindex — this page only makes sense after a form submission.
+ */
+
+const title = pageTitle('Thank You');
+const description = metaDescription(
+  `Thanks for contacting ${business.name}. Your request is in — a member of our team will reach out the same business day.`
+);
+---
+
+<Layout title={title} description={description} pageType="default" noindex hideExitPopup hideCtaBar>
+  <section class="section">
+    <div class="container" style="max-width:44rem;text-align:center">
+      <span class="section-label" data-cms="thank-you-label">Request Received</span>
+      <h1 class="section-title" data-cms="thank-you-title">Thank you — we're on it.</h1>
+      <p data-cms="thank-you-text">
+        Your request just landed with our team. We respond to every message the same business day,
+        so keep an eye on your phone and inbox.
+      </p>
+      <p data-cms="thank-you-urgent">
+        Need help right now? Call us at <a href={telHref(business.phone)}>{business.phone}</a> and
+        we will take care of it on the spot.
+      </p>
+      <p style="margin-top:2rem">
+        <a class="btn btn-primary" href="/" data-cms="thank-you-cta">Back to Home</a>
+      </p>
+    </div>
+  </section>
+</Layout>

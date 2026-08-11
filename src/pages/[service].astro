@@ -150,9 +150,9 @@ const featuredAreas = business.serviceAreas.slice(0, 3);
               {service.shortName ?? service.name} Across {business.location.state}
             </h2>
           </div>
-          <div class="grid grid-3">
+          <div class="grid grid-3" data-cms-collection="coverage-grid">
             {featuredAreas.map((area) => (
-              <LocationCard area={area} />
+              <LocationCard area={area} collectionId="coverage-grid" />
             ))}
           </div>
         </div>
@@ -175,15 +175,22 @@ const featuredAreas = business.serviceAreas.slice(0, 3);
             <span class="section-label">More Services</span>
             <h2 class="section-title">Other Ways We Can Help</h2>
           </div>
-          <div class="grid grid-3">
+          <div class="grid grid-3" data-cms-collection="related-services-grid">
             {relatedServices.map((related) => (
-              <article class="glass-panel glass-panel-hover service-card animate-on-scroll">
+              <article
+                class="glass-panel glass-panel-hover service-card animate-on-scroll"
+                data-cms-item="related-services-grid"
+              >
                 <span class="service-icon">
                   <i class={related.icon} aria-hidden="true" />
                 </span>
-                <h3>{related.name}</h3>
-                <p>{related.description}</p>
-                <a class="btn btn-outline btn-sm" href={`/${related.id}/`}>
+                <h3 data-cms={`related-${related.id}-title`}>{related.name}</h3>
+                <p data-cms={`related-${related.id}-desc`}>{related.description}</p>
+                <a
+                  class="btn btn-outline btn-sm"
+                  href={`/${related.id}/`}
+                  data-cms={`related-${related.id}-cta`}
+                >
                   View Details
                 </a>
               </article>

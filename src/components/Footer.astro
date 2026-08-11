@@ -25,17 +25,17 @@ const footerAreas = business.serviceAreas.slice(0, 3);
 const hasAreas = business.serviceAreas.length > 0;
 ---
 
-<footer class="site-footer" data-cms="footer">
+<footer class="site-footer">
   <div class="container">
     <div class="footer-grid">
       <!-- Brand -->
-      <div data-cms="footer-brand">
+      <div>
         <img
           src="/images/logo.png"
           alt={`${business.name} logo`}
           width="56"
           height="56"
-          data-cms="footer-logo"
+          data-cms-img="footer-logo-img"
         />
         <p class="footer-brand-name" data-cms="footer-brand-name">{business.name}</p>
         <p data-cms="footer-tagline">{business.tagline}</p>
@@ -49,28 +49,30 @@ const hasAreas = business.serviceAreas.length > 0;
       </div>
 
       <!-- Quick links -->
-      <div data-cms="footer-links">
-        <h3>Quick Links</h3>
+      <div>
+        <h3 data-cms="footer-links-title">Quick Links</h3>
         <ul class="footer-list">
           {
             footerServices.map((service) => (
               <li>
-                <a href={`/${service.id}/`}>{service.shortName ?? service.name}</a>
+                <a href={`/${service.id}/`} data-cms={`footer-service-${service.id}`}>
+                  {service.shortName ?? service.name}
+                </a>
               </li>
             ))
           }
-          <li><a href="/about/">About Us</a></li>
-          <li><a href="/gallery/">Gallery</a></li>
-          <li><a href="/blog/">Blog</a></li>
-          <li><a href="/contact/">Contact</a></li>
+          <li><a href="/about/" data-cms="footer-link-about">About Us</a></li>
+          <li><a href="/gallery/" data-cms="footer-link-gallery">Gallery</a></li>
+          <li><a href="/blog/" data-cms="footer-link-blog">Blog</a></li>
+          <li><a href="/contact/" data-cms="footer-link-contact">Contact</a></li>
         </ul>
       </div>
 
       <!-- Service areas -->
       {
         hasAreas && (
-          <div data-cms="footer-areas">
-            <h3>Service Areas</h3>
+          <div>
+            <h3 data-cms="footer-areas-title">Service Areas</h3>
             <ul class="footer-list">
               {footerAreas.map((area) => (
                 <li>
@@ -95,28 +97,28 @@ const hasAreas = business.serviceAreas.length > 0;
       }
 
       <!-- Contact -->
-      <div data-cms="footer-contact">
-        <h3>Contact</h3>
+      <div>
+        <h3 data-cms="footer-contact-title">Contact</h3>
         <ul class="footer-contact">
-          <li class="footer-contact-item" data-cms="footer-phone">
+          <li class="footer-contact-item">
             <i class="fa-solid fa-phone" aria-hidden="true"></i>
-            <a href={phoneHref}>{business.phone}</a>
+            <a href={phoneHref} data-cms="footer-phone">{business.phone}</a>
           </li>
-          <li class="footer-contact-item" data-cms="footer-email">
+          <li class="footer-contact-item">
             <i class="fa-solid fa-envelope" aria-hidden="true"></i>
-            <a href={`mailto:${business.email}`}>{business.email}</a>
+            <a href={`mailto:${business.email}`} data-cms="footer-email">{business.email}</a>
           </li>
-          <li class="footer-contact-item" data-cms="footer-address">
+          <li class="footer-contact-item">
             <i class="fa-solid fa-location-dot" aria-hidden="true"></i>
-            <address style="font-style:normal">{address}</address>
+            <address style="font-style:normal" data-cms="footer-address">{address}</address>
           </li>
           {
             business.hours.length > 0 && (
-              <li class="footer-contact-item" data-cms="footer-hours">
+              <li class="footer-contact-item">
                 <i class="fa-solid fa-clock" aria-hidden="true" />
                 <ul class="footer-hours">
-                  {business.hours.map((entry) => (
-                    <li>{formatHours(entry)}</li>
+                  {business.hours.map((entry, i) => (
+                    <li data-cms={`footer-hours-${i + 1}`}>{formatHours(entry)}</li>
                   ))}
                 </ul>
               </li>
@@ -126,7 +128,7 @@ const hasAreas = business.serviceAreas.length > 0;
 
         {
           socials.length > 0 && (
-            <div class="footer-socials" data-cms="footer-socials">
+            <div class="footer-socials">
               {socials.map((social) => (
                 <a
                   href={social.url}
@@ -143,9 +145,9 @@ const hasAreas = business.serviceAreas.length > 0;
       </div>
     </div>
 
-    <div class="footer-bottom" data-cms="footer-bottom">
-      <p>&copy; {year} {business.name}. All rights reserved.</p>
-      <p><a href="/privacy/">Privacy Policy</a></p>
+    <div class="footer-bottom">
+      <p data-cms="footer-copyright">&copy; {year} {business.name}. All rights reserved.</p>
+      <p><a href="/privacy/" data-cms="footer-privacy-link">Privacy Policy</a></p>
     </div>
   </div>
 </footer>

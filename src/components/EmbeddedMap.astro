@@ -8,7 +8,7 @@ const { query, height = 450 } = Astro.props;
 const src = `https://maps.google.com/maps?q=${encodeURIComponent(query)}&output=embed`;
 ---
 
-<div class="embedded-map" data-cms="embedded-map">
+<div class="embedded-map">
   <iframe
     src={src}
     height={height}

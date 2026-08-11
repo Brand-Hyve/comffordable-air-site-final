@@ -162,6 +162,7 @@
   "ga4Id": "",
   "searchConsoleVerification": "",
   "ghlWebhookUrl": "",
+  "formRelayUrl": "https://relay.brandhyve.com/api/lead",
   "cookieConsentEnabled": true,
   "reviewsWidget": {
     "scriptSrc": "",

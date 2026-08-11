@@ -36,19 +36,25 @@ const services = limit ? business.services.slice(0, limit) : business.services;
           Our service list is coming soon. Call us and we will walk you through what we offer.
         </p>
       ) : (
-        <div class="grid grid-3">
+        <div class="grid grid-3" data-cms-collection={`${cmsPrefix}-grid`}>
           {services.map((service) => (
             <article
               class="glass-panel glass-panel-hover service-card animate-on-scroll"
-              data-cms={`${cmsPrefix}-card-${service.id}`}
+              data-cms-item={`${cmsPrefix}-grid`}
             >
               <span class="service-icon">
                 <i class={service.icon} aria-hidden="true" />
               </span>
-              <h3>{service.name}</h3>
-              <p>{service.description}</p>
-              <span class="service-price">{service.price}</span>
-              <a class="btn btn-outline btn-sm" href={`/${service.id}/`}>
+              <h3 data-cms={`${cmsPrefix}-item-${service.id}-title`}>{service.name}</h3>
+              <p data-cms={`${cmsPrefix}-item-${service.id}-desc`}>{service.description}</p>
+              <span class="service-price" data-cms={`${cmsPrefix}-item-${service.id}-price`}>
+                {service.price}
+              </span>
+              <a
+                class="btn btn-outline btn-sm"
+                href={`/${service.id}/`}
+                data-cms={`${cmsPrefix}-item-${service.id}-cta`}
+              >
                 View Details
               </a>
             </article>

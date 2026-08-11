@@ -26,7 +26,7 @@ const { photos, videos, posts, cmsPrefix = 'gallery' } = Astro.props;
 
 {
   photos.length > 0 && (
-    <section class="section" data-cms={`${cmsPrefix}-photos`}>
+    <section class="section">
       <div class="container">
         <div class="section-head-center">
           <span class="section-label" data-cms={`${cmsPrefix}-photos-label`}>
@@ -37,22 +37,28 @@ const { photos, videos, posts, cmsPrefix = 'gallery' } = Astro.props;
           </h2>
         </div>
 
-        <div class="gallery-masonry">
+        <div class="gallery-masonry" data-cms-collection={`${cmsPrefix}-photos`}>
           {photos.map((photo, index) => (
-            <figure
-              class="gallery-figure animate-on-scroll"
-              data-cms={`${cmsPrefix}-photo-${index + 1}`}
-            >
-              <button
+            <figure class="gallery-figure animate-on-scroll" data-cms-item={`${cmsPrefix}-photos`}>
+              {/* Plain image link — works with zero JS; JS upgrades it to the lightbox. */}
+              <a
                 class="gallery-item"
-                type="button"
-                data-lightbox-src={photo.src}
-                data-lightbox-alt={photo.alt}
+                href={photo.src}
+                data-lightbox
                 aria-label={`View larger: ${photo.caption}`}
               >
-                <img src={photo.src} alt={photo.alt} loading="lazy" width="600" height="450" />
-              </button>
-              <figcaption class="gallery-caption">{photo.caption}</figcaption>
+                <img
+                  src={photo.src}
+                  alt={photo.alt}
+                  loading="lazy"
+                  width="600"
+                  height="450"
+                  data-cms-img={`${cmsPrefix}-photo-${index + 1}-img`}
+                />
+              </a>
+              <figcaption class="gallery-caption" data-cms={`${cmsPrefix}-photo-${index + 1}-caption`}>
+                {photo.caption}
+              </figcaption>
             </figure>
           ))}
         </div>
@@ -63,7 +69,7 @@ const { photos, videos, posts, cmsPrefix = 'gallery' } = Astro.props;
 
 {
   videos.length > 0 && (
-    <section class="section section-alt" data-cms={`${cmsPrefix}-videos`}>
+    <section class="section section-alt">
       <div class="container">
         <div class="section-head-center">
           <span class="section-label" data-cms={`${cmsPrefix}-videos-label`}>
@@ -74,30 +80,35 @@ const { photos, videos, posts, cmsPrefix = 'gallery' } = Astro.props;
           </h2>
         </div>
 
-        <div class="grid grid-2">
+        <div class="grid grid-2" data-cms-collection={`${cmsPrefix}-videos`}>
           {videos.map((video, index) => (
             <article
               class="glass-panel animate-on-scroll"
               style="padding:0;overflow:hidden"
-              data-cms={`${cmsPrefix}-video-${index + 1}`}
+              data-cms-item={`${cmsPrefix}-videos`}
             >
               {/*
                 Facade: no iframe and no remote thumbnail until the user clicks,
                 so the page costs nothing until someone actually wants the video.
+                Without JS the link opens the video on YouTube in a new tab.
               */}
-              <button
+              <a
                 class="video-facade"
-                type="button"
+                href={`https://www.youtube.com/watch?v=${video.youtubeId}`}
+                target="_blank"
+                rel="noopener"
                 data-youtube-id={video.youtubeId}
                 aria-label={`Play video: ${video.title}`}
               >
                 <span class="video-facade-poster">
                   <span class="video-facade-label">{video.title}</span>
                 </span>
-              </button>
+              </a>
               <div style="padding:1.5rem">
-                <h3>{video.title}</h3>
-                <p style="margin:0">{video.description}</p>
+                <h3 data-cms={`${cmsPrefix}-video-${index + 1}-title`}>{video.title}</h3>
+                <p style="margin:0" data-cms={`${cmsPrefix}-video-${index + 1}-desc`}>
+                  {video.description}
+                </p>
               </div>
             </article>
           ))}
@@ -109,7 +120,7 @@ const { photos, videos, posts, cmsPrefix = 'gallery' } = Astro.props;
 
 {
   posts.length > 0 && (
-    <section class="section" data-cms={`${cmsPrefix}-posts`}>
+    <section class="section">
       <div class="container">
         <div class="section-head-center">
           <span class="section-label" data-cms={`${cmsPrefix}-posts-label`}>
@@ -120,9 +131,9 @@ const { photos, videos, posts, cmsPrefix = 'gallery' } = Astro.props;
           </h2>
         </div>
 
-        <div class="blog-grid">
+        <div class="blog-grid" data-cms-collection={`${cmsPrefix}-posts`}>
           {posts.map((post, index) => (
-            <BlogCard post={post} index={index} />
+            <BlogCard post={post} index={index} collectionId={`${cmsPrefix}-posts`} />
           ))}
         </div>
       </div>
@@ -136,20 +147,23 @@ const { photos, videos, posts, cmsPrefix = 'gallery' } = Astro.props;
 </div>
 
 <script>
-  document.addEventListener('astro:page-load', () => {
-    /* ---------- Lightbox ---------- */
+  import { onReady } from '../lib/onReady';
+
+  onReady(() => {
+    /* ---------- Lightbox (enhancement over the plain image links) ---------- */
     const lightbox = document.getElementById('gallery-lightbox');
     const lightboxImage = document.getElementById('lightbox-image') as HTMLImageElement | null;
     const lightboxClose = document.getElementById('lightbox-close');
-    const triggers = document.querySelectorAll<HTMLButtonElement>('[data-lightbox-src]');
+    const triggers = document.querySelectorAll<HTMLAnchorElement>('a[data-lightbox]');
 
     if (lightbox && lightboxImage && lightboxClose && triggers.length) {
       let lastFocused: HTMLElement | null = null;
 
-      const open = (trigger: HTMLButtonElement) => {
+      const open = (trigger: HTMLAnchorElement) => {
         lastFocused = trigger;
-        lightboxImage.src = trigger.dataset.lightboxSrc ?? '';
-        lightboxImage.alt = trigger.dataset.lightboxAlt ?? '';
+        const img = trigger.querySelector('img');
+        lightboxImage.src = trigger.href;
+        lightboxImage.alt = img?.alt ?? '';
         lightbox.hidden = false;
         lightboxClose.focus();
       };
@@ -161,7 +175,12 @@ const { photos, videos, posts, cmsPrefix = 'gallery' } = Astro.props;
         lastFocused?.focus();
       };
 
-      triggers.forEach((trigger) => trigger.addEventListener('click', () => open(trigger)));
+      triggers.forEach((trigger) =>
+        trigger.addEventListener('click', (event) => {
+          event.preventDefault();
+          open(trigger);
+        })
+      );
       lightboxClose.addEventListener('click', close);
       lightbox.addEventListener('click', (event) => {
         if (event.target === lightbox) close();
@@ -171,13 +190,14 @@ const { photos, videos, posts, cmsPrefix = 'gallery' } = Astro.props;
       });
     }
 
-    /* ---------- YouTube facades ---------- */
-    document.querySelectorAll<HTMLButtonElement>('[data-youtube-id]').forEach((facade) => {
+    /* ---------- YouTube facades (enhancement over the watch-page links) ---------- */
+    document.querySelectorAll<HTMLAnchorElement>('a[data-youtube-id]').forEach((facade) => {
       facade.addEventListener(
         'click',
-        () => {
+        (event) => {
           const id = facade.dataset.youtubeId;
           if (!id) return;
+          event.preventDefault();
           const iframe = document.createElement('iframe');
           iframe.src = `https://www.youtube-nocookie.com/embed/${id}?autoplay=1`;
           iframe.title = facade.getAttribute('aria-label') ?? 'Video';

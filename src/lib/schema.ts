@@ -151,8 +151,8 @@ export function logoNode(): SchemaNode {
   return {
     '@type': 'ImageObject',
     '@id': ID.logo,
-    url: absoluteUrl('/images/logo.jpg'),
-    contentUrl: absoluteUrl('/images/logo.jpg'),
+    url: absoluteUrl('/images/logo.png'),
+    contentUrl: absoluteUrl('/images/logo.png'),
     caption: business.name,
   };
 }

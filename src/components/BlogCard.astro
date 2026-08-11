@@ -15,44 +15,55 @@ export interface Props {
     };
   };
   index?: number;
-  /** data-cms-collection id of the surrounding grid, when this card is a collection item. */
-  collectionId?: string;
+  /**
+   * 1-based position on the /blog listing page. When set, the card emits the
+   * Hyve CMS auto-listing convention (`data-cms-item="blog-posts"` + one
+   * `post-<n>-<field>` id per field) so the CMS regenerates the listing from
+   * blog-post pages after ingest. Leave unset for related-posts grids — those
+   * must NOT look like the listing collection.
+   */
+  cmsIndex?: number;
 }
 
-const { post, index = 0, collectionId } = Astro.props;
+const { post, index = 0, cmsIndex } = Astro.props;
 const { title, description, pubDate, category, image, imageAlt } = post.data;
 const delay = `${Math.min(index, 6) * 80}ms`;
+const cmsId = (field: string) => (cmsIndex ? `post-${cmsIndex}-${field}` : undefined);
 ---
 
 <article
   class="glass-panel glass-panel-hover blog-card animate-on-scroll"
   style={`transition-delay:${delay}`}
-  data-cms-item={collectionId}
+  {...cmsIndex ? { 'data-cms-item': 'blog-posts' } : { 'data-cms': `blog-card-${post.slug}` }}
 >
   {
-    image && (
+    /* CMS cards always render the <img>: the auto-listing matches fields by
+       position, so every card must have identical markup. */
+    (image || cmsIndex) && (
       <img
-        src={image}
+        src={image ?? '/images/hero.jpg'}
         alt={imageAlt ?? title}
         loading="lazy"
         width="640"
         height="360"
-        data-cms-img={`blog-card-${post.slug}-img`}
+        data-cms-img={cmsId('img')}
       />
     )
   }
 
   <div class="blog-card-body">
     <div class="blog-meta">
-      <span class="blog-category" data-cms={`blog-card-${post.slug}-category`}>{category}</span>
-      <time datetime={isoDate(pubDate)}>{formatDate(pubDate)}</time>
+      <span class="blog-category" data-cms={cmsId('category')}>{category}</span>
+      <time datetime={isoDate(pubDate)} data-cms={cmsId('date')}>{formatDate(pubDate)}</time>
     </div>
 
-    <h3><a href={`/blog/${post.slug}/`} data-cms={`blog-card-${post.slug}-title`}>{title}</a></h3>
-    <p data-cms={`blog-card-${post.slug}-desc`}>{truncate(description, 150)}</p>
+    <h3><a href={`/blog/${post.slug}/`} data-cms={cmsId('title')}>{title}</a></h3>
+    <p data-cms={cmsId('excerpt')}>{truncate(description, 150)}</p>
 
     <p style="margin:0">
-      <a href={`/blog/${post.slug}/`}>Read More <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+      <a href={`/blog/${post.slug}/`} data-cms={cmsId('read')}>
+        Read More <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+      </a>
     </p>
   </div>
 </article>

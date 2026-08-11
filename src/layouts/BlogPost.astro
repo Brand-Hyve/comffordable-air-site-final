@@ -78,21 +78,25 @@ const breadcrumbs = [
     <div class="container">
       <header class="article-body" style="text-align:center">
         <p class="blog-meta" style="justify-content:center">
-          <span class="blog-category">{category}</span>
+          <span class="blog-category" data-cms="blog-post-category">{category}</span>
         </p>
-        <h1 data-cms="post-title">{title}</h1>
-        <p data-cms="post-intro">{description}</p>
+        <h1 data-cms="blog-post-title">{title}</h1>
+        <p data-cms="blog-post-excerpt">{description}</p>
 
-        <!-- Freshness signals (spec C3) — must match schema dates -->
+        <!-- Freshness signals (spec C3) — must match schema dates.
+             The date id sits on the <time> so its value stays a parseable date:
+             the CMS blog listing sorts posts by this field. -->
         <p class="article-dates" style="justify-content:center">
-          <span data-cms="post-date">
-            Published: <time datetime={isoDate(pubDate)}>{formatDate(pubDate)}</time>
+          <span>
+            Published: <time datetime={isoDate(pubDate)} data-cms="blog-post-date">{formatDate(pubDate)}</time>
           </span>
           {
             updatedDate && (
-              <span data-cms="post-updated">
+              <span>
                 Last updated:{' '}
-                <time datetime={isoDate(updatedDate)}>{formatDate(updatedDate)}</time>
+                <time datetime={isoDate(updatedDate)} data-cms="blog-post-updated">
+                  {formatDate(updatedDate)}
+                </time>
               </span>
             )
           }
@@ -107,17 +111,21 @@ const breadcrumbs = [
             width="1200"
             height="675"
             style="margin:2.5rem auto;border-radius:16px"
-            data-cms-img="post-image"
+            data-cms-img="blog-post-featured-img"
           />
         )
       }
 
       <div class="article-body">
-        <slot />
+        <!-- The body id wraps ONLY the article copy — tags and the author bio
+             stay outside so editing the body can never flatten them. -->
+        <div data-cms="blog-post-body">
+          <slot />
+        </div>
 
         {
           tags.length > 0 && (
-            <ul class="tag-list">
+            <ul class="tag-list" data-cms="post-tags">
               {tags.map((tag) => (
                 <li class="chip">#{tag}</li>
               ))}
@@ -140,9 +148,9 @@ const breadcrumbs = [
             <h2 class="section-title" style="text-align:center">
               Related Reading
             </h2>
-            <div class="blog-grid" data-cms-collection="related-posts">
+            <div class="blog-grid">
               {relatedPosts.map((post, index) => (
-                <BlogCard post={post} index={index} collectionId="related-posts" />
+                <BlogCard post={post} index={index} />
               ))}
             </div>
           </section>

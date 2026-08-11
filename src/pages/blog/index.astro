@@ -41,9 +41,9 @@ const breadcrumbs = [
             to talk it through.
           </p>
         ) : (
-          <div class="blog-grid" data-cms-collection="blog-grid">
+          <div class="blog-grid" data-cms-collection="blog-posts">
             {posts.map((post, index) => (
-              <BlogCard post={post} index={index} collectionId="blog-grid" />
+              <BlogCard post={post} index={index} cmsIndex={index + 1} />
             ))}
           </div>
         )

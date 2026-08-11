@@ -131,9 +131,11 @@ const { photos, videos, posts, cmsPrefix = 'gallery' } = Astro.props;
           </h2>
         </div>
 
-        <div class="blog-grid" data-cms-collection={`${cmsPrefix}-posts`}>
+        {/* Plain grid on purpose — only /blog/ is the CMS "blog-posts" listing
+            collection; gallery cards must not look like it. */}
+        <div class="blog-grid">
           {posts.map((post, index) => (
-            <BlogCard post={post} index={index} collectionId={`${cmsPrefix}-posts`} />
+            <BlogCard post={post} index={index} />
           ))}
         </div>
       </div>

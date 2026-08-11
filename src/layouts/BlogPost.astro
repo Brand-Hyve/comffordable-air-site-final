@@ -78,21 +78,25 @@ const breadcrumbs = [
     <div class="container">
       <header class="article-body" style="text-align:center">
         <p class="blog-meta" style="justify-content:center">
-          <span class="blog-category">{category}</span>
+          <span class="blog-category" data-cms="blog-post-category">{category}</span>
         </p>
-        <h1>{title}</h1>
-        <p>{description}</p>
+        <h1 data-cms="blog-post-title">{title}</h1>
+        <p data-cms="blog-post-excerpt">{description}</p>
 
-        <!-- Freshness signals (spec C3) — must match schema dates -->
+        <!-- Freshness signals (spec C3) — must match schema dates.
+             The date id sits on the <time> so its value stays a parseable date:
+             the CMS blog listing sorts posts by this field. -->
         <p class="article-dates" style="justify-content:center">
-          <span data-cms="post-date">
-            Published: <time datetime={isoDate(pubDate)}>{formatDate(pubDate)}</time>
+          <span>
+            Published: <time datetime={isoDate(pubDate)} data-cms="blog-post-date">{formatDate(pubDate)}</time>
           </span>
           {
             updatedDate && (
-              <span data-cms="post-updated">
+              <span>
                 Last updated:{' '}
-                <time datetime={isoDate(updatedDate)}>{formatDate(updatedDate)}</time>
+                <time datetime={isoDate(updatedDate)} data-cms="blog-post-updated">
+                  {formatDate(updatedDate)}
+                </time>
               </span>
             )
           }
@@ -107,12 +111,17 @@ const breadcrumbs = [
             width="1200"
             height="675"
             style="margin:2.5rem auto;border-radius:16px"
+            data-cms-img="blog-post-featured-img"
           />
         )
       }
 
-      <div class="article-body" data-cms="post-body">
-        <slot />
+      <div class="article-body">
+        <!-- The body id wraps ONLY the article copy — tags and the author bio
+             stay outside so editing the body can never flatten them. -->
+        <div data-cms="blog-post-body">
+          <slot />
+        </div>
 
         {
           tags.length > 0 && (

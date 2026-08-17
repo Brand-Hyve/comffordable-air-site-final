@@ -30,7 +30,7 @@ export interface Props {
 const {
   title,
   description,
-  image = '/images/logo.png',
+  image = '/images/logo.webp',
   breadcrumbs = [],
   pageType = 'default',
   noindex = false,
@@ -118,6 +118,37 @@ const phoneHref = telHref(business.phone);
       location={location}
       image={ogImage}
     />
+
+    {
+      (hasGtm || hasGa4) && (
+        <script is:inline>
+          // Consent Mode v2 — must run BEFORE any Google tag loads. Defaults to
+          // denied, so gtag.js/gtm.js load but set no analytics or ads cookies
+          // until the visitor accepts; the banner flips this with an 'update'.
+          // Hyve CMS strips scripts on publish, which removes the tags along
+          // with this gate, so a published page never tracks either way.
+          window.dataLayer = window.dataLayer || [];
+          function gtag() {
+            dataLayer.push(arguments);
+          }
+          var storedConsent = null;
+          try {
+            storedConsent = localStorage.getItem('cookieConsent');
+          } catch (e) {
+            // storage blocked (private mode) — treat as no consent
+          }
+          var consentValue = storedConsent === 'true' ? 'granted' : 'denied';
+          gtag('consent', 'default', {
+            ad_storage: consentValue,
+            ad_user_data: consentValue,
+            ad_personalization: consentValue,
+            analytics_storage: consentValue,
+            functionality_storage: 'granted',
+            security_storage: 'granted',
+          });
+        </script>
+      )
+    }
 
     {
       hasGtm && (
@@ -244,6 +275,9 @@ const phoneHref = telHref(business.phone);
             We use cookies to improve your experience and analyze site traffic. See our{' '}
             <a href="/privacy/">Privacy Policy</a>.
           </p>
+          <button class="btn btn-outline btn-sm" id="cookie-decline" type="button" data-cms="cookie-decline">
+            Decline
+          </button>
           <button class="btn btn-primary btn-sm" id="cookie-accept" type="button" data-cms="cookie-accept">
             Accept
           </button>
@@ -284,16 +318,34 @@ const phoneHref = telHref(business.phone);
         }
 
         // 3. Cookie consent banner
+        // The head script has already set Consent Mode to denied (or to the
+        // visitor's stored choice). This only records a new choice and pushes
+        // the matching consent update — the Google tags read that, so nothing
+        // is stored until Accept is clicked.
         const banner = document.getElementById('cookie-banner');
         const accept = document.getElementById('cookie-accept');
+        const decline = document.getElementById('cookie-decline');
         if (banner && accept) {
-          if (localStorage.getItem('cookieConsent') !== 'true') {
+          const stored = localStorage.getItem('cookieConsent');
+          if (stored !== 'true' && stored !== 'false') {
             banner.hidden = false;
           }
-          accept.addEventListener('click', () => {
-            localStorage.setItem('cookieConsent', 'true');
+          const record = (allowed: boolean) => {
+            localStorage.setItem('cookieConsent', String(allowed));
+            const value = allowed ? 'granted' : 'denied';
+            const gtag = (window as any).gtag;
+            if (typeof gtag === 'function') {
+              gtag('consent', 'update', {
+                ad_storage: value,
+                ad_user_data: value,
+                ad_personalization: value,
+                analytics_storage: value,
+              });
+            }
             banner.hidden = true;
-          });
+          };
+          accept.addEventListener('click', () => record(true));
+          decline?.addEventListener('click', () => record(false));
         }
 
         // 4. Exit-intent popup — desktop only, once per session, never on /contact

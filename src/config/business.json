@@ -38,7 +38,7 @@
       "id": "st-petersburg-fl",
       "name": "St. Petersburg",
       "state": "FL",
-      "hero": "/images/st-petersburg-fl-hero.jpg",
+      "hero": "/images/st-petersburg-fl-hero.webp",
       "wiki": "https://en.wikipedia.org/wiki/St._Petersburg,_Florida",
       "blurb": "We provide consistent HVAC maintenance and expert equipment repair to all residential addresses in St. Petersburg.",
       "neighborhoods": ["Old Northeast", "Snell Isle", "Historic Kenwood", "Shore Acres", "Gandy"],
@@ -48,7 +48,7 @@
       "id": "tampa-fl",
       "name": "Tampa",
       "state": "FL",
-      "hero": "/images/tampa-fl-hero.jpg",
+      "hero": "/images/tampa-fl-hero.webp",
       "wiki": "https://en.wikipedia.org/wiki/Tampa,_Florida",
       "blurb": "We provide consistent HVAC maintenance and expert equipment repair to all residential addresses in Tampa.",
       "neighborhoods": ["Ybor City", "Hyde Park", "South Tampa", "Westchase", "Seminole Heights"],
@@ -58,7 +58,7 @@
       "id": "clearwater-fl",
       "name": "Clearwater",
       "state": "FL",
-      "hero": "/images/clearwater-fl-hero.jpg",
+      "hero": "/images/clearwater-fl-hero.webp",
       "wiki": "https://en.wikipedia.org/wiki/Clearwater,_Florida",
       "blurb": "We provide consistent HVAC maintenance and expert equipment repair to all residential addresses in Clearwater.",
       "neighborhoods": ["Sand Key", "Island Estates", "Clearwater Beach", "Countryside", "Morningside"],
@@ -80,7 +80,7 @@
       "content": {
         "heroTitle": "AC Repair & Installation <span>Tampa Bay, FL</span>",
         "heroSubtitle": "Fast, reliable cooling solutions for your home. Servicing St. Petersburg, Tampa, and Clearwater.",
-        "heroImage": "/images/service-ac-repair.jpg",
+        "heroImage": "/images/service-ac-repair.webp",
         "intro": { "badge": "", "title": "", "paragraphs": [], "note": "" },
         "cardGroups": [
           {
@@ -186,7 +186,7 @@
       "content": {
         "heroTitle": "Indoor Air Quality Services <span>Tampa Bay, FL</span>",
         "heroSubtitle": "Pure, crisp, and allergen-free air for your entire home. Servicing St. Petersburg, Tampa, and Clearwater.",
-        "heroImage": "/images/service-iaq.png",
+        "heroImage": "/images/service-iaq.webp",
         "intro": { "badge": "", "title": "", "paragraphs": [], "note": "" },
         "cardGroups": [
           {
@@ -246,7 +246,7 @@
       "content": {
         "heroTitle": "HVAC Maintenance Plans <span>Tampa Bay, FL</span>",
         "heroSubtitle": "Reliable comfort. No surprises. Just peace of mind year-round.",
-        "heroImage": "/images/service-maintenance.jpg",
+        "heroImage": "/images/service-maintenance.webp",
         "intro": {
           "badge": "SPECIAL OFFER",
           "title": "Simple. Affordable. Protected.",

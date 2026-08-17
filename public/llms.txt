@@ -1,0 +1,42 @@
+# Comffordable Air Solutions
+
+> Premium HVAC solutions in the Tampa Bay Area. Comfort you can afford,
+> solutions you can trust.
+
+Comffordable Air Solutions is a residential and commercial HVAC contractor
+serving the Tampa Bay Area of Florida, covering air conditioning repair and
+installation, indoor air quality, and preventative maintenance. The company
+holds Florida HVAC License 1823516.
+
+- Phone: (727) 677-1700
+- Email: comffordableair@gmail.com
+- Hours: Monday–Sunday, 8:00 AM – 6:00 PM
+- Service area: St. Petersburg, Tampa, and Clearwater, Florida
+- Google Business Profile: https://maps.app.goo.gl/776wqgXcCNKyQMwU6
+
+## Services
+
+- [AC Repair & Installation](/ac-repair/): Emergency repairs and
+  high-efficiency installations to keep you cool during the Florida heat.
+- [Indoor Air Quality (IAQ)](/iaq/): HEPA filtration and related solutions for
+  mold, allergens, and airborne pollutants, which Florida's heat and humidity
+  make worse indoors.
+- [Preventative Maintenance](/maintenance/): Proactive care that catches drain
+  clogs, coil corrosion, and refrigerant loss early — Florida AC systems run
+  10+ months a year, roughly twice the wear of northern climates.
+
+## Service areas
+
+- [St. Petersburg](/service-areas/st-petersburg-fl/)
+- [Tampa](/service-areas/tampa-fl/)
+- [Clearwater](/service-areas/clearwater-fl/)
+
+## Pages
+
+- [Home](/)
+- [About](/about/)
+- [Blog](/blog/)
+- [Service Areas](/service-areas/)
+- [Contact](/contact/)
+- [Privacy Policy](/privacy/)
+- [Terms of Service](/terms/)

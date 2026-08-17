@@ -12,8 +12,8 @@
     "state": "FL",
     "zip": "",
     "country": "US",
-    "latitude": 27.7676,
-    "longitude": -82.6403,
+    "latitude": 27.9081355,
+    "longitude": -82.552489,
     "serviceAreaLabel": "Serving the Greater Tampa Bay Area"
   },
   "license": {
@@ -404,7 +404,7 @@
     }
   ],
   "socials": {
-    "facebook": "",
+    "facebook": "https://www.facebook.com/profile.php?id=61577480190749",
     "instagram": "",
     "yelp": "",
     "nextdoor": "",

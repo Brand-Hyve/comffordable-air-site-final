@@ -1,12 +1,33 @@
-# CLAUDE.md — Brand Hyve Astro Starter
+# CLAUDE.md — Comffordable Air Solutions
 
 Agent instructions for this workspace. Read this before changing anything.
 
 ## What this repo is
 
-The Brand Hyve boilerplate for local-service business websites. Every client site starts as a
-clone of this repo. It is **not** a client site itself — the data in `src/config/` is sample data
-for an example HVAC business.
+**Comffordable Air Solutions' website** (comairfl.com), built on the Brand Hyve Astro
+boilerplate. This file was inherited from that boilerplate and still describes its conventions —
+they all apply here — but the data in `src/config/` is **real client data**, not sample data.
+Everything below is the standard this site is held to; deviating from it is what put the
+previous build out of compliance.
+
+### Branch layout — read before you commit
+
+- `main` — the **legacy** pre-boilerplate site. This is what comairfl.com currently serves.
+- `rebuild/boilerplate` — the boilerplate rebuild. Complete, passing, **not yet deployed**.
+  Merging it to `main` triggers the Vercel deploy.
+
+### Site-specific deviations from the boilerplate
+
+- **No `/gallery/` page and no `gallery.json`.** Deliberately dropped. Recorded in
+  `.boilerplate-audit.json` so the compliance audit reports it as an exemption rather than a
+  missing page.
+- **Images are WebP**, converted with per-file quality stepping — see `public/images/README.md`
+  before adding or replacing one. Do not assume a fixed quality is safe.
+- `og:image` is WebP too. If link previews ever misbehave on a platform, keep a JPEG/PNG copy
+  *outside* `public/images/` rather than reverting the whole directory.
+- `business.json` carries a `shortName` ("Comffordable Air") the boilerplate does not have; the
+  home page title needs it to stay under the 60-char window.
+- `lib/utils.ts` adds `serviceAreaList()` — worth upstreaming.
 
 ## The one rule that matters
 

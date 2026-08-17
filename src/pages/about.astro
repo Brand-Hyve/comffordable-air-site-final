@@ -5,11 +5,11 @@ import Layout from '../layouts/Layout.astro';
 import Hero from '../components/Hero.astro';
 import Testimonials from '../components/Testimonials.astro';
 import CTASection from '../components/CTASection.astro';
-import { pageTitle, metaDescription } from '../lib/utils';
+import { pageTitle, metaDescription, serviceAreaList } from '../lib/utils';
 
 const title = pageTitle('About Us');
 const description = metaDescription(
-  'Learn more about Comffordable Air Solutions and our dedication to providing premium HVAC repair and maintenance in the Tampa Bay Area.'
+  `Learn more about ${business.name} and our dedication to providing premium HVAC repair and maintenance in the Tampa Bay Area.`
 );
 
 const breadcrumbs = [
@@ -21,7 +21,7 @@ const storyParagraphs = [
   'I take immense pride in delivering honest, high-quality work that you can count on. My family, especially my daughter and my mom, is my greatest motivation and the reason I strive to grow every single day, both personally and professionally. I truly believe in treating people with fairness and respect, because doing right by others is the only way to build lasting trust and long-term relationships.',
   'My approach to business is simple: be straightforward, communicate clearly, and always stand behind what I do. I don’t believe in cutting corners or overcomplicating things. It’s about doing the job right the first time so you can feel completely confident in your home\'s comfort.',
   'When I’m not working, you’ll usually find me staying active outdoors. Whether I’m out on my bicycle or embarking on a new adventure, I love to stay driven and challenge myself. At the end of the day, I’m committed to providing reliable service and earning your trust with every visit.',
-  'Comffordable Air Solutions is more than just a quick fix. We optimize your system\'s performance, protecting your home investment for years to come throughout St. Petersburg, Tampa, and Clearwater.',
+  `${business.name} is more than just a quick fix. We optimize your system's performance, protecting your home investment for years to come throughout ${serviceAreaList()}.`,
 ];
 ---
 

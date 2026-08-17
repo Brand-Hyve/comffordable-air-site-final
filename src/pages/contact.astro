@@ -11,11 +11,12 @@ import {
   cityState,
   pageTitle,
   metaDescription,
+  serviceAreaList,
 } from '../lib/utils';
 
 const title = pageTitle('Contact Us');
 const description = metaDescription(
-  'Contact Comffordable Air Solutions for expert HVAC repair and installation in St. Petersburg, Tampa, and Clearwater. Get a free quote today.'
+  `Contact ${business.name} for expert HVAC repair and installation in ${serviceAreaList()}. Get a free quote today.`
 );
 
 const breadcrumbs = [
@@ -63,7 +64,7 @@ const formServices = [
             <h2 data-cms="contact-title">Expert Care at Your Door</h2>
             <p data-cms="contact-intro">
               Fill out the form to request a quote or call us directly. We provide professional
-              HVAC services to the Tampa Bay Area, including St. Petersburg, Tampa, and Clearwater.
+              HVAC services to the Tampa Bay Area, including {serviceAreaList()}.
             </p>
             <ul class="footer-contact" style="color:var(--text-secondary)">
               <li class="footer-contact-item">

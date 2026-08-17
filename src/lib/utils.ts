@@ -47,6 +47,20 @@ export function cityState(loc = business.location): string {
   return `${loc.city}, ${loc.state}`;
 }
 
+/**
+ * Prose list of every service area: "St. Petersburg, Tampa, and Clearwater".
+ * Page copy enumerates the areas, so deriving the list here keeps that copy in
+ * step with `serviceAreas[]` — add a fourth city to the config and the meta
+ * descriptions follow instead of quietly going stale.
+ */
+export function serviceAreaList(areas = business.serviceAreas): string {
+  const names = areas.map((a) => a.name);
+  if (names.length === 0) return cityState();
+  if (names.length === 1) return names[0];
+  if (names.length === 2) return `${names[0]} and ${names[1]}`;
+  return `${names.slice(0, -1).join(', ')}, and ${names[names.length - 1]}`;
+}
+
 /** Absolute URL for a site-relative path, using business.json domain as the base. */
 export function absoluteUrl(path: string, base: string = business.domain): string {
   return new URL(path, base).href;

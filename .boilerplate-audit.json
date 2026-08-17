@@ -1,0 +1,5 @@
+{
+  "_comment": "Per-site exemptions for boilerplate-compliance-audit. Exemptions are reported in the audit output, never applied silently.",
+  "skipPages": ["gallery"],
+  "allowNonWebp": []
+}

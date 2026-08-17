@@ -4,14 +4,15 @@ import Layout from '../../layouts/Layout.astro';
 import Hero from '../../components/Hero.astro';
 import LocationCard from '../../components/LocationCard.astro';
 import CTASection from '../../components/CTASection.astro';
-import { telHref, pageTitle, metaDescription } from '../../lib/utils';
+import { telHref, pageTitle, metaDescription, serviceAreaList } from '../../lib/utils';
 
 const areas = business.serviceAreas;
 
 // Original title used a descriptive suffix rather than the brand name.
 const title = pageTitle('Service Areas', 'HVAC Solutions Florida');
 const description = metaDescription(
-  'Comffordable Air Solutions provides premium AC repair and maintenance to St. Petersburg, Tampa, and Clearwater.'
+  `${business.name} provides premium AC repair and maintenance to ${serviceAreaList()}.`,
+  ['Same-day service across the Tampa Bay Area.', 'Serving the Tampa Bay Area.']
 );
 
 const breadcrumbs = [

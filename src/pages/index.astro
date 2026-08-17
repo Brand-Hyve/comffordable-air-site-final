@@ -11,15 +11,15 @@ import Testimonials from '../components/Testimonials.astro';
 import FAQSection from '../components/FAQSection.astro';
 import CTASection from '../components/CTASection.astro';
 import LocationCard from '../components/LocationCard.astro';
-import { telHref, cityState, pageTitle, metaDescription } from '../lib/utils';
+import { telHref, cityState, pageTitle, metaDescription, serviceAreaList } from '../lib/utils';
 
 const location = cityState();
 
 // Old-site title exceeded the 60-char window with the full brand suffix, so the
 // short brand form is used ("Premium HVAC Repair & Installation | Comffordable Air").
-const title = pageTitle('Premium HVAC Repair & Installation', 'Comffordable Air');
+const title = pageTitle('Premium HVAC Repair & Installation', business.shortName);
 const description = metaDescription(
-  'Comffordable Air Solutions provides expert AC repair, furnace maintenance, and HVAC installation in St. Petersburg, Tampa, and Clearwater, FL.'
+  `${business.name} provides expert AC repair, furnace maintenance, and HVAC installation in ${serviceAreaList()}, ${business.location.state}.`
 );
 
 const processSteps = [
@@ -76,7 +76,7 @@ const featuredAreas = business.serviceAreas.slice(0, 3);
 <Layout title={title} description={description} pageType="home">
   <Hero
     title={`AC Repair & HVAC Services in <span>Tampa Bay, FL</span>`}
-    subtitle="Expert HVAC repair, installation, and maintenance across the Tampa Bay Area. We specialize in keeping your home perfectly tempered with quality service in St. Petersburg, Tampa, and Clearwater."
+    subtitle={`Expert HVAC repair, installation, and maintenance across the Tampa Bay Area. We specialize in keeping your home perfectly tempered with quality service in ${serviceAreaList()}.`}
     backgroundImage="/images/hero.webp"
     cmsPrefix="hero"
     size="full"
@@ -144,7 +144,7 @@ const featuredAreas = business.serviceAreas.slice(0, 3);
 
   <CTASection
     title="Ready for Comffordable Comfort?"
-    subtitle="Unhappy with your current service? It's time for consistency, communication, and quality. Professional HVAC repair and air quality solutions for St. Petersburg, Tampa, and Clearwater."
+    subtitle={`Unhappy with your current service? It's time for consistency, communication, and quality. Professional HVAC repair and air quality solutions for ${serviceAreaList()}.`}
     ctaText="Get Your Free Quote"
     ctaHref="/contact/"
     cmsPrefix="home-cta"

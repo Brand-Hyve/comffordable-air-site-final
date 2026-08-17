@@ -13,7 +13,8 @@ const posts = (await getCollection('blog', ({ data }) => !data.draft)).sort(
 
 const title = pageTitle('Blog');
 const description = metaDescription(
-  `Practical ${business.industry.toLowerCase()} advice from the licensed technicians at ${business.name} — maintenance guides and cost breakdowns.`
+  `Practical ${business.industry} advice from the licensed technicians at ${business.name} — maintenance guides and cost breakdowns.`,
+  ['New posts on system care and efficiency.', 'Updated regularly.']
 );
 
 const breadcrumbs = [

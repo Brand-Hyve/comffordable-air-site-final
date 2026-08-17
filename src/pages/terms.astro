@@ -4,8 +4,12 @@ import Layout from '../layouts/Layout.astro';
 import { formatAddress, pageTitle, metaDescription } from '../lib/utils';
 
 const title = pageTitle('Terms & Conditions');
+// Page-appropriate padding. Without it the default clause list appends a sales
+// claim ("Same-day appointments available.") to a legal page — boilerplate
+// defect #1, see the vault note on downstream boilerplate defects.
 const description = metaDescription(
-  `The terms that apply when you use the ${business.name} website, request a quote, or opt in to text messages from us.`
+  `The terms that apply when you use the ${business.name} website, request a quote, or opt in to text messages from us.`,
+  ['Please read them before using the site.', 'Please read before using.']
 );
 
 const breadcrumbs = [

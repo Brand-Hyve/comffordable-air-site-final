@@ -27,9 +27,18 @@ const {
   body = `${business.name} is a locally owned, fully licensed team serving ${location}. We diagnose thoroughly, quote in writing, and stand behind every job — which is why most of our work comes from repeat customers and referrals.`,
   image = '/images/about.webp',
   imageAlt = `The ${business.name} team at work in ${location}`,
+  // Rating chips only render when business.json actually carries a verified
+  // rating. Blanking those config values is how the claim gets pulled — the
+  // boilerplate previously read them unguarded, which renders "" and "+" chips
+  // rather than omitting them. Same empty-data rule the rest of the config
+  // follows; the JSON-LD aggregateRating in lib/schema.ts is already guarded.
   stats = [
-    { value: business.aggregateRating.ratingValue, label: 'Average rating' },
-    { value: `${business.aggregateRating.reviewCount}+`, label: 'Verified reviews' },
+    ...(business.aggregateRating?.ratingValue
+      ? [{ value: business.aggregateRating.ratingValue, label: 'Average rating' }]
+      : []),
+    ...(business.aggregateRating?.reviewCount
+      ? [{ value: `${business.aggregateRating.reviewCount}+`, label: 'Verified reviews' }]
+      : []),
     { value: String(business.serviceAreas.length), label: 'Communities served' },
   ],
   ctaText = 'More About Us',

@@ -49,17 +49,13 @@
   --font-weight-extrabold: 800;
 }
 
-/* Dark mode (default for glass-morphism aesthetic) */
-@media (prefers-color-scheme: dark) {
-  :root {
-    --bg-dark: #16161f;
-    --bg-darker: #1c1c27;
-    --text-primary: #f0f0f0;
-    --text-secondary: #a0a0a0;
-    --glass-bg: rgba(255, 255, 255, 0.07);
-    --glass-border: rgba(255, 255, 255, 0.14);
-  }
-}
+/* NO dark-mode override.
+   The boilerplate ships an @media (prefers-color-scheme: dark) block that
+   repaints the whole palette. Comffordable's existing site has no such block,
+   so on a dark-mode device the rebuild rendered as a dark site while the live
+   one stayed light — the same brand reading two different ways. Brand colours
+   are fixed here, exactly as on comairfl.com. Do not reintroduce it without
+   Avery's sign-off. */
 
 /* ==========================================================================
    2. BASE
@@ -324,10 +320,11 @@ html.js .animate-on-scroll.is-visible {
   position: sticky;
   top: 0;
   z-index: 100;
-  background: var(--glass-bg);
-  border-bottom: 1px solid var(--glass-border);
-  backdrop-filter: blur(var(--glass-blur));
-  -webkit-backdrop-filter: blur(var(--glass-blur));
+  /* Solid brand navy, matching the existing site's header. The boilerplate's
+     translucent glass header renders near-white, which the white/gradient
+     wordmark below is unreadable against. */
+  background: var(--secondary);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   transition: padding var(--transition-speed) ease,
               box-shadow var(--transition-speed) ease;
 }
@@ -346,13 +343,33 @@ html.js .animate-on-scroll.is-visible {
 .header-logo {
   display: inline-flex;
   align-items: center;
-  gap: 0.65rem;
-  color: var(--text-primary);
-  font-weight: var(--font-weight-bold);
+  gap: 0.5rem;
+  color: #ffffff;
+  font-weight: var(--font-weight-extrabold);
+  text-decoration: none;
 }
 
-.header-logo img { width: 42px; height: 42px; object-fit: contain; }
-.header-logo-text { font-size: 1.05rem; }
+/* 45px to match the existing site. The asset is the icon ONLY — the stacked
+   lockup that ships with the rebuild puts a black wordmark under the mark,
+   which turns to mush at nav size and disappears on the navy header. */
+.header-logo img { width: 45px; height: 45px; object-fit: contain; }
+
+/* Existing site's wordmark treatment: uppercase, tracked out, cyan-to-orange
+   gradient reading across the text. */
+.header-logo-text {
+  font-size: 1.5rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  background: linear-gradient(to right, #39b5e1, #ffffff, #f84e16);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
+}
+
+@media (max-width: 640px) {
+  .header-logo-text { font-size: 1.1rem; letter-spacing: 1px; }
+}
 
 .main-nav ul {
   display: flex;
@@ -364,7 +381,8 @@ html.js .animate-on-scroll.is-visible {
 }
 
 .main-nav a {
-  color: var(--text-primary);
+  /* Header is solid navy, so nav links are light rather than --text-primary. */
+  color: rgba(255, 255, 255, 0.88);
   font-size: 0.92rem;
   font-weight: var(--font-weight-medium);
 }

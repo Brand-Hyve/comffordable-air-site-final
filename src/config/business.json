@@ -38,11 +38,11 @@
   "priceRange": "$$",
   "claims": {
     "licensed": true,
-    "insured": false,
+    "insured": true,
     "sameDay": true,
-    "writtenWarranty": false,
+    "writtenWarranty": true,
     "flatPricing": false,
-    "freeQuotes": false
+    "freeQuotes": true
   },
   "aggregateRating": {
     "_comment": "PULLED 2026-08-17 pending verification against the live Google Business Profile. Unverified rating markup is a Google penalty risk. Refill both values to restore the JSON-LD aggregateRating and the About-section chips; both are guarded and simply omit while these are empty. Previous unverified values were ratingValue 5.0 / reviewCount 31.",

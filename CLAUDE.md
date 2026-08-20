@@ -12,9 +12,11 @@ previous build out of compliance.
 
 ### Branch layout — read before you commit
 
-- `main` — the **legacy** pre-boilerplate site. This is what comairfl.com currently serves.
-- `rebuild/boilerplate` — the boilerplate rebuild. Complete, passing, **not yet deployed**.
-  Merging it to `main` triggers the Vercel deploy.
+- `main` — the boilerplate conversion, **LIVE**: it serves www.comairfl.com and auto-deploys on
+  every push via Vercel (project `comffordable-air-site-final`). Treat every push to `main` as a
+  production deploy.
+- `rebuild/boilerplate` — the historical rebuild branch, long since merged. Do not base new work
+  on it.
 
 ### Site-specific deviations from the boilerplate
 
@@ -186,7 +188,9 @@ Add an entry to `services[]` or `serviceAreas[]` in `business.json`. The routes
 - Empty `hours` → schema omits `openingHoursSpecification`
 - Empty `gtmId` / `ga4Id` → those script blocks are omitted entirely
 - `cookieConsentEnabled: false` → banner is not rendered at all
-- Empty `ghlWebhookUrl` → contact form has no `action`; a script logs the payload to the console
+- Empty `ghlWebhookUrl` → the form is visibly NOT CONNECTED: submit disabled, a standing notice
+  names the working phone/email, and a forced submit says nothing was sent while keeping the
+  visitor's entries. Never add a success state without a delivery (boilerplate defect #14).
 
 ## Contact form → relay → GHL
 

@@ -12,8 +12,10 @@ import { absoluteUrl } from '../lib/utils';
  * it directly would strand the visitor on a raw JSON response. Never point
  * the form straight at the webhook; the relay exists to translate.
  *
- * When ghlWebhookUrl is empty the form has no action and a small script logs
- * the payload to the console instead (documented empty-data behaviour).
+ * When ghlWebhookUrl is empty the form is visibly NOT CONNECTED: the submit
+ * button is disabled, a standing notice names the phone and email that do
+ * work, and a forced submit says nothing was sent while leaving the visitor's
+ * entries in place. NEVER show a success state without a delivery.
  */
 
 export interface Props {
@@ -102,9 +104,20 @@ const sourceUrl = absoluteUrl(
       <input type="text" id="cf-company" name="company" tabindex="-1" autocomplete="off" />
     </div>
 
-    <p class="form-status" id="cf-status" role="status" aria-live="polite" hidden></p>
+        <p class="form-status" id="cf-status" role="status" aria-live="polite" hidden></p>
+
+    {
+      !useRelay && (
+        <p class="form-status" role="status">
+          This form is not connected yet. Please call{' '}
+          <a href={`tel:${business.phone.replace(/\D/g, '')}`}>{business.phone}</a> or email{' '}
+          <a href={`mailto:${business.email}`}>{business.email}</a> and we will help you directly.
+        </p>
+      )
+    }
 
     <button class="btn btn-primary" type="submit" id="cf-submit" data-cms={`${cmsPrefix}-submit`}
+      disabled={!useRelay}
       >Send My Request</button
     >
   </form>
@@ -131,27 +144,15 @@ const sourceUrl = absoluteUrl(
         return;
       }
 
-      // No webhook configured yet — log the payload so the form is still testable.
+      // No webhook configured - nothing can be delivered. Say so plainly and
+      // KEEP the visitor's entries. Never reset the form or show success here:
+      // a fake "we received your request" silently drops every lead while
+      // telling every sender it worked (boilerplate defect #14).
       event.preventDefault();
-      if (!form.checkValidity()) {
-        form.reportValidity();
-        return;
-      }
-      const data = new FormData(form);
-      if (!data.get('company')) {
-        console.info('[ContactForm] No webhook configured. Payload:', {
-          name: String(data.get('name') ?? ''),
-          email: String(data.get('email') ?? ''),
-          phone: String(data.get('phone') ?? ''),
-          service: String(data.get('service') ?? ''),
-          message: String(data.get('message') ?? ''),
-          source: window.location.href,
-        });
-      }
-      form.reset();
       if (status) {
-        status.textContent = 'Thanks! We received your request and will be in touch shortly.';
-        status.className = 'form-status success';
+        status.textContent =
+          'This form is not connected yet, so nothing was sent. Please reach us by the phone number or email on this page.';
+        status.className = 'form-status error';
         status.hidden = false;
       }
     });

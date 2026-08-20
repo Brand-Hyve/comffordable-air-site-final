@@ -22,12 +22,28 @@
   },
   "hours": [
     {
-      "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+      "dayOfWeek": [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+        "Sunday"
+      ],
       "opens": "08:00",
       "closes": "18:00"
     }
   ],
   "priceRange": "$$",
+  "claims": {
+    "licensed": true,
+    "insured": false,
+    "sameDay": true,
+    "writtenWarranty": false,
+    "flatPricing": false,
+    "freeQuotes": false
+  },
   "aggregateRating": {
     "_comment": "PULLED 2026-08-17 pending verification against the live Google Business Profile. Unverified rating markup is a Google penalty risk. Refill both values to restore the JSON-LD aggregateRating and the About-section chips; both are guarded and simply omit while these are empty. Previous unverified values were ratingValue 5.0 / reviewCount 31.",
     "ratingValue": "",
@@ -43,8 +59,20 @@
       "hero": "/images/st-petersburg-fl-hero.webp",
       "wiki": "https://en.wikipedia.org/wiki/St._Petersburg,_Florida",
       "blurb": "We provide consistent HVAC maintenance and expert equipment repair to all residential addresses in St. Petersburg.",
-      "neighborhoods": ["Old Northeast", "Snell Isle", "Historic Kenwood", "Shore Acres", "Gandy"],
-      "landmarks": ["The St. Pete Pier", "Salvador Dalí Museum", "Tropicana Field", "Sunken Gardens", "Fort De Soto Park"]
+      "neighborhoods": [
+        "Old Northeast",
+        "Snell Isle",
+        "Historic Kenwood",
+        "Shore Acres",
+        "Gandy"
+      ],
+      "landmarks": [
+        "The St. Pete Pier",
+        "Salvador Dalí Museum",
+        "Tropicana Field",
+        "Sunken Gardens",
+        "Fort De Soto Park"
+      ]
     },
     {
       "id": "tampa-fl",
@@ -53,8 +81,20 @@
       "hero": "/images/tampa-fl-hero.webp",
       "wiki": "https://en.wikipedia.org/wiki/Tampa,_Florida",
       "blurb": "We provide consistent HVAC maintenance and expert equipment repair to all residential addresses in Tampa.",
-      "neighborhoods": ["Ybor City", "Hyde Park", "South Tampa", "Westchase", "Seminole Heights"],
-      "landmarks": ["Busch Gardens Tampa Bay", "The Florida Aquarium", "ZooTampa at Lowry Park", "Armature Works", "Tampa Riverwalk"]
+      "neighborhoods": [
+        "Ybor City",
+        "Hyde Park",
+        "South Tampa",
+        "Westchase",
+        "Seminole Heights"
+      ],
+      "landmarks": [
+        "Busch Gardens Tampa Bay",
+        "The Florida Aquarium",
+        "ZooTampa at Lowry Park",
+        "Armature Works",
+        "Tampa Riverwalk"
+      ]
     },
     {
       "id": "clearwater-fl",
@@ -63,8 +103,20 @@
       "hero": "/images/clearwater-fl-hero.webp",
       "wiki": "https://en.wikipedia.org/wiki/Clearwater,_Florida",
       "blurb": "We provide consistent HVAC maintenance and expert equipment repair to all residential addresses in Clearwater.",
-      "neighborhoods": ["Sand Key", "Island Estates", "Clearwater Beach", "Countryside", "Morningside"],
-      "landmarks": ["Clearwater Marine Aquarium", "Pier 60", "Sand Key Park", "Spectrum Field", "Moccasin Lake Nature Park"]
+      "neighborhoods": [
+        "Sand Key",
+        "Island Estates",
+        "Clearwater Beach",
+        "Countryside",
+        "Morningside"
+      ],
+      "landmarks": [
+        "Clearwater Marine Aquarium",
+        "Pier 60",
+        "Sand Key Park",
+        "Spectrum Field",
+        "Moccasin Lake Nature Park"
+      ]
     }
   ],
   "services": [
@@ -77,13 +129,27 @@
       "metaDescription": "Expert air conditioning repair and high-efficiency installation services in St. Petersburg, Tampa, and Clearwater. Fast emergency service available.",
       "icon": "fa-solid fa-snowflake",
       "price": "Custom Quotes",
-      "features": ["Multi-point System Inspection", "Refrigerant Leak Detection", "Thermostat Calibration", "Emergency Component Repair"],
-      "keywords": ["ac repair", "air conditioning repair", "ac installation"],
+      "features": [
+        "Multi-point System Inspection",
+        "Refrigerant Leak Detection",
+        "Thermostat Calibration",
+        "Emergency Component Repair"
+      ],
+      "keywords": [
+        "ac repair",
+        "air conditioning repair",
+        "ac installation"
+      ],
       "content": {
         "heroTitle": "AC Repair & Installation <span>Tampa Bay, FL</span>",
         "heroSubtitle": "Fast, reliable cooling solutions for your home. Servicing St. Petersburg, Tampa, and Clearwater.",
         "heroImage": "/images/service-ac-repair.webp",
-        "intro": { "badge": "", "title": "", "paragraphs": [], "note": "" },
+        "intro": {
+          "badge": "",
+          "title": "",
+          "paragraphs": [],
+          "note": ""
+        },
         "cardGroups": [
           {
             "label": "",
@@ -92,24 +158,45 @@
               {
                 "title": "Diagnostic & Repair",
                 "badge": "",
-                "paragraphs": ["Experiencing issues? Our technicians provide thorough diagnostics to identify and fix leaks, compressor issues, or electrical faults."],
-                "features": ["Multi-point System Inspection", "Refrigerant Leak Detection", "Thermostat Calibration", "Emergency Component Repair"],
+                "paragraphs": [
+                  "Experiencing issues? Our technicians provide thorough diagnostics to identify and fix leaks, compressor issues, or electrical faults."
+                ],
+                "features": [
+                  "Multi-point System Inspection",
+                  "Refrigerant Leak Detection",
+                  "Thermostat Calibration",
+                  "Emergency Component Repair"
+                ],
                 "ctaText": "Book Now",
                 "ctaHref": "/contact/"
               },
               {
                 "title": "System Installation",
                 "badge": "",
-                "paragraphs": ["Upgrade to a high-efficiency SEER2 certified system. We handle everything from sizing to final ductwork integration."],
-                "features": ["Expert Sizing & Selection", "Professional Full Installation", "Old Unit Disposal Included", "Manufacturer Warranty Protection"],
+                "paragraphs": [
+                  "Upgrade to a high-efficiency SEER2 certified system. We handle everything from sizing to final ductwork integration."
+                ],
+                "features": [
+                  "Expert Sizing & Selection",
+                  "Professional Full Installation",
+                  "Old Unit Disposal Included",
+                  "Manufacturer Warranty Protection"
+                ],
                 "ctaText": "Get Free Quote",
                 "ctaHref": "/contact/"
               },
               {
                 "title": "Commercial AC",
                 "badge": "",
-                "paragraphs": ["Custom solutions for office buildings, retail spaces, and restaurants across the Tampa Bay Area."],
-                "features": ["Large Scale Roof Units", "Custom Duct Layouts", "Industrial Maintenance Plans", "Rapid Business Response"],
+                "paragraphs": [
+                  "Custom solutions for office buildings, retail spaces, and restaurants across the Tampa Bay Area."
+                ],
+                "features": [
+                  "Large Scale Roof Units",
+                  "Custom Duct Layouts",
+                  "Industrial Maintenance Plans",
+                  "Rapid Business Response"
+                ],
                 "ctaText": "Consultation",
                 "ctaHref": "/contact/"
               }
@@ -134,7 +221,9 @@
               {
                 "title": "Smart Thermostats",
                 "badge": "",
-                "paragraphs": ["Modernize your home with Ecobee or Nest integration. These systems learn your habits to optimize cooling cycles and allow for remote climate management."],
+                "paragraphs": [
+                  "Modernize your home with Ecobee or Nest integration. These systems learn your habits to optimize cooling cycles and allow for remote climate management."
+                ],
                 "features": [],
                 "ctaText": "CALL FOR QUOTE",
                 "ctaHref": "tel:+17276771700"
@@ -142,7 +231,9 @@
               {
                 "title": "UV Filter Install",
                 "badge": "",
-                "paragraphs": ["We install medical-grade UV-C light systems directly into your air handler to neutralize mold, bacteria, and airborne viruses before they circulate."],
+                "paragraphs": [
+                  "We install medical-grade UV-C light systems directly into your air handler to neutralize mold, bacteria, and airborne viruses before they circulate."
+                ],
                 "features": [],
                 "ctaText": "CALL FOR QUOTE",
                 "ctaHref": "tel:+17276771700"
@@ -162,7 +253,11 @@
             ]
           }
         ],
-        "outro": { "text": "", "ctaText": "", "ctaHref": "" },
+        "outro": {
+          "text": "",
+          "ctaText": "",
+          "ctaHref": ""
+        },
         "article": {
           "label": "Florida's Unique Challenge",
           "title": "Why Florida Homes Need Expert AC Repair",
@@ -183,13 +278,28 @@
       "metaDescription": "Enhance your home health with IAQ solutions in St. Petersburg, Tampa, and Clearwater. Whole-home purifiers, UV lights, and dehumidification.",
       "icon": "fa-solid fa-wind",
       "price": "Custom Quotes",
-      "features": ["HEPA Whole-Home Filtration", "Merv-13 Filter Upgrades", "Particle Removal Diagnosis", "Odor Reduction Technology"],
-      "keywords": ["indoor air quality", "air purification", "uv air scrubber", "dehumidification"],
+      "features": [
+        "HEPA Whole-Home Filtration",
+        "Merv-13 Filter Upgrades",
+        "Particle Removal Diagnosis",
+        "Odor Reduction Technology"
+      ],
+      "keywords": [
+        "indoor air quality",
+        "air purification",
+        "uv air scrubber",
+        "dehumidification"
+      ],
       "content": {
         "heroTitle": "Indoor Air Quality Services <span>Tampa Bay, FL</span>",
         "heroSubtitle": "Pure, crisp, and allergen-free air for your entire home. Servicing St. Petersburg, Tampa, and Clearwater.",
         "heroImage": "/images/service-iaq.webp",
-        "intro": { "badge": "", "title": "", "paragraphs": [], "note": "" },
+        "intro": {
+          "badge": "",
+          "title": "",
+          "paragraphs": [],
+          "note": ""
+        },
         "cardGroups": [
           {
             "label": "",
@@ -198,31 +308,56 @@
               {
                 "title": "Air Purification",
                 "badge": "",
-                "paragraphs": ["Standard filters only catch the visible stuff. Our medical-grade HEPA and Merv-13 systems are designed to trap microscopic particles like pet dander, pollen, and smoke that often trigger asthma and allergies. By filtering your air at the intake, we ensure that every breath you take inside your home is crisp, clean, and truly refreshing."],
-                "features": ["HEPA Whole-Home Filtration", "Merv-13 Filter Upgrades", "Particle Removal Diagnosis", "Odor Reduction Technology"],
+                "paragraphs": [
+                  "Standard filters only catch the visible stuff. Our medical-grade HEPA and Merv-13 systems are designed to trap microscopic particles like pet dander, pollen, and smoke that often trigger asthma and allergies. By filtering your air at the intake, we ensure that every breath you take inside your home is crisp, clean, and truly refreshing."
+                ],
+                "features": [
+                  "HEPA Whole-Home Filtration",
+                  "Merv-13 Filter Upgrades",
+                  "Particle Removal Diagnosis",
+                  "Odor Reduction Technology"
+                ],
                 "ctaText": "BREATHE BETTER",
                 "ctaHref": "/contact/"
               },
               {
                 "title": "UV Air Scrubbers",
                 "badge": "Most Effective",
-                "paragraphs": ["Think of this as \"sunlight\" for your lungs. Our advanced UV-C coil cleaners are installed directly into your air handler, where they neutralize mold spores, bacteria, and airborne viruses before they can enter your ductwork. This 24/7 silent protection prevents the \"dirty sock\" smell and ensures your internal system components stay as clean as the day they were installed."],
-                "features": ["Advanced UV-C Coil Cleaners", "Microbial Growth Prevention", "Silent, 24/7 Protection", "Low-Maintenance Efficiency"],
+                "paragraphs": [
+                  "Think of this as \"sunlight\" for your lungs. Our advanced UV-C coil cleaners are installed directly into your air handler, where they neutralize mold spores, bacteria, and airborne viruses before they can enter your ductwork. This 24/7 silent protection prevents the \"dirty sock\" smell and ensures your internal system components stay as clean as the day they were installed."
+                ],
+                "features": [
+                  "Advanced UV-C Coil Cleaners",
+                  "Microbial Growth Prevention",
+                  "Silent, 24/7 Protection",
+                  "Low-Maintenance Efficiency"
+                ],
                 "ctaText": "GET IAQ QUOTE",
                 "ctaHref": "/contact/"
               },
               {
                 "title": "Dehumidification",
                 "badge": "",
-                "paragraphs": ["In Florida, humidity is the enemy of both comfort and health. High indoor moisture levels can lead to structural damage and are the primary breeding ground for mold and dust mites. Our whole-home dehumidifiers work in tandem with your AC to maintain a precise, comfortable humidity level between 45% and 55%, keeping your home's air feeling light and your surfaces dry."],
-                "features": ["Precision Humidity Control", "Mold Risk Mitigation", "Improved AC Efficiency", "Home Structural Protection"],
+                "paragraphs": [
+                  "In Florida, humidity is the enemy of both comfort and health. High indoor moisture levels can lead to structural damage and are the primary breeding ground for mold and dust mites. Our whole-home dehumidifiers work in tandem with your AC to maintain a precise, comfortable humidity level between 45% and 55%, keeping your home's air feeling light and your surfaces dry."
+                ],
+                "features": [
+                  "Precision Humidity Control",
+                  "Mold Risk Mitigation",
+                  "Improved AC Efficiency",
+                  "Home Structural Protection"
+                ],
                 "ctaText": "REDUCE MOISTURE",
                 "ctaHref": "/contact/"
               }
             ]
           }
         ],
-        "outro": { "text": "", "ctaText": "", "ctaHref": "" },
+        "outro": {
+          "text": "",
+          "ctaText": "",
+          "ctaHref": ""
+        },
         "article": {
           "label": "Why It Matters Here",
           "title": "Why Florida Homes Need IAQ Solutions",
@@ -243,8 +378,17 @@
       "metaDescription": "Proactive preventative maintenance plans for your HVAC system in St. Petersburg, Tampa, and Clearwater. Extend your system's life and avoid costly breakdowns.",
       "icon": "fa-solid fa-clipboard-check",
       "price": "Starting at $99",
-      "features": ["Two full system tune-ups per year (Cooling & Heating)", "Complete system inspection & performance check", "Full drain line flush + 1-year no-clog guarantee", "Priority scheduling—especially during peak season"],
-      "keywords": ["hvac maintenance", "ac tune up", "maintenance plan"],
+      "features": [
+        "Two full system tune-ups per year (Cooling & Heating)",
+        "Complete system inspection & performance check",
+        "Full drain line flush + 1-year no-clog guarantee",
+        "Priority scheduling—especially during peak season"
+      ],
+      "keywords": [
+        "hvac maintenance",
+        "ac tune up",
+        "maintenance plan"
+      ],
       "content": {
         "heroTitle": "HVAC Maintenance Plans <span>Tampa Bay, FL</span>",
         "heroSubtitle": "Reliable comfort. No surprises. Just peace of mind year-round.",
@@ -252,7 +396,9 @@
         "intro": {
           "badge": "SPECIAL OFFER",
           "title": "Simple. Affordable. Protected.",
-          "paragraphs": ["For just $23/month or $269/year, keep your system running at its best while avoiding costly breakdowns and unexpected repairs."],
+          "paragraphs": [
+            "For just $23/month or $269/year, keep your system running at its best while avoiding costly breakdowns and unexpected repairs."
+          ],
           "note": "Limited-Time Offer: Sign up today and save $31 on your membership"
         },
         "cardGroups": [

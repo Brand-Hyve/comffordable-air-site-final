@@ -1,5 +1,6 @@
 ---
 import business from '../config/business.json';
+import { quoteCta } from '../lib/utils';
 
 export interface Props {
   cmsPrefix?: string;
@@ -67,7 +68,7 @@ const services = limit ? business.services.slice(0, limit) : business.services;
       showViewAll && services.length > 0 && (
         <p style="text-align:center;margin-top:2.5rem">
           <a class="btn btn-primary" href="/contact/" data-cms={`${cmsPrefix}-viewall`}>
-            Get a Free Quote
+            {quoteCta('Get')}
           </a>
         </p>
       )

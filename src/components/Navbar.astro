@@ -1,6 +1,6 @@
 ---
 import business from '../config/business.json';
-import { telHref } from '../lib/utils';
+import { telHref, quoteCta } from '../lib/utils';
 
 /**
  * Sticky site header. Reads everything from business.json — takes no props.
@@ -71,7 +71,7 @@ const phoneHref = telHref(business.phone);
         </li>
         <li>
           <a class="btn btn-primary btn-sm" href="/contact/" data-cms="nav-cta">
-            <i class="fa-solid fa-phone" aria-hidden="true"></i> Get a Free Quote
+            <i class="fa-solid fa-phone" aria-hidden="true"></i> {quoteCta('Get')}
           </a>
         </li>
         <li class="sr-only">

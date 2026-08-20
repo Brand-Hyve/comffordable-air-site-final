@@ -51,7 +51,9 @@ const ogImage = new URL(image, Astro.site).href;
 
 const hasGtm = Boolean(business.gtmId);
 const hasGa4 = Boolean(business.ga4Id);
-const showCookieBanner = business.cookieConsentEnabled && !noindex;
+// Banner on every page, including noindex ones — indexability says nothing
+// about whether the reader should be asked before being tracked (PR #5).
+const showCookieBanner = business.cookieConsentEnabled;
 const showExitPopup = !hideExitPopup;
 const showCtaBar = !hideCtaBar;
 const phoneHref = telHref(business.phone);
@@ -121,88 +123,62 @@ const phoneHref = telHref(business.phone);
 
     {
       (hasGtm || hasGa4) && (
-        <script is:inline>
-          // Consent Mode v2 — must run BEFORE any Google tag loads. Defaults to
-          // denied, so gtag.js/gtm.js load but set no analytics or ads cookies
-          // until the visitor accepts; the banner flips this with an 'update'.
-          // Hyve CMS strips scripts on publish, which removes the tags along
-          // with this gate, so a published page never tracks either way.
-          window.dataLayer = window.dataLayer || [];
-          function gtag() {
-            dataLayer.push(arguments);
-          }
-          var storedConsent = null;
-          try {
-            storedConsent = localStorage.getItem('cookieConsent');
-          } catch (e) {
-            // storage blocked (private mode) — treat as no consent
-          }
-          var consentValue = storedConsent === 'true' ? 'granted' : 'denied';
-          gtag('consent', 'default', {
-            ad_storage: consentValue,
-            ad_user_data: consentValue,
-            ad_personalization: consentValue,
-            analytics_storage: consentValue,
-            functionality_storage: 'granted',
-            security_storage: 'granted',
-          });
-        </script>
-      )
-    }
+        <script is:inline define:vars={{ gtmId: business.gtmId, ga4Id: business.ga4Id }}>
+          {/* LOADER-GATED analytics (boilerplate PR #4). Replaces Consent Mode
+              v2, which let the tags LOAD and then told them not to store —
+              the request still reached Google carrying the visitor's IP,
+              referrer and page URL, so Google learned who visited which page
+              even from someone who would have declined. Now no Google tag is
+              requested at all until the visitor accepts. */}
+          window.__loadAnalytics = function () {
+            if (window.__analyticsLoaded) return;
+            window.__analyticsLoaded = true;
 
-    {
-      hasGtm && (
-        <script is:inline define:vars={{ gtmId: business.gtmId }}>
-          (function (w, d, s, l, i) {
-            w[l] = w[l] || [];
-            w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
-            var f = d.getElementsByTagName(s)[0],
-              j = d.createElement(s),
-              dl = l != 'dataLayer' ? '&l=' + l : '';
-            j.async = true;
-            j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
-            f.parentNode.insertBefore(j, f);
-          })(window, document, 'script', 'dataLayer', gtmId);
-        </script>
-      )
-    }
-
-    {
-      hasGa4 && (
-        <Fragment>
-          <script
-            is:inline
-            async
-            src={`https://www.googletagmanager.com/gtag/js?id=${business.ga4Id}`}
-          />
-          <script is:inline define:vars={{ ga4Id: business.ga4Id }}>
             window.dataLayer = window.dataLayer || [];
-            function gtag() {
-              dataLayer.push(arguments);
+            window.gtag = function () {
+              window.dataLayer.push(arguments);
+            };
+
+            if (ga4Id) {
+              window.gtag('js', new Date());
+              window.gtag('config', ga4Id);
+              var ga = document.createElement('script');
+              ga.async = true;
+              ga.src = 'https://www.googletagmanager.com/gtag/js?id=' + ga4Id;
+              document.head.appendChild(ga);
             }
-            gtag('js', new Date());
-            gtag('config', ga4Id);
-          </script>
-        </Fragment>
+
+            if (gtmId) {
+              (function (w, d, s, l, i) {
+                w[l] = w[l] || [];
+                w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
+                var f = d.getElementsByTagName(s)[0],
+                  j = d.createElement(s),
+                  dl = l != 'dataLayer' ? '&l=' + l : '';
+                j.async = true;
+                j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+                f.parentNode.insertBefore(j, f);
+              })(window, document, 'script', 'dataLayer', gtmId);
+            }
+          };
+
+          {/* Only a stored acceptance starts it. No choice yet, a decline, or
+              storage blocked in private mode all load nothing. */}
+          try {
+            if (localStorage.getItem('cookieConsent') === 'true') {
+              window.__loadAnalytics();
+            }
+          } catch (e) {
+            /* storage blocked — treat as no consent */
+          }
+        </script>
       )
     }
   </head>
 
   <body>
-    {
-      hasGtm && (
-        <noscript>
-          <iframe
-            src={`https://www.googletagmanager.com/ns.html?id=${business.gtmId}`}
-            height="0"
-            width="0"
-            style="display:none;visibility:hidden"
-            title="Google Tag Manager"
-          />
-        </noscript>
-      )
-    }
-
+    {/* The GTM <noscript> iframe is deliberately gone — it fires for no-JS
+        visitors and cannot be consent-gated (boilerplate PR #3/#4). */}
     <a class="skip-link" href="#main-content" data-cms="skip-link">Skip to main content</a>
 
     <Navbar />
@@ -317,30 +293,35 @@ const phoneHref = telHref(business.phone);
           window.addEventListener('scroll', toggleCta, { passive: true });
         }
 
-        // 3. Cookie consent banner
-        // The head script has already set Consent Mode to denied (or to the
-        // visitor's stored choice). This only records a new choice and pushes
-        // the matching consent update — the Google tags read that, so nothing
-        // is stored until Accept is clicked.
+        // 3. Cookie consent banner — records a choice and, on accept, loads
+        // the analytics tags for the first time. Nothing is requested from
+        // Google before that.
         const banner = document.getElementById('cookie-banner');
         const accept = document.getElementById('cookie-accept');
         const decline = document.getElementById('cookie-decline');
         if (banner && accept) {
-          const stored = localStorage.getItem('cookieConsent');
+          let stored: string | null = null;
+          try {
+            stored = localStorage.getItem('cookieConsent');
+          } catch {
+            /* storage blocked — leave the banner hidden rather than nagging */
+            stored = 'false';
+          }
           if (stored !== 'true' && stored !== 'false') {
             banner.hidden = false;
           }
           const record = (allowed: boolean) => {
-            localStorage.setItem('cookieConsent', String(allowed));
-            const value = allowed ? 'granted' : 'denied';
-            const gtag = (window as any).gtag;
-            if (typeof gtag === 'function') {
-              gtag('consent', 'update', {
-                ad_storage: value,
-                ad_user_data: value,
-                ad_personalization: value,
-                analytics_storage: value,
-              });
+            try {
+              localStorage.setItem('cookieConsent', String(allowed));
+            } catch {
+              /* storage blocked — still honour the choice for this page view */
+            }
+            // Accept is what actually fetches the tags. Decline loads nothing,
+            // and needs no consent update because there is no loaded tag whose
+            // state could be revoked.
+            const w = window as unknown as { __loadAnalytics?: () => void };
+            if (allowed && typeof w.__loadAnalytics === 'function') {
+              w.__loadAnalytics();
             }
             banner.hidden = true;
           };

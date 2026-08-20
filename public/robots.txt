@@ -1,6 +1,8 @@
+# Never disallow /_astro/ — that is where every stylesheet and script lives,
+# and Google renders pages before judging them. Blocking render resources
+# degrades how pages are assessed and shows up as "Blocked by robots.txt".
 User-agent: *
 Allow: /
-Disallow: /_astro/
 Disallow: /admin/
 
 # AI crawlers: explicitly allowed

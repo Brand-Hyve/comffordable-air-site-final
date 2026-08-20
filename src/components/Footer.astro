@@ -50,7 +50,9 @@ const hasAreas = business.serviceAreas.length > 0;
 
       <!-- Quick links -->
       <div>
-        <h3 data-cms="footer-links-title">Quick Links</h3>
+        <!-- Footer landmark headings are h2: on pages whose <main> has no h2
+             (404, /thank-you/) an h3 here would skip a heading level. -->
+        <h2 class="footer-heading" data-cms="footer-links-title">Quick Links</h2>
         <ul class="footer-list">
           {
             footerServices.map((service) => (
@@ -71,7 +73,7 @@ const hasAreas = business.serviceAreas.length > 0;
       {
         hasAreas && (
           <div>
-            <h3 data-cms="footer-areas-title">Service Areas</h3>
+            <h2 class="footer-heading" data-cms="footer-areas-title">Service Areas</h2>
             <ul class="footer-list">
               {footerAreas.map((area) => (
                 <li>
@@ -86,18 +88,25 @@ const hasAreas = business.serviceAreas.length > 0;
                 </a>
               </li>
             </ul>
-            <p style="margin-top:1rem">
-              <a href={reviewUrl()} rel="noopener" target="_blank" data-cms="gbp-link">
-                <i class="fa-brands fa-google" aria-hidden="true" /> Review Us on Google
-              </a>
-            </p>
+            {
+              /* Gated on a real place id — with the sample config's empty
+                 gbpPlaceId this otherwise ships a live broken link to a
+                 Google error page on every page of the site. */
+              business.gbpPlaceId && business.gbpPlaceId !== 'PLACEHOLDER' && (
+                <p style="margin-top:1rem">
+                  <a href={reviewUrl()} rel="noopener" target="_blank" data-cms="gbp-link">
+                    <i class="fa-brands fa-google" aria-hidden="true" /> Review Us on Google
+                  </a>
+                </p>
+              )
+            }
           </div>
         )
       }
 
       <!-- Contact -->
       <div>
-        <h3 data-cms="footer-contact-title">Contact</h3>
+        <h2 class="footer-heading" data-cms="footer-contact-title">Contact</h2>
         <ul class="footer-contact">
           <li class="footer-contact-item">
             <i class="fa-solid fa-phone" aria-hidden="true"></i>

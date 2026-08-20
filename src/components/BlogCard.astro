@@ -23,9 +23,17 @@ export interface Props {
    * must NOT look like the listing collection.
    */
   cmsIndex?: number;
+  /**
+   * Heading level for the post title. The right level depends on context: on
+   * /blog/ the previous heading is the page h1, so cards must be h2 or the
+   * document skips a level; inside a post's "Related" block they sit under an
+   * h2, so h3 is correct there.
+   */
+  headingLevel?: 'h2' | 'h3';
 }
 
-const { post, index = 0, cmsIndex } = Astro.props;
+const { post, index = 0, cmsIndex, headingLevel = 'h3' } = Astro.props;
+const Heading = headingLevel;
 const { title, description, pubDate, category, image, imageAlt } = post.data;
 const delay = `${Math.min(index, 6) * 80}ms`;
 const cmsId = (field: string) => (cmsIndex ? `post-${cmsIndex}-${field}` : undefined);
@@ -57,7 +65,9 @@ const cmsId = (field: string) => (cmsIndex ? `post-${cmsIndex}-${field}` : undef
       <time datetime={isoDate(pubDate)} data-cms={cmsId('date')}>{formatDate(pubDate)}</time>
     </div>
 
-    <h3><a href={`/blog/${post.slug}/`} data-cms={cmsId('title')}>{title}</a></h3>
+    <Heading class="blog-card-title"
+      ><a href={`/blog/${post.slug}/`} data-cms={cmsId('title')}>{title}</a></Heading
+    >
     <p data-cms={cmsId('excerpt')}>{truncate(description, 150)}</p>
 
     <p style="margin:0">

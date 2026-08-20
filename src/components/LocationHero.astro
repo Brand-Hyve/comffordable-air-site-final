@@ -1,7 +1,7 @@
 ---
 import business from '../config/business.json';
 import Hero from './Hero.astro';
-import { telHref } from '../lib/utils';
+import { telHref, hasClaim, quoteCta } from '../lib/utils';
 
 export interface Props {
   area: {
@@ -16,7 +16,21 @@ export interface Props {
 const { area, phone } = Astro.props;
 
 const title = `${business.industry} Services in <span>${area.name}, ${area.state}</span>`;
-const subtitle = `Local, licensed, and on call for ${area.name} homeowners. Same-day appointments, upfront pricing, and work backed by a written warranty.`;
+
+// Claim phrases render ONLY when business.json > claims asserts them. The old
+// hardcoded subtitle promised same-day appointments, upfront pricing, and a
+// written warranty on every client, whether or not any of it was true.
+const opener = hasClaim('licensed')
+  ? `Local, licensed, and on call for ${area.name} homeowners.`
+  : `Local and on call for ${area.name} homeowners.`;
+const claimBits = [
+  hasClaim('sameDay') && 'Same-day appointments',
+  hasClaim('flatPricing') && 'upfront pricing',
+  hasClaim('writtenWarranty') && 'work backed by a written warranty',
+].filter(Boolean);
+const subtitle = claimBits.length
+  ? `${opener} ${claimBits.join(', ')}${claimBits.length > 1 ? ',' : ''} and a team that knows the area.`
+  : `${opener} Call us and tell us what you need — we know the area.`;
 ---
 
 <Hero
@@ -26,5 +40,5 @@ const subtitle = `Local, licensed, and on call for ${area.name} homeowners. Same
   cmsPrefix={`location-hero-${area.id}`}
   size="half"
   ctaPrimary={{ text: `Call ${phone}`, href: telHref(phone), icon: 'fa-solid fa-phone' }}
-  ctaSecondary={{ text: 'Request a Free Quote', href: '/contact/' }}
+  ctaSecondary={{ text: quoteCta('Request'), href: '/contact/' }}
 />

@@ -189,9 +189,16 @@ ul, ol { margin: 0 0 1rem; padding-left: 1.25rem; }
 }
 
 .grid { display: grid; gap: 1.5rem; }
-.grid-2 { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
-.grid-3 { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
-.grid-4 { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+/* auto-fill, never auto-fit: collection grids can be short — auto-fit
+   stretches a lone card full-width (boilerplate #11). */
+.grid-2 { grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); }
+.grid-3 { grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); }
+.grid-4 { grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); }
+
+/* Grid items refuse to shrink below min-content width without this — long
+   unbreakable strings drag horizontal scroll at 320-400px (boilerplate #18). */
+.grid > * { min-width: 0; }
+a[href^="mailto:"] { overflow-wrap: anywhere; }
 
 /* ==========================================================================
    4. GLASSMORPHISM
@@ -203,8 +210,11 @@ ul, ol { margin: 0 0 1rem; padding-left: 1.25rem; }
   background: var(--glass-bg);
   border: 1px solid var(--glass-border);
   border-radius: 16px;
-  backdrop-filter: blur(var(--glass-blur));
+  /* -webkit- first, standard last — Lightning CSS keeps only the LAST of the
+     pair when var() is inside; the old order shipped Safari-only blur
+     (boilerplate #10). */
   -webkit-backdrop-filter: blur(var(--glass-blur));
+  backdrop-filter: blur(var(--glass-blur));
   transition: transform var(--transition-speed) ease,
               border-color var(--transition-speed) ease,
               box-shadow var(--transition-speed) ease;
@@ -325,8 +335,9 @@ html.js .animate-on-scroll.is-visible {
      wordmark below is unreadable against. */
   background: var(--secondary);
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-  transition: padding var(--transition-speed) ease,
-              box-shadow var(--transition-speed) ease;
+  /* box-shadow only — transitioning padding re-runs layout every frame on a
+     blurred sticky element during the first scroll (boilerplate #19). */
+  transition: box-shadow var(--transition-speed) ease;
 }
 
 .site-header .container {
@@ -405,6 +416,11 @@ html.js .animate-on-scroll.is-visible {
 
 .nav-toggle {
   display: none;
+  align-items: center;
+  justify-content: center;
+  /* 48px floor — primary mobile nav control (boilerplate #8). */
+  min-height: 48px;
+  min-width: 48px;
   padding: 0.5rem 0.7rem;
   background: transparent;
   border: 1px solid var(--glass-border);
@@ -797,7 +813,16 @@ html.js .animate-on-scroll.is-visible {
 .footer-license { font-size: 0.85rem; }
 
 .footer-list { margin: 0; padding: 0; list-style: none; display: grid; gap: 0.55rem; }
-.footer-list a { font-size: 0.92rem; }
+/* >=44px tap targets on touch; desktop rhythm kept (boilerplate #8). */
+.footer-list a {
+  display: inline-block;
+  padding-block: 0.65rem;
+  font-size: 0.92rem;
+}
+
+@media (pointer: fine) {
+  .footer-list a { padding-block: 0; }
+}
 
 .footer-contact { margin: 0; padding: 0; list-style: none; display: grid; gap: 0.85rem; }
 
@@ -1054,7 +1079,7 @@ html.js .mobile-cta-bar:not(.visible) { transform: translateY(110%); }
 .blog-grid {
   display: grid;
   gap: 1.5rem;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
 }
 
 .blog-card { display: flex; flex-direction: column; height: 100%; padding: 0; overflow: hidden; }

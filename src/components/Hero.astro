@@ -9,6 +9,12 @@ export interface Props {
   cmsPrefix: string;
   size?: 'full' | 'half';
   center?: boolean;
+  /** Intrinsic dimensions of the background image. Defaults match the
+      documented 1920×1080 hero assets; pass real values for anything else.
+      Without them the LCP image has no aspect ratio to reserve and shifts
+      layout on the most visible element of every page. */
+  imageWidth?: number;
+  imageHeight?: number;
 }
 
 const {
@@ -21,6 +27,8 @@ const {
   cmsPrefix,
   size = 'full',
   center = false,
+  imageWidth = 1920,
+  imageHeight = 1080,
 } = Astro.props;
 ---
 
@@ -31,6 +39,8 @@ const {
     alt=""
     aria-hidden="true"
     fetchpriority="high"
+    width={imageWidth}
+    height={imageHeight}
     data-cms-img={`${cmsPrefix}-bg`}
   />
   <div class="hero-overlay" style={overlayStyle}></div>

@@ -7,7 +7,7 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "qa": "node node_modules/hyve-qa-pipeline/run.js --url https://{{DOMAIN}}",
+    "qa": "node scripts/check-placeholders.mjs && node node_modules/hyve-qa-pipeline/run.js --url https://www.comairfl.com",
     "lint": "astro check",
     "test:cms": "node scripts/cms-compat.mjs"
   },

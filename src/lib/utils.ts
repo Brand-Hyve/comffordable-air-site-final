@@ -146,6 +146,30 @@ export function metaDescription(text: string, extraPadding: string[] = []): stri
 }
 
 /** Truncate to a whole word at or under `max` characters. */
+/**
+ * Substantiated business claims — only phrases backed by a true flag in
+ * `business.json > claims` may render (boilerplate PR #6, defect #15).
+ * For Comffordable: licensed (FL HVAC 1823516 on file) and sameDay
+ * (documented USP in the client profile) are substantiated.
+ */
+export type ClaimKey =
+  | 'licensed'
+  | 'insured'
+  | 'sameDay'
+  | 'writtenWarranty'
+  | 'flatPricing'
+  | 'freeQuotes';
+
+export function hasClaim(key: ClaimKey): boolean {
+  const claims = (business as { claims?: Partial<Record<ClaimKey, boolean>> }).claims;
+  return Boolean(claims?.[key]);
+}
+
+/** "Get a Free Quote" only when the client actually offers free quotes. */
+export function quoteCta(prefix = 'Get'): string {
+  return hasClaim('freeQuotes') ? `${prefix} a Free Quote` : `${prefix} a Quote`;
+}
+
 export function truncate(text: string, max = 160): string {
   if (text.length <= max) return text;
   return `${text.slice(0, text.lastIndexOf(' ', max - 1))}…`;

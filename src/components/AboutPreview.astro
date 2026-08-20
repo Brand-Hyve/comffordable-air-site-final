@@ -1,6 +1,6 @@
 ---
 import business from '../config/business.json';
-import { cityState } from '../lib/utils';
+import { cityState, hasClaim } from '../lib/utils';
 
 /**
  * Condensed "about" block. Used on the homepage (linking through to /about/)
@@ -24,7 +24,7 @@ const location = cityState();
 const {
   label = 'Who We Are',
   title = `Your Neighbors in ${business.location.city}`,
-  body = `${business.name} is a locally owned, fully licensed team serving ${location}. We diagnose thoroughly, quote in writing, and stand behind every job — which is why most of our work comes from repeat customers and referrals.`,
+  body = `${business.name} is a locally owned${hasClaim('licensed') ? ', fully licensed' : ''} team serving ${location}. We diagnose thoroughly, explain plainly, and stand behind every job — which is why most of our work comes from repeat customers and referrals.`,
   image = '/images/about.webp',
   imageAlt = `The ${business.name} team at work in ${location}`,
   // Rating chips only render when business.json actually carries a verified
